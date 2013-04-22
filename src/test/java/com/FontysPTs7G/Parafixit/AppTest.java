@@ -1,4 +1,4 @@
-package com.FontysPTs7-G.Parafixit;
+package com.FontysPTs7G.Parafixit;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
