@@ -46,6 +46,16 @@
               </artifactId>
               <version>2.4.1</version>
           </plugin>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>cobertura-maven-plugin</artifactId>
+            <configuration>
+                <formats>
+                    <format>html</format>
+                    <format>xml</format>
+                </formats>
+            </configuration>
+          </plugin>
       </plugins>
   </build>
   
