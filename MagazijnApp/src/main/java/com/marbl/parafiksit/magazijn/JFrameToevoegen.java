@@ -58,7 +58,7 @@ public class JFrameToevoegen extends javax.swing.JFrame implements ActionListene
         }
         this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         this.setTitle("Toevoegen:");
-        CreateFactuurGUI();
+        createFactuurGUI();
     }
 
     /**
@@ -83,9 +83,9 @@ public class JFrameToevoegen extends javax.swing.JFrame implements ActionListene
         this.setTitle("Toevoegen:");
 
         if (soort.equals("Klant")) {
-            CreateKlantGUI();
+            createKlantGUI();
         } else if (soort.equals("Onderdeel")) {
-            CreateOnderdeelGUI();
+            createOnderdeelGUI();
         }
     }
 
@@ -93,8 +93,8 @@ public class JFrameToevoegen extends javax.swing.JFrame implements ActionListene
      * Wordt gebruikt om een regel door te geven vanaf
      * JFrameFactuurRegelToevoegen voor Factuur.
      */
-    public void GiveString(String msg, IOnderdeel ond) {
-        AddListItem(list, msg);
+    public void giveString(String msg, IOnderdeel ond) {
+        addListItem(list, msg);
         onderdelen.add(ond);
     }
 
@@ -179,7 +179,7 @@ public class JFrameToevoegen extends javax.swing.JFrame implements ActionListene
                 String naam = field.getText();
                 field = (JTextField) componenten.get(2);
                 String adres = field.getText();
-                int id = main.beheer.VoegKlantToe(naam, adres);
+                int id = main.beheer.voegKlantToe(naam, adres);
                 JOptionPane.showMessageDialog(null, "De klant is correct toegevoegd aan de database. \r\n Het klantID is: " + id, "Gelukt", JOptionPane.OK_OPTION);
                 main.setVisible(true);
                 this.setVisible(false);
@@ -195,7 +195,7 @@ public class JFrameToevoegen extends javax.swing.JFrame implements ActionListene
                 int aantal = Integer.parseInt(field.getText());
                 field = (JTextField) componenten.get(3);
                 int prijs = Integer.parseInt(field.getText());
-                int id = main.beheer.VoegOnderdeelToe(omschr, aantal, prijs);
+                int id = main.beheer.voegOnderdeelToe(omschr, aantal, prijs);
                 JOptionPane.showMessageDialog(null, "Het onderdeel is correct toegevoegd aan de database. \r\n De onderdeelCode is: " + id, "Gelukt", JOptionPane.OK_OPTION);
                 main.setVisible(true);
                 this.setVisible(false);
@@ -209,7 +209,7 @@ public class JFrameToevoegen extends javax.swing.JFrame implements ActionListene
                 for (int i = 0; i < list.getModel().getSize(); i++) {
                     ondrd.add(new FactuurRegel(-1, onderdelen.get(i).getCode(), onderdelen.get(i).getAantal()));
                 }
-                int id = main.beheer.VoegFactuurToe(klanten.get(jCbSelect.getSelectedIndex()).getId(), ondrd);
+                int id = main.beheer.voegFactuurToe(klanten.get(jCbSelect.getSelectedIndex()).getId(), ondrd);
                 JOptionPane.showMessageDialog(null, "Het onderdeel is correct toegevoegd aan de database. \r\n Het factuurID is: " + id, "Gelukt", JOptionPane.OK_OPTION);
                 main.setVisible(true);
                 this.setVisible(false);
@@ -224,7 +224,7 @@ public class JFrameToevoegen extends javax.swing.JFrame implements ActionListene
      * Wordt aangeroepen als het toe te voegen object een onderdeel is. GUI
      * wordt gecreerd.
      */
-    private void CreateOnderdeelGUI() {
+    private void createOnderdeelGUI() {
         componenten.clear();
         JLabel lbInfo = new JLabel("Nieuw onderdeel aanmaken:");
         lbInfo.setBounds(20, 40, 250, 30);
@@ -273,7 +273,7 @@ public class JFrameToevoegen extends javax.swing.JFrame implements ActionListene
      * Wordt aangeroepen als het toe te voegen object een klant is. GUI wordt
      * gecreerd.
      */
-    private void CreateKlantGUI() {
+    private void createKlantGUI() {
         componenten.clear();
         JLabel lbInfo = new JLabel("Nieuwe klant aanmaken:");
         lbInfo.setBounds(20, 40, 250, 30);
@@ -310,7 +310,7 @@ public class JFrameToevoegen extends javax.swing.JFrame implements ActionListene
      * Wordt aangeroepen als het toe te voegen object gelijk staat aan:
      * "Factuur"
      */
-    private void CreateFactuurGUI() {
+    private void createFactuurGUI() {
         componenten.clear();
         JLabel lbInfo = new JLabel("Selecteer de klant:");
         lbInfo.setBounds(40, 5, 250, 30);
@@ -353,11 +353,11 @@ public class JFrameToevoegen extends javax.swing.JFrame implements ActionListene
      */
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("RegelToevoegen")) {
-            JFrameFactuurRegelToevoegen frt = new JFrameFactuurRegelToevoegen(this, main.beheer.GetOnderdelen());
+            JFrameFactuurRegelToevoegen frt = new JFrameFactuurRegelToevoegen(this, main.beheer.getOnderdelen());
             frt.setVisible(true);
             this.setVisible(false);
         } else if (e.getActionCommand().equals("Reset")) {
-            ClearList(list);
+            clearList(list);
         }
     }
 
@@ -366,7 +366,7 @@ public class JFrameToevoegen extends javax.swing.JFrame implements ActionListene
      *
      * @param jlist De desbetreffende JList.
      */
-    private void ClearList(JList jlist) {
+    private void clearList(JList jlist) {
         Object[] SET = new Object[0];
         jlist.setListData(SET);
     }
@@ -377,7 +377,7 @@ public class JFrameToevoegen extends javax.swing.JFrame implements ActionListene
      * @param jlist De desbetreffende JList.
      * @param Text De text die moet worden weergegeven.
      */
-    private void AddListItem(JList jlist, String Text) {
+    private void addListItem(JList jlist, String Text) {
         Object[] SET = new Object[jlist.getModel().getSize() + 1];
         for (int i = 0; i < jlist.getModel().getSize(); i++) {
             SET[i] = jlist.getModel().getElementAt(i);

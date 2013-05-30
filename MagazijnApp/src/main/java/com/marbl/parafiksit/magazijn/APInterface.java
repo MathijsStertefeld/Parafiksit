@@ -15,7 +15,7 @@ public interface APInterface {
      * van het onderdeel. [1] int: De prijs van het onderdeel in centen. [2]
      * int: Het aantal van het onderdeel.
      */
-    public Object[] VraagOnderdeelOp(int onderdeelCode);
+    public Object[] vraagOnderdeelOp(int onderdeelCode);
 
     /**
      * Zoekt een geschikt nieuw factuurnummer en voegt de factuur toe als de

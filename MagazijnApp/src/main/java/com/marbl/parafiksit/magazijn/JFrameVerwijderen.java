@@ -118,14 +118,14 @@ public class JFrameVerwijderen extends javax.swing.JFrame implements ActionListe
     public void actionPerformed(ActionEvent e) {
         if (soort.equals("Onderdeel")) {
             int index = jCbSelect.getSelectedIndex();
-            main.beheer.VerwijderOnderdeel(onderdelen.get(index).getCode());
+            main.beheer.verwijderOnderdeel(onderdelen.get(index).getCode());
             JOptionPane.showMessageDialog(null, "Het Onderdeel is correct verwijderd.", "Gelukt!", JOptionPane.OK_OPTION);
             this.setVisible(false);
             this.dispose();
             main.setVisible(true);
         } else if (soort.equals("Klant")) {
             int index = jCbSelect.getSelectedIndex();
-            main.beheer.VerwijderKlant(klanten.get(index).getId());
+            main.beheer.verwijderKlant(klanten.get(index).getId());
             JOptionPane.showMessageDialog(null, "De klant is correct verwijderd.", "Gelukt!", JOptionPane.OK_OPTION);
             this.setVisible(false);
             this.dispose();

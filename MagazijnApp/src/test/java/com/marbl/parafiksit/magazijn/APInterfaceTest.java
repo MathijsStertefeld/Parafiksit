@@ -14,18 +14,18 @@ public class APInterfaceTest {
     }
 
     /**
-     * Test of VraagOnderdeelOp method, of class APInterface.
+     * Test of vraagOnderdeelOp method, of class APInterface.
      */
     @Test
     public void testVraagOnderdeelOp() {
         System.out.println("VraagOnderdeelOp");
         APInterface instance = new Beheer();
-        int onderdeelCode = beheer.VoegOnderdeelToe("Test", 25, 25);
+        int onderdeelCode = beheer.voegOnderdeelToe("Test", 25, 25);
         Object[] expResult = new Object[3];
         expResult[0] = "Test";
         expResult[1] = 25;
         expResult[2] = 25;
-        Object[] result = instance.VraagOnderdeelOp(onderdeelCode);
+        Object[] result = instance.vraagOnderdeelOp(onderdeelCode);
         assertArrayEquals(expResult, result);
     }
 
@@ -35,9 +35,9 @@ public class APInterfaceTest {
     @Test
     public void testFactuurToeVoegen() {
         System.out.println("FactuurToeVoegen");
-        int code1 = beheer.VoegOnderdeelToe("Test", 25, 25);
-        int code2 = beheer.VoegOnderdeelToe("Test", 25, 25);
-        int klant1 = beheer.VoegKlantToe("Test", "Test");
+        int code1 = beheer.voegOnderdeelToe("Test", 25, 25);
+        int code2 = beheer.voegOnderdeelToe("Test", 25, 25);
+        int klant1 = beheer.voegKlantToe("Test", "Test");
         int[] on1 = new int[2];
         int[] on2 = new int[2];
         on1[0] = code1;

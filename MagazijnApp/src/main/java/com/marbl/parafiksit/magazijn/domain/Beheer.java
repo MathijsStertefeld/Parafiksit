@@ -42,7 +42,7 @@ public class Beheer implements IMagazijn, APInterface {
      * gegaan is wordt een lege ArrayList gereturneerd. (Let dan wel op, want
      * het kan ook zijn dat de query geen row teruggeeft!)
      */
-    public ArrayList<IOnderdeel> GetOnderdelen() {
+    public ArrayList<IOnderdeel> getOnderdelen() {
         ArrayList<IOnderdeel> ond = new ArrayList<IOnderdeel>();
         try {
             ond = db.GetOnderdelen();
@@ -58,7 +58,7 @@ public class Beheer implements IMagazijn, APInterface {
      * @param code De code van het op te halen onderdeel.
      * @return Het bijbehorende IOnderdeel-object (Interface).
      */
-    public IOnderdeel GetOnderdeel(int code) {
+    public IOnderdeel getOnderdeel(int code) {
         IOnderdeel ond = null;
         try {
             ond = db.GetOnderdeel(code);
@@ -75,7 +75,7 @@ public class Beheer implements IMagazijn, APInterface {
      * gegaan is wordt een lege ArrayList gereturneerd. (Let dan wel op, want
      * het kan ook zijn dat de query geen row teruggeeft!)
      */
-    public ArrayList<IKlant> GetKlanten() {
+    public ArrayList<IKlant> getKlanten() {
         ArrayList<IKlant> klanten = null;
         try {
             klanten = db.GetKlanten();
@@ -92,7 +92,7 @@ public class Beheer implements IMagazijn, APInterface {
      * gegaan is wordt een lege ArrayList gereturneerd. (Let dan wel op, want
      * het kan ook zijn dat de query geen row teruggeeft!)
      */
-    public ArrayList<IFactuur> GetFacturen() {
+    public ArrayList<IFactuur> getFacturen() {
         ArrayList<IFactuur> facturen = null;
         try {
             facturen = db.GetFacturen();
@@ -120,7 +120,7 @@ public class Beheer implements IMagazijn, APInterface {
      * @return True als het object correct is toegevoegd, false als dit niet het
      * geval is.
      */
-    public int VoegOnderdeelToe(String omschrijving, int aantal, int prijs) {
+    public int voegOnderdeelToe(String omschrijving, int aantal, int prijs) {
         if (aantal < 0 || prijs < 0 || omschrijving == null || omschrijving.equals("")) {
             return -1;
         }
@@ -154,7 +154,7 @@ public class Beheer implements IMagazijn, APInterface {
      * @return Het klantnummer als de klant correct is toegevoegd, returneert -1
      * als dit niet het geval is.
      */
-    public int VoegKlantToe(String naam, String adres) {
+    public int voegKlantToe(String naam, String adres) {
         if (naam.equals("") || naam == null || adres == null || adres.equals("")) {
             return -1;
         }
@@ -189,7 +189,7 @@ public class Beheer implements IMagazijn, APInterface {
      * @return Als de factuur correct wordt toegevoegd wordt het factuurnummer
      * gereturneerd, anders wordt -1 gereturneerd.
      */
-    public int VoegFactuurToe(int klantId, ArrayList<IFactuurRegel> onderdelen) {
+    public int voegFactuurToe(int klantId, ArrayList<IFactuurRegel> onderdelen) {
         try {
             ArrayList<IFactuur> facturen = db.GetFacturen();
             int factuurNr = 0;
@@ -247,8 +247,8 @@ public class Beheer implements IMagazijn, APInterface {
 //                int temp = ond.get(fr.getOnderdeelCode()-1).getAantal() - fr.getAantal();
 //                IOnderdeel on = ond.get(fr.getOnderdeelCode()-1);
 //                on.setAantal(temp);
-//                if (!db.VeranderOnderdeel(on.getCode(), on)) {
-//                    System.out.println("Er is iets fout gegaan bij db.VeranderOnderdeel");
+//                if (!db.veranderOnderdeel(on.getCode(), on)) {
+//                    System.out.println("Er is iets fout gegaan bij db.veranderOnderdeel");
 //                }
 //            }
             Calendar cal = new GregorianCalendar();
@@ -276,7 +276,7 @@ public class Beheer implements IMagazijn, APInterface {
      * @return True als de klant correct verwijdert is. False als dit niet het
      * geval is.
      */
-    public boolean VerwijderKlant(int klantId) {
+    public boolean verwijderKlant(int klantId) {
         if (klantId >= 0) {
             try {
                 ArrayList<IKlant> klanten = db.GetKlanten();
@@ -304,7 +304,7 @@ public class Beheer implements IMagazijn, APInterface {
      * @return True als het onderdeel correct verwijdert is. False als dit niet
      * geval is.
      */
-    public boolean VerwijderOnderdeel(int onderdeelCode) {
+    public boolean verwijderOnderdeel(int onderdeelCode) {
         if (onderdeelCode >= 0) {
             try {
                 ArrayList<IOnderdeel> onderdelen = db.GetOnderdelen();
@@ -335,7 +335,7 @@ public class Beheer implements IMagazijn, APInterface {
      * @param klant Het IKlant-object met ingevoerde nieuwe waardes.
      * @return True als de Klantgegevens correct veranderd zijn, anders false.
      */
-    public boolean VeranderKlant(IKlant klant) {
+    public boolean veranderKlant(IKlant klant) {
         if (klant != null && klant.getId() > 0 && klant.getAdres() != null && !klant.getAdres().equals("") && klant.getNaam() != null && !klant.getNaam().equals("")) {
             try {
                 ArrayList<IKlant> klanten = db.GetKlanten();
@@ -365,7 +365,7 @@ public class Beheer implements IMagazijn, APInterface {
      * @param onderdeel Het IOnderdeel-object met ingevoerde nieuwe waardes.
      * @return True als de klantgegevens correct veranderd zijn, anders false.
      */
-    public boolean VeranderOnderdeel(IOnderdeel onderdeel) {
+    public boolean veranderOnderdeel(IOnderdeel onderdeel) {
         if (onderdeel.getCode() > 0 && onderdeel.getOmschrijving() != null && !onderdeel.getOmschrijving().equals("") && onderdeel.getAantal() > 0 && onderdeel.getPrijs() > 0) {
             try {
                 ArrayList<IOnderdeel> onderdelen = db.GetOnderdelen();
@@ -397,7 +397,7 @@ public class Beheer implements IMagazijn, APInterface {
      * van het onderdeel. [1] int: De prijs van het onderdeel in centen. [2]
      * int: Het aantal van het onderdeel.
      */
-    public Object[] VraagOnderdeelOp(int onderdeelCode) {
+    public Object[] vraagOnderdeelOp(int onderdeelCode) {
         Object[] temp = null;
         try {
             temp = db.VraagOnderdeelOp(onderdeelCode);
@@ -480,8 +480,8 @@ public class Beheer implements IMagazijn, APInterface {
 //                int temp = ond.get(fr[0]).getAantal() - fr[1];
 //                IOnderdeel on = ond.get(fr[0]);
 //                on.setAantal(temp);
-//                if (!db.VeranderOnderdeel(on.getCode(), on)) {
-//                    System.out.println("Er is iets fout gegaan bij db.VeranderOnderdeel");
+//                if (!db.veranderOnderdeel(on.getCode(), on)) {
+//                    System.out.println("Er is iets fout gegaan bij db.veranderOnderdeel");
 //                }
 //            }
 

@@ -189,7 +189,7 @@ public class JFrameAanpassen extends javax.swing.JFrame {
                 }
 
                 IKlant kl = new Klant(id, naam, adres);
-                if (main.beheer.VeranderKlant(kl)) {
+                if (main.beheer.veranderKlant(kl)) {
                     JOptionPane.showMessageDialog(null, "De verandering(en) zijn correct toegepast.", "Gelukt", JOptionPane.OK_OPTION);
                 } else {
                     JOptionPane.showMessageDialog(null, "De verandering(en) zijn niet correct toegepast.", "Fout", JOptionPane.OK_OPTION);
@@ -223,7 +223,7 @@ public class JFrameAanpassen extends javax.swing.JFrame {
                 }
 
                 IOnderdeel od = new Onderdeel(code, omsch, aantal, prijs);
-                if (main.beheer.VeranderOnderdeel(od)) {
+                if (main.beheer.veranderOnderdeel(od)) {
                     JOptionPane.showMessageDialog(null, "De verandering(en) zijn correct toegepast.", "Gelukt", JOptionPane.OK_OPTION);
                 } else {
                     JOptionPane.showMessageDialog(null, "De verandering(en) zijn niet correct toegepast.", "Fout", JOptionPane.OK_OPTION);

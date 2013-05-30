@@ -11,7 +11,7 @@ public interface IMagazijn {
      * gegaan is wordt een lege ArrayList gereturneerd. (Let dan wel op, want
      * het kan ook zijn dat de query geen row teruggeeft!)
      */
-    public ArrayList<IOnderdeel> GetOnderdelen();
+    public ArrayList<IOnderdeel> getOnderdelen();
 
     /**
      * Haalt een onderdeel op uit de database.
@@ -19,7 +19,7 @@ public interface IMagazijn {
      * @param code De code van het op te halen onderdeel.
      * @return Het bijbehorende IOnderdeel-object (Interface).
      */
-    public IOnderdeel GetOnderdeel(int code);
+    public IOnderdeel getOnderdeel(int code);
 
     /**
      * Haalt een lijst op van alle klanten uit de database.
@@ -28,7 +28,7 @@ public interface IMagazijn {
      * gegaan is wordt een lege ArrayList gereturneerd. (Let dan wel op, want
      * het kan ook zijn dat de query geen row teruggeeft!)
      */
-    public ArrayList<IKlant> GetKlanten();
+    public ArrayList<IKlant> getKlanten();
 
     /**
      * Haalt een lijst op van alle facturen uit de database.
@@ -37,7 +37,7 @@ public interface IMagazijn {
      * gegaan is wordt een lege ArrayList gereturneerd. (Let dan wel op, want
      * het kan ook zijn dat de query geen row teruggeeft!)
      */
-    public ArrayList<IFactuur> GetFacturen();
+    public ArrayList<IFactuur> getFacturen();
 
     /**
      * Creert een Onderdeel object en deze wordt toegevoegd in de database. Als
@@ -55,7 +55,7 @@ public interface IMagazijn {
      * @return True als het object correct is toegevoegd, false als dit niet het
      * geval is.
      */
-    public int VoegOnderdeelToe(String omschrijving, int aantal, int prijs);
+    public int voegOnderdeelToe(String omschrijving, int aantal, int prijs);
 
     /**
      * Zoekt een geschikt nieuw klantnummer en voegt de nieuwe klant toe aan de
@@ -69,7 +69,7 @@ public interface IMagazijn {
      * @return Het klantnummer als de klant correct is toegevoegd, returneert -1
      * als dit niet het geval is.
      */
-    public int VoegKlantToe(String naam, String adres);
+    public int voegKlantToe(String naam, String adres);
 
     /**
      * Zoekt een geschikt nieuw factuurnummer en voegt de factuur toe aan de
@@ -84,7 +84,7 @@ public interface IMagazijn {
      * @return Als de factuur correct wordt toegevoegd wordt het factuurnummer
      * gereturneerd, anders wordt -1 gereturneerd.
      */
-    public int VoegFactuurToe(int klantId, ArrayList<IFactuurRegel> onderdelen);
+    public int voegFactuurToe(int klantId, ArrayList<IFactuurRegel> onderdelen);
 
     /**
      * Controleert of er een klant is met ingevoerde klantID, zoja wordt deze
@@ -94,7 +94,7 @@ public interface IMagazijn {
      * @return True als de klant correct verwijdert is. False als dit niet het
      * geval is.
      */
-    public boolean VerwijderKlant(int klantId);
+    public boolean verwijderKlant(int klantId);
 
     /**
      * Controleert of er een onderdeel bestaat met ingevoerde OnderdeelCode,
@@ -105,7 +105,7 @@ public interface IMagazijn {
      * @return True als het onderdeel correct verwijdert is. False als dit niet
      * geval is.
      */
-    public boolean VerwijderOnderdeel(int onderdeelCode);
+    public boolean verwijderOnderdeel(int onderdeelCode);
 
     /**
      * (LET OP! De KlantID kan niet worden aangepast, enkel de naam en het
@@ -117,7 +117,7 @@ public interface IMagazijn {
      * @param klant Het IKlant-object met de nieuwe waardes.
      * @return True als de veranderingen correct zijn toegepast, anders False.
      */
-    public boolean VeranderKlant(IKlant klant);
+    public boolean veranderKlant(IKlant klant);
 
     /**
      * (LET OP! De onderdeelCode kan niet worden aangepast, enkel de
@@ -130,5 +130,5 @@ public interface IMagazijn {
      * @param onderdeel Het IOnderdeel-object met de nieuwe waardes.
      * @return True als de veranderingen correct zijn toegepast, anders false.
      */
-    public boolean VeranderOnderdeel(IOnderdeel onderdeel);
+    public boolean veranderOnderdeel(IOnderdeel onderdeel);
 }

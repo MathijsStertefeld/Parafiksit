@@ -73,11 +73,6 @@ public class JFrameFactuurRegelToevoegen extends javax.swing.JFrame implements A
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setName("Form"); // NOI18N
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                formWindowClosing(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -93,8 +88,8 @@ public class JFrameFactuurRegelToevoegen extends javax.swing.JFrame implements A
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-    }
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    // End of variables declaration//GEN-END:variables
 
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("Cancel")) {
@@ -107,7 +102,7 @@ public class JFrameFactuurRegelToevoegen extends javax.swing.JFrame implements A
                 if (aantal <= onderdelen.get(list.getSelectedIndex()).getAantal()) {
                     String temp = Integer.toString(aantal) + "x: " + onderdelen.get(list.getSelectedIndex()).getOmschrijving() + "(" + Integer.toString(onderdelen.get(list.getSelectedIndex()).getCode()) + ")";
                     onderdelen.get(list.getSelectedIndex()).setAantal(aantal);
-                    main.GiveString(temp, onderdelen.get(list.getSelectedIndex()));
+                    main.giveString(temp, onderdelen.get(list.getSelectedIndex()));
                     this.setVisible(false);
                     main.setVisible(true);
                     this.dispose();
@@ -118,7 +113,5 @@ public class JFrameFactuurRegelToevoegen extends javax.swing.JFrame implements A
                 JOptionPane.showMessageDialog(null, "Het getal moet hoger dan nul zijn!", "Fout", JOptionPane.ERROR_MESSAGE);
             }
         }
-}//GEN-LAST:event_formWindowClosing
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    // End of variables declaration//GEN-END:variables
+    }
 }

@@ -242,7 +242,7 @@ public class Magazijn extends javax.swing.JFrame {
 
     private void jMnOndKijkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMnOndKijkActionPerformed
         try {
-            JFrameBekijken bekijken = new JFrameBekijken("Onderdeel", beheer.GetOnderdelen(), null, null, this);
+            JFrameBekijken bekijken = new JFrameBekijken("Onderdeel", beheer.getOnderdelen(), null, null, this);
             bekijken.setVisible(true);
             this.setVisible(false);
         } catch (Exception e) {
@@ -257,14 +257,14 @@ public class Magazijn extends javax.swing.JFrame {
     }//GEN-LAST:event_jMnOndVoegActionPerformed
 
     private void jMnOndAanpasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMnOndAanpasActionPerformed
-        JFrameAanpassen pas = new JFrameAanpassen("Onderdeel", this, null, beheer.GetOnderdelen());
+        JFrameAanpassen pas = new JFrameAanpassen("Onderdeel", this, null, beheer.getOnderdelen());
         pas.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jMnOndAanpasActionPerformed
 
     private void jMnOndVerwActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMnOndVerwActionPerformed
         try {
-            JFrameVerwijderen verwijder = new JFrameVerwijderen("Onderdeel", beheer.GetOnderdelen(), null, this);
+            JFrameVerwijderen verwijder = new JFrameVerwijderen("Onderdeel", beheer.getOnderdelen(), null, this);
             verwijder.setVisible(true);
             this.setVisible(false);
         } catch (Exception e) {
@@ -274,7 +274,7 @@ public class Magazijn extends javax.swing.JFrame {
 
     private void jMnKlantKijkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMnKlantKijkActionPerformed
         try {
-            JFrameBekijken bekijken = new JFrameBekijken("Klant", null, beheer.GetKlanten(), null, this);
+            JFrameBekijken bekijken = new JFrameBekijken("Klant", null, beheer.getKlanten(), null, this);
             bekijken.setVisible(true);
             this.setVisible(false);
         } catch (Exception e) {
@@ -289,14 +289,14 @@ public class Magazijn extends javax.swing.JFrame {
     }//GEN-LAST:event_jMnKlantVoegActionPerformed
 
     private void jMnKlantAanpasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMnKlantAanpasActionPerformed
-        JFrameAanpassen pas = new JFrameAanpassen("Klant", this, beheer.GetKlanten(), null);
+        JFrameAanpassen pas = new JFrameAanpassen("Klant", this, beheer.getKlanten(), null);
         pas.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jMnKlantAanpasActionPerformed
 
     private void jMnKlantVerwActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMnKlantVerwActionPerformed
         try {
-            JFrameVerwijderen verwijder = new JFrameVerwijderen("Klant", null, beheer.GetKlanten(), this);
+            JFrameVerwijderen verwijder = new JFrameVerwijderen("Klant", null, beheer.getKlanten(), this);
             verwijder.setVisible(true);
             this.setVisible(false);
         } catch (Exception e) {
@@ -306,7 +306,7 @@ public class Magazijn extends javax.swing.JFrame {
 
     private void jMnFacKijkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMnFacKijkActionPerformed
         try {
-            JFrameBekijken bekijken = new JFrameBekijken("Factuur", null, null, beheer.GetFacturen(), this);
+            JFrameBekijken bekijken = new JFrameBekijken("Factuur", null, null, beheer.getFacturen(), this);
             bekijken.setVisible(true);
             this.setVisible(false);
         } catch (Exception e) {
@@ -315,7 +315,7 @@ public class Magazijn extends javax.swing.JFrame {
     }//GEN-LAST:event_jMnFacKijkActionPerformed
 
     private void jMnFacVoegActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMnFacVoegActionPerformed
-        JFrameToevoegen toevoeg = new JFrameToevoegen("Factuur", this, beheer.GetKlanten());
+        JFrameToevoegen toevoeg = new JFrameToevoegen("Factuur", this, beheer.getKlanten());
         toevoeg.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jMnFacVoegActionPerformed
