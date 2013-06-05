@@ -48,7 +48,7 @@ public class DatabaseConnectie {
     public DatabaseConnectie() {
         try {
             Properties pr = new Properties();
-            pr.load(new FileInputStream("db.properties"));
+            pr.load(new FileInputStream("src/main/resources/db.properties"));
             serverEnPort = pr.getProperty("ServerEnPort");
             username = pr.getProperty("Username");
             password = pr.getProperty("Password");
@@ -103,7 +103,7 @@ public class DatabaseConnectie {
      * @return Een lijst met IFactuurRegel-objecten, als het fout gaat of de
      * tabel leeg is wordt een lege lijst gereturneerd.
      */
-    public ArrayList<IFactuurRegel> GetFactuurRegels() {
+    public ArrayList<IFactuurRegel> getFactuurRegels() {
         ArrayList<IFactuurRegel> frs = new ArrayList<IFactuurRegel>();
         Statement st = null;
         ResultSet rs = null;
@@ -138,7 +138,7 @@ public class DatabaseConnectie {
      */
     public ArrayList<IFactuur> GetFacturen() {
         ArrayList<IFactuur> facturen = new ArrayList<IFactuur>();
-        ArrayList<IFactuurRegel> regels = GetFactuurRegels();
+        ArrayList<IFactuurRegel> regels = getFactuurRegels();
         ResultSet rs;
         Statement st = null;
         try {
