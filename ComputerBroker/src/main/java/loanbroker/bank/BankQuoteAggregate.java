@@ -7,7 +7,7 @@ package loanbroker.bank;
 import bank.BankQuoteReply;
 import bank.BankQuoteRequest;
 import java.util.ArrayList;
-import messaging.requestreply.IReplyListener;
+import com.marbl.messaging.requestreply.IReplyListener;
 
 /**
  * Each object of this class collects all BankQuoteReplies for one BankQuoteRequest.

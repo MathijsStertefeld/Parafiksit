@@ -4,8 +4,8 @@
  */
 package loanbroker;
 
+import com.marbl.client.ClientRequest;
 import bank.BankQuoteReply;
-import client.*;
 import creditbureau.CreditReply;
 import java.util.ArrayList;
 import javax.jms.JMSException;

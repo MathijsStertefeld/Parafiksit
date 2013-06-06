@@ -2,11 +2,11 @@ package loanbroker;
 
 import bank.BankQuoteReply;
 import bank.BankQuoteRequest;
-import client.ClientReply;
-import client.ClientRequest;
+import com.marbl.client.ClientReply;
+import com.marbl.client.ClientRequest;
 import creditbureau.CreditReply;
 import creditbureau.CreditRequest;
-import messaging.requestreply.IReplyListener;
+import com.marbl.messaging.requestreply.IReplyListener;
 
 /**
  * This class is responsible to processing a single ClientRequest.

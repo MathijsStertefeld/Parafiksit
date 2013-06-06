@@ -7,8 +7,8 @@ package loanbroker.bank;
 import bank.BankQuoteRequest;
 import java.util.*;
 import javax.jms.JMSException;
-import messaging.ISender;
-import messaging.Sender;
+import com.marbl.messaging.ISender;
+import com.marbl.messaging.Sender;
 import net.sourceforge.jeval.EvaluationException;
 import net.sourceforge.jeval.Evaluator;
 

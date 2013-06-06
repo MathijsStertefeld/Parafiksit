@@ -17,12 +17,12 @@ import javax.jms.MessageListener;
 import javax.jms.TextMessage;
 import loanbroker.bank.BankQuoteAggregate;
 import loanbroker.bank.BanksSenderRouter;
-import messaging.IReceiver;
-import messaging.ISender;
-import messaging.MessagingGateway;
-import messaging.Receiver;
-import messaging.requestreply.AsynchronousRequestor;
-import messaging.requestreply.IReplyListener;
+import com.marbl.messaging.IReceiver;
+import com.marbl.messaging.ISender;
+import com.marbl.messaging.MessagingGateway;
+import com.marbl.messaging.Receiver;
+import com.marbl.messaging.requestreply.AsynchronousRequestor;
+import com.marbl.messaging.requestreply.IReplyListener;
 
 /**
  *

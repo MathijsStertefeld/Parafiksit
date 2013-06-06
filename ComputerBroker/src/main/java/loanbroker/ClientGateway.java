@@ -4,15 +4,15 @@
  */
 package loanbroker;
 
-import client.ClientReply;
-import client.ClientRequest;
-import client.ClientSerializer;
+import com.marbl.client.ClientReply;
+import com.marbl.client.ClientRequest;
+import com.marbl.client.ClientSerializer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.jms.Message;
-import messaging.MessagingGateway;
-import messaging.requestreply.AsynchronousReplier;
-import messaging.requestreply.IRequestListener;
+import com.marbl.messaging.MessagingGateway;
+import com.marbl.messaging.requestreply.AsynchronousReplier;
+import com.marbl.messaging.requestreply.IRequestListener;
 
 /**
  *

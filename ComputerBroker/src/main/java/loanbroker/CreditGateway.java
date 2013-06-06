@@ -9,9 +9,9 @@ import creditbureau.CreditRequest;
 import creditbureau.CreditSerializer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import messaging.MessagingGateway;
-import messaging.requestreply.AsynchronousRequestor;
-import messaging.requestreply.IReplyListener;
+import com.marbl.messaging.MessagingGateway;
+import com.marbl.messaging.requestreply.AsynchronousRequestor;
+import com.marbl.messaging.requestreply.IReplyListener;
 
 /**
  *

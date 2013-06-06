@@ -1,6 +1,7 @@
 package com.marbl.parafiksit.magazijn;
 
-import com.marbl.parafiksit.magazijn.domain.Beheer;
+import com.marbl.warehouse.domain.APInterface;
+import com.marbl.warehouse.domain.Beheer;
 import java.util.ArrayList;
 import static org.junit.Assert.*;
 import org.junit.Test;
