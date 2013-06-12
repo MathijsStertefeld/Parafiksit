@@ -25,11 +25,11 @@
             <artifactId>ParafiksitDomain</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <dependency>
+        <!--dependency>
             <groupId>net.sourceforge.jeval</groupId>
             <artifactId>jeval</artifactId>
             <version>0.9.4</version>
-        </dependency>
+        </dependency-->
         <dependency>
             <groupId>xmlpull</groupId>
             <artifactId>xmlpull</artifactId>

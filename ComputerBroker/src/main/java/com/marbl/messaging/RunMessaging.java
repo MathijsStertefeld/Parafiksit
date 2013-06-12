@@ -2,7 +2,6 @@ package com.marbl.messaging;
 
 
 import com.marbl.client.ClientRequest;
-import loanbroker.LoanBroker;
 
 /**
  * This application tests the LoanBroker system.

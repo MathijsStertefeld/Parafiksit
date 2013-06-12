@@ -21,7 +21,7 @@ public class ComputerBroker {
     
     private ArrayList<ClientRequestProcess> activeClientProcesses;
     
-    public ComputerBroker(String factoryName, String clientRequestQueue, String parafiksitRequestQueue, String parafiksitReplyQueue, String warehouseReplyQueue)
+    public ComputerBroker(String factoryName, String clientRequestQueue, String parafiksitRequestQueue, String parafiksitReplyQueue, String warehouseRequestQueue, String warehouseReplyQueue)
     {
         super();
         
@@ -37,26 +37,27 @@ public class ComputerBroker {
         
         parafiksitGateway = new ParafiksitGateway(factoryName, parafiksitRequestQueue, parafiksitReplyQueue) {};
     
-        warehouseGateway = new WarehouseGateway(factoryName, warehouseReplyQueue);
+        warehouseGateway = new WarehouseGateway(factoryName, warehouseRequestQueue, warehouseReplyQueue);
     }
     
     private void onClientRequest(ClientRequest request)
     {
-        final ClientRequestProcesss p = new ClientRequestProcess(request, parafiksitGateway, clientGateway, warehouseGateway){
+        final ClientRequestProcess p = new ClientRequestProcess(request, clientGateway, warehouseGateway, parafiksitGateway){
             
-            @Override
-            void notifySendClientReply(ClientRequestProcess process){
-                activeClientProcesses.remove(process);
-            }
             
             @Override
             void notifyReceivedParafiksitReply(ClientRequest clientRequest, ParafiksitReply reply){
-                //???
+                throw new UnsupportedOperationException("Not supported yet.");
             }
             
             @Override
             void notifyReceivedWarehouseReply(ClientRequest clientRequest, WarehouseReply reply){
-                //???
+                throw new UnsupportedOperationException("Not supported yet.");
+            }
+
+            @Override
+            void notifySentClientReply(ClientRequestProcess process) {
+                activeClientProcesses.remove(process);
             }
         };
         activeClientProcesses.add(p);

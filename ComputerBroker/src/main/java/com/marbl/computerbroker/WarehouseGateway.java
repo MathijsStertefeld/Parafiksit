@@ -22,16 +22,12 @@ public class WarehouseGateway {
     
     private WarehouseSerializer serializer;
     private AsynchronousRequestor<WarehouseRequest, WarehouseReply> gateway;
-    private WarehouseSenderRouter sender;
-    private IReceiver receiver;
-    private int aggregateCounter = 0;
-    private Hashtable<Integer, WarehouseAggregate> replyAggregate;
     
-    public WarehouseGateway(String factoryName, String warehouseReplyQueue)
+    public WarehouseGateway(String factoryName, String warehouseRequestQueue, String warehouseReplyQueue)
     {
         serializer = new WarehouseSerializer();
         try {
-            //gateway = new AsynchronousRequestor<WarehouseRequest, WarehouseReply>(factoryName, warehouseRequestQueue, warehouseReplyQueue, serializer);
+            gateway = new AsynchronousRequestor<WarehouseRequest, WarehouseReply>(factoryName, warehouseRequestQueue, warehouseReplyQueue, serializer);
         } catch (Exception ex) {
             Logger.getLogger(WarehouseGateway.class.getName()).log(Level.SEVERE, null, ex);
         }
