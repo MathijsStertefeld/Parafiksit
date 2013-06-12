@@ -4,10 +4,10 @@
  */
 package com.marbl.warehouse;
 
+import com.marbl.messaging.requestreply.AsynchronousReplier;
+import com.marbl.messaging.requestreply.IRequestListener;
 import java.util.logging.Level;
 import javax.jms.Message;
-import messaging.requestreply.AsynchronousReplier;
-import messaging.requestreply.IRequestListener;
 
 /**
  *
