@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/repos-i/pts41grp2080903/!svn/ver/278/PTS22/ReparatieSysteem/ReparatieSysteem/Database
+END
+IDatabase.cs
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/repos-i/pts41grp2080903/!svn/ver/266/PTS22/ReparatieSysteem/ReparatieSysteem/Database/IDatabase.cs
+END
+OracleDatabase.cs
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/repos-i/pts41grp2080903/!svn/ver/278/PTS22/ReparatieSysteem/ReparatieSysteem/Database/OracleDatabase.cs
+END
