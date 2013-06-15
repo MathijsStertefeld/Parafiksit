@@ -4,8 +4,10 @@
  */
 package com.marbl.computerbroker;
 
-import com.marbl.client.ClientRequest;
-import com.marbl.parafiksit.ParafiksitReply;
+import com.marbl.client.ClientOrderRequest;
+import com.marbl.client.ClientStatusRequest;
+import com.marbl.parafiksit.ParafiksitOrderReply;
+import com.marbl.parafiksit.ParafiksitStatusReply;
 import com.marbl.warehouse.WarehouseReply;
 import java.util.ArrayList;
 
@@ -15,64 +17,88 @@ import java.util.ArrayList;
  */
 public class ComputerBroker {
     
-    private ClientGateway clientGateway;
-    private ParafiksitGateway parafiksitGateway;
-    private WarehouseGateway warehouseGateway;
+    private ClientOrderGateway clientOrderGateway;
+    private ParafiksitOrderGateway parafiksitOrderGateway;
+    private WarehouseOrderGateway warehouseOrderGateway;
     
-    private ArrayList<ClientRequestProcess> activeClientProcesses;
+    private ClientStatusGateway clientStatusGateway;
+    private ParafiksitStatusGateway parafiksitStatusGateway;
     
-    public ComputerBroker(String factoryName, String clientRequestQueue, String parafiksitRequestQueue, String parafiksitReplyQueue, String warehouseRequestQueue, String warehouseReplyQueue)
+    private ArrayList<OrderRequestProcess> activeClientOrderProcesses;
+    private ArrayList<StatusRequestProcess> activeClientStatusProcesses;
+    
+    public ComputerBroker(String factoryName, String clientOrderRequestQueue, String parafiksitOrderRequestQueue, 
+            String parafiksitOrderReplyQueue, String warehouseRequestQueue, String warehouseReplyQueue, 
+            String clientStatusRequestQueue, String parafiksitStatusRequestQueue, String parafiksitStatusReplyQueue)
     {
         super();
         
-        activeClientProcesses = new ArrayList<ClientRequestProcess>();
-        
-        clientGateway = new ClientGateway(factoryName, clientRequestQueue) {
-
+        activeClientOrderProcesses = new ArrayList<OrderRequestProcess>();
+        activeClientStatusProcesses = new ArrayList<StatusRequestProcess>();
+                
+        clientOrderGateway = new ClientOrderGateway(factoryName, clientOrderRequestQueue) {
             @Override
-            void onClientRequest(ClientRequest request) {
-                ComputerBroker.this.onClientRequest(request);
+            void onClientRequest(ClientOrderRequest request) {
+                ComputerBroker.this.onClientOrderRequest(request);
             }
         };
-        
-        parafiksitGateway = new ParafiksitGateway(factoryName, parafiksitRequestQueue, parafiksitReplyQueue) {};
+        parafiksitOrderGateway = new ParafiksitOrderGateway(factoryName, parafiksitOrderRequestQueue, parafiksitOrderReplyQueue) {};
+        warehouseOrderGateway = new WarehouseOrderGateway(factoryName, warehouseRequestQueue, warehouseReplyQueue);
     
-        warehouseGateway = new WarehouseGateway(factoryName, warehouseRequestQueue, warehouseReplyQueue);
+        clientStatusGateway = new ClientStatusGateway(factoryName, clientStatusRequestQueue){
+            @Override
+            void onClientRequest(ClientStatusRequest request) {
+                ComputerBroker.this.onClientStatusRequest(request);
+            }    
+        };
+        parafiksitStatusGateway = new ParafiksitStatusGateway(factoryName, parafiksitStatusRequestQueue, parafiksitStatusReplyQueue){};
     }
     
-    private void onClientRequest(ClientRequest request)
+    private void onClientOrderRequest(ClientOrderRequest request)
     {
-        final ClientRequestProcess p = new ClientRequestProcess(request, clientGateway, warehouseGateway, parafiksitGateway){
+        final OrderRequestProcess p = new OrderRequestProcess(request, clientOrderGateway, warehouseOrderGateway, parafiksitOrderGateway){
             
             
             @Override
-            void notifyReceivedParafiksitReply(ClientRequest clientRequest, ParafiksitReply reply){
+            void notifyReceivedParafiksitReply(ClientOrderRequest clientRequest, ParafiksitOrderReply reply){
                 throw new UnsupportedOperationException("Not supported yet.");
             }
             
             @Override
-            void notifyReceivedWarehouseReply(ClientRequest clientRequest, WarehouseReply reply){
+            void notifyReceivedWarehouseReply(ClientOrderRequest clientRequest, WarehouseReply reply){
                 throw new UnsupportedOperationException("Not supported yet.");
             }
 
             @Override
-            void notifySentClientReply(ClientRequestProcess process) {
-                activeClientProcesses.remove(process);
+            void notifySentClientReply(OrderRequestProcess process) {
+                activeClientOrderProcesses.remove(process);
             }
         };
-        activeClientProcesses.add(p);
-        
+        activeClientOrderProcesses.add(p);   
+    }
+    
+    private void onClientStatusRequest(ClientStatusRequest request){
+        final StatusRequestProcess p = new StatusRequestProcess(request, clientStatusGateway, parafiksitStatusGateway) {
+
+            @Override
+            void notifyReceivedParafiksitReply(ClientStatusRequest clientRequest, ParafiksitStatusReply reply) {
+                throw new UnsupportedOperationException("Not supported yet.");
+            }
+
+            @Override
+            void notifySentClientReply(StatusRequestProcess process) {
+                throw new UnsupportedOperationException("Not supported yet.");
+            }
+        };
+        activeClientStatusProcesses.add(p);
     }
     
     public void start(){
-        clientGateway.start();
-        parafiksitGateway.start();
-        warehouseGateway.start();
-    }
-    
-//    public void addWarehouse(String factoryName, String destination, String expression)
-//    {
-//        warehouseGateway.addWarehouse(factoryName, destination, expression);
-//    }
-    
+        clientOrderGateway.start();
+        parafiksitOrderGateway.start();
+        warehouseOrderGateway.start();
+        
+        clientStatusGateway.start();
+        parafiksitStatusGateway.start();
+    }  
 }

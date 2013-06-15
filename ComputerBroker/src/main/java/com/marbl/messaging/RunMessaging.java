@@ -1,7 +1,7 @@
 package com.marbl.messaging;
 
 
-import com.marbl.client.ClientRequest;
+import com.marbl.client.ClientOrderRequest;
 
 /**
  * This application tests the LoanBroker system.
@@ -15,15 +15,22 @@ public class RunMessaging {
             JMSSettings queueNames = new JMSSettings("MESSAGING_CHANNELS.ini");
             final String factoryName = queueNames.get(JMSSettings.CONNECTION);
             //CLIENTS & BROKER
-            final String clientRequestQueue = queueNames.get(JMSSettings.CLIENT_REQUEST);
-            final String clientReplyQueue = queueNames.get(JMSSettings.CLIENT_REPLY);
-            final String client2ReplyQueue = queueNames.get(JMSSettings.CLIENT_REPLY_2);
+            final String clientOrderRequestQueue = queueNames.get(JMSSettings.CLIENT_ORDER_REQUEST);
+            final String clientOrderReplyQueue = queueNames.get(JMSSettings.CLIENT_ORDER_REPLY);
+            final String clientOrder2ReplyQueue = queueNames.get(JMSSettings.CLIENT_ORDER_REPLY_2);
             //PARAFIKSIT & BROKER
-            final String parafiksitRequestQueue = queueNames.get(JMSSettings.PARAFIKSIT_REQUEST); ///was credit
-            final String parafiksitReplyQueue = queueNames.get(JMSSettings.PARAFIKSIT_REPLY); //was credit
+            final String parafiksitOrderRequestQueue = queueNames.get(JMSSettings.PARAFIKSIT_ORDER_REQUEST); ///was credit
+            final String parafiksitOrderReplyQueue = queueNames.get(JMSSettings.PARAFIKSIT_ORDER_REPLY); //was credit
             //WAREHOUSE & BROKER
-            final String warehouseRequestQueue = queueNames.get(JMSSettings.WAREHOUSE_REQUEST);
-            final String warehouseReplyQueue = queueNames.get(JMSSettings.WAREHOUSE_REPLY);
+            final String warehouseOrderRequestQueue = queueNames.get(JMSSettings.WAREHOUSE_REQUEST);
+            final String warehouseOrderReplyQueue = queueNames.get(JMSSettings.WAREHOUSE_REPLY);
+            
+            final String clientStatusRequestQueue;
+            final String clientStatusReplyQueue;
+            final String clientStatus2ReplyQueue;
+            
+            final String parafiksitStatusRequestQueue;
+            final String parafiksitStatusReplyQueue;
             
             //final String ingRequestQueue = queueNames.get(JMSSettings.BANK_1);
             //final String rabobankRequestQueue = queueNames.get(JMSSettings.BANK_2);
@@ -61,9 +68,9 @@ public class RunMessaging {
             //hypotheekvisie.start(); 
 
             // send three requests
-            //hypotheeker.sendRequest(new ClientRequest(1, 100000, 24));
-            //hypotheeker.sendRequest(new ClientRequest(2, 88888, 5));
-            //hypotheeker.sendRequest(new ClientRequest(3, 100, 5));
+            //hypotheeker.sendRequest(new ClientOrderRequest(1, 100000, 24));
+            //hypotheeker.sendRequest(new ClientOrderRequest(2, 88888, 5));
+            //hypotheeker.sendRequest(new ClientOrderRequest(3, 100, 5));
 
         } catch (Exception ex) {
             ex.printStackTrace();

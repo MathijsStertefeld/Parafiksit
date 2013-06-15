@@ -18,18 +18,18 @@ import java.util.logging.Logger;
  *
  * @author Bas
  *///Bankgateway = voorbeeld hiervoor!
-public class WarehouseGateway {
+public class WarehouseOrderGateway {
     
     private WarehouseSerializer serializer;
     private AsynchronousRequestor<WarehouseRequest, WarehouseReply> gateway;
     
-    public WarehouseGateway(String factoryName, String warehouseRequestQueue, String warehouseReplyQueue)
+    public WarehouseOrderGateway(String factoryName, String warehouseRequestQueue, String warehouseReplyQueue)
     {
         serializer = new WarehouseSerializer();
         try {
             gateway = new AsynchronousRequestor<WarehouseRequest, WarehouseReply>(factoryName, warehouseRequestQueue, warehouseReplyQueue, serializer);
         } catch (Exception ex) {
-            Logger.getLogger(WarehouseGateway.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(WarehouseOrderGateway.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
