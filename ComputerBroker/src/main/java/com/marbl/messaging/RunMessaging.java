@@ -2,6 +2,10 @@ package com.marbl.messaging;
 
 
 import com.marbl.client.ClientOrderRequest;
+import com.marbl.client.ClientTest;
+import com.marbl.computerbroker.ComputerBroker;
+import com.marbl.parafiksit.ParafiksitTest;
+import com.marbl.warehouse.WarehouseTest;
 
 /**
  * This application tests the LoanBroker system.
@@ -12,7 +16,7 @@ public class RunMessaging {
     public static void main(String[] args) {
         try {
             // read the queue names from file "MESSAGING.ini"  
-            JMSSettings queueNames = new JMSSettings("MESSAGING_CHANNELS.ini");
+            JMSSettings queueNames = new JMSSettings("src/main/resources/MESSAGING_CHANNELS.ini");
             final String factoryName = queueNames.get(JMSSettings.CONNECTION);
             //CLIENTS & BROKER
             final String clientOrderRequestQueue = queueNames.get(JMSSettings.CLIENT_ORDER_REQUEST);
@@ -25,19 +29,37 @@ public class RunMessaging {
             final String warehouseOrderRequestQueue = queueNames.get(JMSSettings.WAREHOUSE_REQUEST);
             final String warehouseOrderReplyQueue = queueNames.get(JMSSettings.WAREHOUSE_REPLY);
             
-            final String clientStatusRequestQueue;
-            final String clientStatusReplyQueue;
-            final String clientStatus2ReplyQueue;
+            final String clientStatusRequestQueue = queueNames.get(JMSSettings.CLIENT_STATUS_REQUEST);
+            final String clientStatusReplyQueue = queueNames.get(JMSSettings.CLIENT_STATUS_REPLY);
+            final String clientStatus2ReplyQueue = queueNames.get(JMSSettings.CLIENT_STATUS_REPLY_2);
             
-            final String parafiksitStatusRequestQueue;
-            final String parafiksitStatusReplyQueue;
+            final String parafiksitStatusRequestQueue = queueNames.get(JMSSettings.PARAFIKSIT_STATUS_REQUEST);
+            final String parafiksitStatusReplyQueue = queueNames.get(JMSSettings.PARAFIKSIT_STATUS_REPLY);
+            
+            ComputerBroker broker = new ComputerBroker(factoryName, clientOrderRequestQueue, parafiksitOrderRequestQueue, 
+                    parafiksitOrderReplyQueue, warehouseOrderRequestQueue, warehouseOrderReplyQueue, clientStatusRequestQueue,
+                    parafiksitStatusRequestQueue, parafiksitStatusReplyQueue);
+            
+            ClientTest client = new ClientTest("Client", factoryName, clientOrderRequestQueue, clientOrderReplyQueue);
+            
+            ParafiksitTest para = new ParafiksitTest(factoryName, parafiksitOrderRequestQueue, parafiksitOrderReplyQueue);
+            
+            WarehouseTest warehouse = new WarehouseTest(factoryName, warehouseOrderRequestQueue, warehouseOrderReplyQueue);
+            
+            broker.start();
+            client.start();
+            para.start();
+            warehouse.start();
+            
+            client.sendOrderRequest(new ClientOrderRequest("Vanaf=" + client.getClientName()));
+            
             
             //final String ingRequestQueue = queueNames.get(JMSSettings.BANK_1);
             //final String rabobankRequestQueue = queueNames.get(JMSSettings.BANK_2);
             //final String abnamroRequestQueue = queueNames.get(JMSSettings.BANK_3);
             //final String bankReplyQueue = queueNames.get(JMSSettings.BANK_REPLY);
             
-
+             
                        
             // create a ComputerBroker middleware
             //LoanBroker broker = new LoanBroker(factoryName, clientRequestQueue, creditRequestQueue, creditReplyQueue, bankReplyQueue); 

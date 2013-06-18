@@ -61,7 +61,7 @@ abstract class OrderRequestProcess {
     }
 
     private ParafiksitOrderRequest createParafiksitRequest(ClientOrderRequest cRequest){
-        return new ParafiksitOrderRequest(); //Parameters halen uit ClientOrderRequest / WarehouseReply
+        return new ParafiksitOrderRequest(cRequest.getString() + "B"); //Parameters halen uit ClientOrderRequest / WarehouseReply
     }
 
     private void onParafiksitReply(ParafiksitOrderReply pReply) {
@@ -88,7 +88,7 @@ abstract class OrderRequestProcess {
 
     private WarehouseRequest createWarehouseRequest(ClientOrderRequest cRequest, ParafiksitOrderReply pReply) {
         //Check welke parts ordered moeten worden!
-        return new WarehouseRequest(); //geef parameters mee uit cRequest en pReply
+        return new WarehouseRequest(pReply + "C"); //geef parameters mee uit cRequest en pReply
     }
 
     private void onWarehouseReply(WarehouseReply whReply) {
@@ -112,7 +112,7 @@ abstract class OrderRequestProcess {
         //Hier parafiksit en warehouse (als niet null) replys gebruiken
         // om reply te maken
         
-        return new ClientOrderReply();
+        return new ClientOrderReply(whReply + "D");
     }
     
     private ClientOrderReply createClientReply(ClientOrderRequest cRequest, ParafiksitOrderReply pReply) {

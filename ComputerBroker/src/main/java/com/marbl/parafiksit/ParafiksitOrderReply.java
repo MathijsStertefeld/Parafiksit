@@ -9,5 +9,18 @@ package com.marbl.parafiksit;
  * @author Bas
  */
 public class ParafiksitOrderReply {
+        private String string;
     
+    public ParafiksitOrderReply(String s){
+        string = s;
+    }
+    
+    public String getString()
+    {
+        return string;
+    }
+    
+    public void setString(String s){
+        string = s;
+    }
 }
