@@ -5,7 +5,6 @@
 package com.marbl.fontysapp.domain;
 
 import java.util.ArrayList;
-import sun.management.OperatingSystemImpl;
 
 /**
  *
@@ -126,6 +125,4 @@ public class Order
     {
         this.parts = parts;
     }
-    
-    
 }
