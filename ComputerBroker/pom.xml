@@ -32,6 +32,11 @@
             <name>JBoss.org Maven repository</name>
             <url>https://repository.jboss.org/nexus/content/groups/public</url>
         </repository>  
+        <repository>
+        <id>glassfish</id>
+        <name>Glassfish</name>
+        <url>https://repository.jboss.org/nexus/content/repositories/glassfish</url>
+      </repository>
     </repositories>
 
     <dependencies>
@@ -79,6 +84,12 @@
             <version>1.0.0.Beta1</version>
             <type>jar</type>
         </dependency -->
+        
+        <dependency>
+      <groupId>org.glassfish.appclient</groupId>
+      <artifactId>gf-client</artifactId>
+      <version>3.1</version>
+    </dependency>
     </dependencies>
     
 </project>

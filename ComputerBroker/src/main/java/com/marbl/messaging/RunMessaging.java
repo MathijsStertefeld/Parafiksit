@@ -16,7 +16,7 @@ public class RunMessaging {
     public static void main(String[] args) {
         try {
             // read the queue names from file "MESSAGING.ini"  
-            JMSSettings queueNames = new JMSSettings("MESSAGING_CHANNELS.ini");
+            JMSSettings queueNames = new JMSSettings("src/main/resources/MESSAGING_CHANNELS.ini");
             final String factoryName = queueNames.get(JMSSettings.CONNECTION);
             //CLIENTS & BROKER
             final String clientOrderRequestQueue = queueNames.get(JMSSettings.CLIENT_ORDER_REQUEST);
