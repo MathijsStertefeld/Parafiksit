@@ -25,7 +25,7 @@ abstract class ComputerBrokerOrderGateway {
             gateway = new AsynchronousReplier<ParafiksitOrderRequest, ParafiksitOrderReply>(factoryName, parafiksitRequestQueue, serializer) {
                 @Override
                 public void beforeSendReply(Message request, Message reply) {
-                    throw new UnsupportedOperationException("Not supported yet.");
+                    //doe niks
                 }
             };
         } catch (Exception ex) {
@@ -35,6 +35,7 @@ abstract class ComputerBrokerOrderGateway {
         gateway.setRequestListener(new IRequestListener<ParafiksitOrderRequest>(){
 
             public void receivedRequest(ParafiksitOrderRequest request) {
+                System.out.println("Received parafiksitRequest in parafiksit");
                 receivedParafiksitRequest(request);
             }        
         });
@@ -47,6 +48,7 @@ abstract class ComputerBrokerOrderGateway {
     }
     
     void sendReply(ParafiksitOrderRequest request, ParafiksitOrderReply reply){
+        System.out.println("Sending reply from parafiksit");
         gateway.sendReply(request, reply);
     }
 }

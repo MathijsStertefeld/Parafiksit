@@ -32,6 +32,7 @@ abstract class ComputerBrokerOrderGateway {
         gateway.sendRequest(request, new IReplyListener<ClientOrderRequest, ClientOrderReply>(){
 
             public void onReply(ClientOrderRequest request, ClientOrderReply reply) {
+                System.out.println("Reply Arrived");
                 onOrderReplyArrived(request, reply);
             }
         });

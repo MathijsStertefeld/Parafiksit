@@ -61,12 +61,12 @@ public class ComputerBroker {
             
             @Override
             void notifyReceivedParafiksitReply(ClientOrderRequest clientRequest, ParafiksitOrderReply reply){
-                throw new UnsupportedOperationException("Not supported yet.");
+                //?
             }
             
             @Override
             void notifyReceivedWarehouseReply(ClientOrderRequest clientRequest, WarehouseReply reply){
-                throw new UnsupportedOperationException("Not supported yet.");
+                //?
             }
 
             @Override
@@ -82,12 +82,12 @@ public class ComputerBroker {
 
             @Override
             void notifyReceivedParafiksitReply(ClientStatusRequest clientRequest, ParafiksitStatusReply reply) {
-                throw new UnsupportedOperationException("Not supported yet.");
+                //
             }
 
             @Override
             void notifySentClientReply(StatusRequestProcess process) {
-                throw new UnsupportedOperationException("Not supported yet.");
+                activeClientStatusProcesses.remove(process);
             }
         };
         activeClientStatusProcesses.add(p);

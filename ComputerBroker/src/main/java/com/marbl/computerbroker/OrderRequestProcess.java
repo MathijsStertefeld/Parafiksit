@@ -38,12 +38,14 @@ abstract class OrderRequestProcess {
 
         this.warehouseReplyListener = new IReplyListener<WarehouseRequest, WarehouseReply>() {
             public void onReply(WarehouseRequest request, WarehouseReply reply) {
+                System.out.println("OrderRequestProcess got reply from warehouse");
                 onWarehouseReply(reply);
             }
         };
 
         this.parafiksitReplyListener = new IReplyListener<ParafiksitOrderRequest, ParafiksitOrderReply>() {
             public void onReply(ParafiksitOrderRequest request, ParafiksitOrderReply reply) {
+                System.out.println("OrderRequestProcess got reply from parafiksit");
                 onParafiksitReply(reply);
             }
         };
@@ -61,6 +63,7 @@ abstract class OrderRequestProcess {
     }
 
     private ParafiksitOrderRequest createParafiksitRequest(ClientOrderRequest cRequest){
+        System.out.println("cRequest.getstring: " + cRequest.getString());
         return new ParafiksitOrderRequest(cRequest.getString() + "B"); //Parameters halen uit ClientOrderRequest / WarehouseReply
     }
 

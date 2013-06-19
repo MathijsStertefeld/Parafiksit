@@ -18,6 +18,7 @@ public class ClientTest {
 
             @Override
             void onOrderReplyArrived(ClientOrderRequest request, ClientOrderReply reply) {
+                System.out.println("Client got reply from broker");
                 System.out.println("Resultaat: " + reply.getString());
             }
         };
@@ -28,6 +29,7 @@ public class ClientTest {
     }
     
     public void sendOrderRequest(ClientOrderRequest request){
+        System.out.println("Sending request from client");
         orderGateway.order(request);
     }
     

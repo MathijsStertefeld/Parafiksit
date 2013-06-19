@@ -35,6 +35,7 @@ abstract class ParafiksitOrderGateway {
     }
     
     public void registerOrder(ParafiksitOrderRequest request, IReplyListener<ParafiksitOrderRequest, ParafiksitOrderReply> listener){
+        System.out.println("Sending request from broker to parafiksit");
         gateway.sendRequest(request, listener);
     }
 }

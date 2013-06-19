@@ -38,7 +38,9 @@ abstract class ClientOrderGateway {
 
         gateway.setRequestListener(new IRequestListener<ClientOrderRequest>() {
 
+            @Override
             public void receivedRequest(ClientOrderRequest request) {
+                System.out.println("Broker received request from client");
                 onClientRequest(request);
             }
         });
@@ -51,6 +53,7 @@ abstract class ClientOrderGateway {
     }
     
     void sendInvoice(ClientOrderRequest request, ClientOrderReply reply){
+        System.out.println("Sending reply from broker to client");
         gateway.sendReply(request, reply);
     }
 }

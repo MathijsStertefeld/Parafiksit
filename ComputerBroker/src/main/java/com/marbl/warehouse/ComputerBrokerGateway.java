@@ -35,6 +35,7 @@ abstract class ComputerBrokerGateway {
         gateway.setRequestListener(new IRequestListener<WarehouseRequest>() {
 
             public void receivedRequest(WarehouseRequest request) {
+                System.out.println("warehouse received request");
                 receivedWarehouseRequest(request);
             }
         });
@@ -49,6 +50,7 @@ abstract class ComputerBrokerGateway {
     
     void sendReply(WarehouseRequest request, WarehouseReply reply)
     {
+        System.out.println("Warehouse sending reply");
         gateway.sendReply(request, reply);
     }
     

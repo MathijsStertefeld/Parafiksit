@@ -38,6 +38,7 @@ public class WarehouseOrderGateway {
     }
     
     public void orderParts(WarehouseRequest request, IReplyListener<WarehouseRequest, WarehouseReply> listener){
+        System.out.println("Sending request from broker to warehouse");
         gateway.sendRequest(request, listener);
     }
     
