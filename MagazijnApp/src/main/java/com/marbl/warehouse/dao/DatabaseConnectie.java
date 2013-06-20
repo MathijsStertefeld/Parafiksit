@@ -190,7 +190,7 @@ public class DatabaseConnectie {
             String sql = "SELECT * FROM KLANT";
             rs = st.executeQuery(sql);
             while (rs.next()) {
-                int code = rs.getInt("Id");
+                int code = rs.getInt("KlantId");
                 String naam = rs.getString("Naam");
                 String adres = rs.getString("Adres");
                 IKlant kl = new Klant(code, naam, adres);

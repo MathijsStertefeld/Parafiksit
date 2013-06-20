@@ -47,24 +47,16 @@
             <artifactId>xstream</artifactId>
             <version>1.4.4</version>
         </dependency>
+        <dependency> 
+            <groupId>com.oracle</groupId> 
+            <artifactId>ojdbc6</artifactId> 
+            <version>11.2.0.3</version> 
+        </dependency>
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
             <version>6.0</version>
             <type>jar</type>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-resources-plugin</artifactId>
-            <version>2.6</version>
-        </dependency>
-        <dependency>
-            <groupId>com.oracle</groupId>
-            <artifactId>ojdbc</artifactId>
-            <version>14</version>
-            <scope>system</scope>
-            <systemPath>C:/ojdbc6.jar</systemPath>
-            <!--systemPath>${basedir}/src/main/resources/ojdbc6.jar</systemPath-->
         </dependency>
     </dependencies>
 </project>
