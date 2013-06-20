@@ -19,7 +19,7 @@ namespace ReparatieSysteem.Mail
         }
 
         public bool SendMail(MailMessage message)
-        {            
+        {
             try
             {
                 smtp.Send(message);
@@ -29,7 +29,7 @@ namespace ReparatieSysteem.Mail
             {
                 return false;
             }
-            
+
         }
     }
 }
