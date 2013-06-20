@@ -4,17 +4,15 @@
  */
 package com.marbl.fontysapp;
 
-import com.marbl.fontysapp.domain.Order;
+import com.marbl.fontysapp.domain.OrderRequest;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
- *
  * @author Leslie Aerts
  */
 public class Frame extends javax.swing.JFrame
 {
-
     /**
      * Creates new form Frame
      */
@@ -140,10 +138,10 @@ public class Frame extends javax.swing.JFrame
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfShippingPostcode, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE))
+                        .addComponent(tfShippingPostcode))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -228,7 +226,7 @@ public class Frame extends javax.swing.JFrame
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel10)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 483, Short.MAX_VALUE)
                         .addComponent(jButton1)))
                 .addContainerGap())
         );
@@ -254,7 +252,7 @@ public class Frame extends javax.swing.JFrame
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(cbParts, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel12)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -301,7 +299,7 @@ public class Frame extends javax.swing.JFrame
         {
             parts.add((String)cbParts.getItemAt(i));
         }
-        Order o = new Order(tfClient.getText(), tfContactName.getText(), tfContactPhone.getText(), tfShippingStreet.getText(), tfShippingNumber.getText(), tfShippingPlace.getText(), tfShippingPlace.getText(), operations, parts);
+        OrderRequest o = new OrderRequest(tfClient.getText(), tfContactName.getText(), tfContactPhone.getText(), tfShippingStreet.getText(), tfShippingNumber.getText(), tfShippingPlace.getText(), tfShippingPlace.getText(), operations, parts);
 
         String comments = tfComments.getText();
         if(comments.length() != 0 && comments != null)

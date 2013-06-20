@@ -10,7 +10,7 @@ import java.util.ArrayList;
  *
  * @author Leslie Aerts
  */
-public class Order
+public class OrderRequest
 {
     private String clientName;
     private String contactName;
@@ -23,7 +23,7 @@ public class Order
     private ArrayList<String> operations;
     private ArrayList<String> parts;
 
-    public Order(String clientName, String contactName, String contactPhone, String shippingStreet, String shippingNumber, String shippingPlace, String shippingPostcalCode, ArrayList<String> operations, ArrayList<String> parts)
+    public OrderRequest(String clientName, String contactName, String contactPhone, String shippingStreet, String shippingNumber, String shippingPlace, String shippingPostcalCode, ArrayList<String> operations, ArrayList<String> parts)
     {
         this.clientName = clientName;
         this.contactName = contactName;
