@@ -4,22 +4,31 @@
  */
 package com.marbl.fontysapp;
 
-import com.marbl.fontysapp.domain.OrderRequest;
+import com.marbl.client.ClientOrderRequest;
+import com.marbl.client.ClientTest;
+import com.marbl.fontysapp.domain.PartInfo;
+import com.marbl.fontysapp.domain.WorkPerformedInfo;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
  * @author Leslie Aerts
  */
-public class Frame extends javax.swing.JFrame
+public class FontysAppFrame extends javax.swing.JFrame
 {
+
+    ClientTest cTest;
+
     /**
-     * Creates new form Frame
+     * Creates new form FontysAppFrame
      */
-    public Frame()
+    public FontysAppFrame(String factoryName, String requestQueue, String replyQueue)
     {
         initComponents();
         this.setTitle("FontysApp - A Parafiksit Software Client");
+
+        cTest = new ClientTest("FontysApp", factoryName, requestQueue, replyQueue);
+        cTest.start();
     }
 
     /**
@@ -58,6 +67,8 @@ public class Frame extends javax.swing.JFrame
         btAddOperation = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
+        btRemoveOperation = new javax.swing.JButton();
+        btRemovePart = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -138,7 +149,6 @@ public class Frame extends javax.swing.JFrame
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(tfShippingPostcode))
@@ -193,6 +203,24 @@ public class Frame extends javax.swing.JFrame
 
         jLabel12.setText("Onderdelen");
 
+        btRemoveOperation.setText("-");
+        btRemoveOperation.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                btRemoveOperationActionPerformed(evt);
+            }
+        });
+
+        btRemovePart.setText("-");
+        btRemovePart.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                btRemovePartActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -226,8 +254,12 @@ public class Frame extends javax.swing.JFrame
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel10)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 483, Short.MAX_VALUE)
+                        .addGap(0, 551, Short.MAX_VALUE)
                         .addComponent(jButton1)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btRemoveOperation)
+                    .addComponent(btRemovePart))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -239,7 +271,8 @@ public class Frame extends javax.swing.JFrame
                     .addComponent(tfClient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbOperations, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btAddOperation)
-                    .addComponent(jLabel11))
+                    .addComponent(jLabel11)
+                    .addComponent(btRemoveOperation))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
@@ -248,7 +281,9 @@ public class Frame extends javax.swing.JFrame
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btAddPart)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(btAddPart)
+                                .addComponent(btRemovePart))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(cbParts, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel12)))
@@ -287,28 +322,39 @@ public class Frame extends javax.swing.JFrame
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
     {//GEN-HEADEREND:event_jButton1ActionPerformed
 
-        ArrayList<String> operations = new ArrayList<String>();
+        ArrayList<WorkPerformedInfo> workPerformed = new ArrayList<WorkPerformedInfo>();
 
-        for (int i = 0; i < cbOperations.getItemCount();i++)
+        for (int i = 0; i < cbOperations.getItemCount(); i++)
         {
-            operations.add((String)cbOperations.getItemAt(i));
+            workPerformed.add(new WorkPerformedInfo((String) cbOperations.getItemAt(i)));
         }
 
-        ArrayList<String> parts = new ArrayList<String>();
-        for (int i = 0; i < cbParts.getItemCount();i++)
+        ArrayList<PartInfo> parts = new ArrayList<PartInfo>();
+        for (int i = 0; i < cbParts.getItemCount(); i++)
         {
-            parts.add((String)cbParts.getItemAt(i));
+            parts.add(new PartInfo((String) cbParts.getItemAt(i)));
         }
-        OrderRequest o = new OrderRequest(tfClient.getText(), tfContactName.getText(), tfContactPhone.getText(), tfShippingStreet.getText(), tfShippingNumber.getText(), tfShippingPlace.getText(), tfShippingPlace.getText(), operations, parts);
 
+        ClientOrderRequest clientOrderRequest = new ClientOrderRequest(tfClient.getText(), tfContactName.getText(), tfContactPhone.getText(), tfShippingStreet.getText(), tfShippingNumber.getText(), tfShippingPlace.getText(), tfShippingPlace.getText(), workPerformed, parts);
+        System.out.println("Request created..." + clientOrderRequest.getClientName());
         String comments = tfComments.getText();
-        if(comments.length() != 0 && comments != null)
-           
+        if (comments.length() != 0 && comments != null)
         {
-           o.setComments(comments); 
+            clientOrderRequest.setComments(comments);
         }
-        
+        System.out.println("Sending request");
+        cTest.sendOrderRequest(clientOrderRequest);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btRemoveOperationActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btRemoveOperationActionPerformed
+    {//GEN-HEADEREND:event_btRemoveOperationActionPerformed
+        cbOperations.removeItem(cbOperations.getSelectedItem());
+    }//GEN-LAST:event_btRemoveOperationActionPerformed
+
+    private void btRemovePartActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btRemovePartActionPerformed
+    {//GEN-HEADEREND:event_btRemovePartActionPerformed
+        cbParts.removeItem(cbParts.getSelectedItem());
+    }//GEN-LAST:event_btRemovePartActionPerformed
 
     /**
      * @param args the command line arguments
@@ -332,16 +378,16 @@ public class Frame extends javax.swing.JFrame
             }
         } catch (ClassNotFoundException ex)
         {
-            java.util.logging.Logger.getLogger(Frame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FontysAppFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex)
         {
-            java.util.logging.Logger.getLogger(Frame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FontysAppFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex)
         {
-            java.util.logging.Logger.getLogger(Frame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FontysAppFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex)
         {
-            java.util.logging.Logger.getLogger(Frame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FontysAppFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -350,13 +396,15 @@ public class Frame extends javax.swing.JFrame
         {
             public void run()
             {
-                new Frame().setVisible(true);
+                //new FontysAppFrame().setVisible(true);
             }
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAddOperation;
     private javax.swing.JButton btAddPart;
+    private javax.swing.JButton btRemoveOperation;
+    private javax.swing.JButton btRemovePart;
     private javax.swing.JComboBox cbOperations;
     private javax.swing.JComboBox cbParts;
     private javax.swing.JButton jButton1;
