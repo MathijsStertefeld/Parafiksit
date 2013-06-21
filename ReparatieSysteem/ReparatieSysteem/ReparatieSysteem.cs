@@ -16,7 +16,6 @@ namespace ReparatieSysteem
         public ReparatieSysteem()
         {
             database = new OracleDatabase();
-            //mailServer = new MailServer();
             mailServer = new GMailServer();
         }
 

@@ -4,7 +4,7 @@
  */
 package com.marbl.fontysapp.jms;
 
-import com.marbl.fontysapp.domain.Order;
+import com.marbl.fontysapp.domain.OrderRequest;
 
 /**
  *
@@ -12,7 +12,7 @@ import com.marbl.fontysapp.domain.Order;
  */
 public class Sender
 {
-    public Sender(Order o)
+    public Sender(OrderRequest o)
     {
         
     }

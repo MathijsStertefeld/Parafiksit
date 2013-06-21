@@ -3,16 +3,13 @@ package com.marbl.warehouse.dao;
 import com.marbl.warehouse.domain.Factuur;
 import com.marbl.warehouse.domain.FactuurRegel;
 import com.marbl.warehouse.domain.IFactuur;
-import com.marbl.warehouse.domain.IFactuur;
-import com.marbl.warehouse.domain.IFactuurRegel;
 import com.marbl.warehouse.domain.IFactuurRegel;
 import com.marbl.warehouse.domain.IKlant;
-import com.marbl.warehouse.domain.IKlant;
-import com.marbl.warehouse.domain.IOnderdeel;
 import com.marbl.warehouse.domain.IOnderdeel;
 import com.marbl.warehouse.domain.Klant;
 import com.marbl.warehouse.domain.Onderdeel;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -23,7 +20,6 @@ import java.util.ArrayList;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 
 public class DatabaseConnectie {
 
@@ -53,7 +49,7 @@ public class DatabaseConnectie {
      * Maakt een nieuw databaseConnectie-object. Zoekt connectie met de database
      * met de properties die op worden gehaald uit de file: db.properties.
      */
-    public DatabaseConnectie() {
+    public DatabaseConnectie() throws ClassNotFoundException {
         try {
             Properties pr = new Properties();
             pr.load(new FileInputStream("src/main/resources/db.properties"));
@@ -61,12 +57,11 @@ public class DatabaseConnectie {
             username = pr.getProperty("Username");
             password = pr.getProperty("Password");
             url = "jdbc:oracle:thin:@" + serverEnPort + ":xe";
-            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Class.forName("oracle.jdbc.OracleDriver");
             conn = DriverManager.getConnection(url, this.username, this.password);
             conn.setAutoCommit(true);
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "De database connectie is niet goed verlopen, fout bij IP:Port, Username of Password! \r\n" + ex.getMessage(), "Database - Error!", JOptionPane.ERROR_MESSAGE);
-            System.exit(0);
+        } catch (IOException | SQLException ex) {
+            Logger.getLogger(DatabaseConnectie.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -78,7 +73,7 @@ public class DatabaseConnectie {
      * leeg is wordt een lege lijst gereturneerd.
      */
     public ArrayList<IOnderdeel> GetOnderdelen() {
-        ArrayList<IOnderdeel> ond = new ArrayList<IOnderdeel>();
+        ArrayList<IOnderdeel> ond = new ArrayList<>();
         Statement st = null;
         ResultSet rs = null;
         try {
@@ -112,7 +107,7 @@ public class DatabaseConnectie {
      * tabel leeg is wordt een lege lijst gereturneerd.
      */
     public ArrayList<IFactuurRegel> getFactuurRegels() {
-        ArrayList<IFactuurRegel> frs = new ArrayList<IFactuurRegel>();
+        ArrayList<IFactuurRegel> frs = new ArrayList<>();
         Statement st = null;
         ResultSet rs = null;
         try {
@@ -145,7 +140,7 @@ public class DatabaseConnectie {
      * leeg is wordt een lege lijst gereturneerd.
      */
     public ArrayList<IFactuur> GetFacturen() {
-        ArrayList<IFactuur> facturen = new ArrayList<IFactuur>();
+        ArrayList<IFactuur> facturen = new ArrayList<>();
         ArrayList<IFactuurRegel> regels = getFactuurRegels();
         ResultSet rs;
         Statement st = null;
@@ -158,7 +153,7 @@ public class DatabaseConnectie {
                 int code = rs.getInt("FactuurCode");
                 int klantid = rs.getInt("KlantId");
                 String datum = rs.getString("Datum");
-                ArrayList<IFactuurRegel> regelz = new ArrayList<IFactuurRegel>();
+                ArrayList<IFactuurRegel> regelz = new ArrayList<>();
                 for (IFactuurRegel rgl : regels) {
                     if (rgl.getFactuurId() == code) {
                         regelz.add(rgl);
@@ -187,7 +182,7 @@ public class DatabaseConnectie {
      * is wordt een lege lijst gereturneerd.
      */
     public ArrayList<IKlant> GetKlanten() {
-        ArrayList<IKlant> klanten = new ArrayList<IKlant>();
+        ArrayList<IKlant> klanten = new ArrayList<>();
         ResultSet rs = null;
         Statement st = null;
         try {
@@ -195,7 +190,7 @@ public class DatabaseConnectie {
             String sql = "SELECT * FROM KLANT";
             rs = st.executeQuery(sql);
             while (rs.next()) {
-                int code = rs.getInt("Id");
+                int code = rs.getInt("KlantId");
                 String naam = rs.getString("Naam");
                 String adres = rs.getString("Adres");
                 IKlant kl = new Klant(code, naam, adres);

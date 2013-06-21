@@ -12,6 +12,11 @@ namespace ReparatieSysteem
 
         public OracleDatabase()
         {
+            //string host = "127.0.0.1";
+            //string SID = "XE";
+            //string password = "appel";
+            //string user = "PTS22";
+
             string host = "192.168.30.175";
             string SID = "XE";
             string password = "wachtwoord";
@@ -744,7 +749,6 @@ namespace ReparatieSysteem
             }
             catch (OracleException e)
             {
-                Console.WriteLine(e + "\n" + e.Message);
                 return null;
             }
             finally
