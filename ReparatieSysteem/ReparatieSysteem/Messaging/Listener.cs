@@ -14,6 +14,7 @@ namespace JMSTest
         public void OnMessage(IMessage message)
         {
             ITextMessage textMessage = message as ITextMessage;
+
             Console.WriteLine(textMessage.Text);
         }
     }

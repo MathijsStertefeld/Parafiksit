@@ -36,6 +36,7 @@ namespace ReparatieSysteem.Messaging
             try
             {
                 template.ConvertAndSend(DESTINATION, message);
+
             }
             catch (Exception e)
             {
