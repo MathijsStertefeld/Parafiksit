@@ -31,7 +31,7 @@ public class ShippingAddress {
         return place;
     }
     
-    public ShippingAddress(String street, String number, String PostalCode, String Place){
+    public ShippingAddress(String street, String number, String postalCode, String place){
         this.street = street;
         this.number = number;
         this.postalCode = postalCode;

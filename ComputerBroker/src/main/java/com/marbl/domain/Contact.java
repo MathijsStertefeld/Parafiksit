@@ -2,13 +2,13 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.marbl.client;
+package com.marbl.domain;
 
 /**
  *
  * @author Leslie Aerts
  */
-class Contact
+public class Contact
 {
     private String contactName;
     private String contactPhone;

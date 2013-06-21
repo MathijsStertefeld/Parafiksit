@@ -4,6 +4,7 @@
  */
 package com.marbl.client;
 
+import com.marbl.fontysapp.domain.Contact;
 import com.marbl.fontysapp.domain.PartInfo;
 import com.marbl.fontysapp.domain.ShippingAddress;
 import com.marbl.fontysapp.domain.WorkPerformedInfo;
@@ -26,8 +27,8 @@ public class ClientOrderRequest
     public ClientOrderRequest(String clientName, String contactName, String contactPhone, String shippingStreet, String shippingNumber, String shippingPlace, String shippingPostalCode, ArrayList<WorkPerformedInfo> operations, ArrayList<PartInfo> parts)
     {
         this.clientName = clientName;
-        this.contact = new Contact(contactName,contactPhone);
-        this.shippingAddress = new ShippingAddress(shippingStreet, shippingNumber, shippingPostalCode,shippingPlace);
+        this.contact = new Contact(contactName, contactPhone);
+        this.shippingAddress = new ShippingAddress(shippingStreet, shippingNumber, shippingPostalCode, shippingPlace);
         this.operations = operations;
         this.parts = parts;
     }
@@ -51,8 +52,6 @@ public class ClientOrderRequest
     {
         this.contact = contact;
     }
-    
-    
 
     public String getComments()
     {
@@ -92,6 +91,23 @@ public class ClientOrderRequest
     public ArrayList<WorkPerformedInfo> getOperations()
     {
         return operations;
+    }
+
+    public String getString()
+    {
+        return clientName + " " + comments;
+    }
+
+    public boolean containsParts()
+    {
+        if (parts.size() > 0)
+        {
+            return true;
+
+        } else
+        {
+            return false;
+        }
     }
 
 }
