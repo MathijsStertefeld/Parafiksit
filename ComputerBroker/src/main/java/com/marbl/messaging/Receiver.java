@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 import javax.jms.JMSException;
 import javax.jms.MessageConsumer;
 import javax.jms.MessageListener;
+import javax.jms.Queue;
 import javax.naming.NamingException;
 
 /**
@@ -22,7 +23,8 @@ public class Receiver extends Channel implements IReceiver{
     public Receiver(String connectionName, String destinationName) throws NamingException, JMSException
     {        
         super(connectionName, destinationName); 
-        consumer = session.createConsumer(destination);        
+        //consumer = session.createConsumer(destination);        
+        consumer = session.createConsumer((Queue)jndiContext.lookup(destinationName));
     }    
 
     public void setMessageListener(MessageListener listener) {

@@ -4,6 +4,7 @@
  */
 package com.marbl.messaging;
 
+import java.util.Properties;
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
 import javax.jms.Destination;
@@ -23,8 +24,18 @@ public class Channel implements IChannel {
     protected Session session;
     protected Destination destination;
     
+    Context jndiContext;
+    
     public Channel(String connectionName, String destinationName) throws NamingException, JMSException {
-        Context jndiContext = new InitialContext();
+        
+        Properties properties = new Properties();
+        //properties.setProperty("java.naming.factory.initial", "com.sun.enterprise.naming.SerialInitContextFactory");
+        //properties.setProperty("java.naming.factory.url.pkgs", "com.sun.enterprise.naming");
+        //properties.setProperty("java.naming.factory.state", "com.sun.corba.ee.impl.presentation.rmi.JNDIStateFactoryImpl");
+        properties.setProperty("org.omg.CORBA.ORBInitialHost", "145.93.48.80");
+        properties.setProperty("org.omg.CORBA.ORBInitialPort", "7676"); //3700
+        
+        jndiContext = new InitialContext(properties);
 
         ConnectionFactory connectionFactory = (ConnectionFactory) jndiContext.lookup(connectionName);
         connection = connectionFactory.createConnection();

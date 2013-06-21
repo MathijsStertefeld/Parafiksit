@@ -36,20 +36,20 @@ public class RunMessaging {
             final String parafiksitStatusRequestQueue = queueNames.get(JMSSettings.PARAFIKSIT_STATUS_REQUEST);
             final String parafiksitStatusReplyQueue = queueNames.get(JMSSettings.PARAFIKSIT_STATUS_REPLY);
             
-            ComputerBroker broker = new ComputerBroker(factoryName, clientOrderRequestQueue, parafiksitOrderRequestQueue, 
-                    parafiksitOrderReplyQueue, warehouseOrderRequestQueue, warehouseOrderReplyQueue, clientStatusRequestQueue,
-                    parafiksitStatusRequestQueue, parafiksitStatusReplyQueue);
+            //ComputerBroker broker = new ComputerBroker(factoryName, clientOrderRequestQueue, parafiksitOrderRequestQueue, 
+            //         parafiksitOrderReplyQueue, warehouseOrderRequestQueue, warehouseOrderReplyQueue, clientStatusRequestQueue,
+            //       parafiksitStatusRequestQueue, parafiksitStatusReplyQueue);
             
-            ClientTest client = new ClientTest("Client", factoryName, clientOrderRequestQueue, clientOrderReplyQueue);
+            ClientTest client = new ClientTest("basClient", factoryName, clientOrderRequestQueue, clientOrderReplyQueue);
             
-            ParafiksitTest para = new ParafiksitTest(factoryName, parafiksitOrderRequestQueue, parafiksitOrderReplyQueue);
+            //ParafiksitTest para = new ParafiksitTest(factoryName, parafiksitOrderRequestQueue, parafiksitOrderReplyQueue);
             
-            WarehouseTest warehouse = new WarehouseTest(factoryName, warehouseOrderRequestQueue, warehouseOrderReplyQueue);
+            //WarehouseTest warehouse = new WarehouseTest(factoryName, warehouseOrderRequestQueue, warehouseOrderReplyQueue);
             
-            broker.start();
+            //broker.start();
             client.start();
-            para.start();
-            warehouse.start();
+            //para.start();
+            //warehouse.start();
             
             client.sendOrderRequest(new ClientOrderRequest("Vanaf=" + client.getClientName()));
             

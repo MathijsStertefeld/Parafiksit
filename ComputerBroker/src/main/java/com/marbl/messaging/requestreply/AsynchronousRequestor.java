@@ -61,7 +61,6 @@ public class AsynchronousRequestor<REQUEST, REPLY> {
         super();
         this.serializer = serializer;
         this.listeners = new Hashtable<String, Pair>();
-        //......factoryname moet nog iets mee......
         gateway = new MessagingGateway(factoryName, requestSenderQueue, replyReceiverQueue);
         gateway.setReceivedMessageListener(new MessageListener() {
 
@@ -98,7 +97,6 @@ public class AsynchronousRequestor<REQUEST, REPLY> {
             message.setJMSReplyTo(gateway.getReceiverDestination());
             gateway.sendMessage(message);
             listeners.put(message.getJMSMessageID(), new Pair(listener, request));
-            //System.out.println(message);
         } catch (JMSException ex) {
             Logger.getLogger(AsynchronousRequestor.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -117,12 +115,9 @@ public class AsynchronousRequestor<REQUEST, REPLY> {
      */
     private synchronized void onReply(TextMessage message) {
         try {
-            System.out.println("REPLYING!");
-            System.out.println("JMS COR ID: " + message.getJMSCorrelationID());
             Pair pair = listeners.get(message.getJMSCorrelationID());
             REPLY reply = serializer.replyFromString(message.getText());
             pair.listener.onReply(pair.request, reply);
-            System.out.println("asynch requestor trying to remove corID from listener");
             listeners.remove(message.getJMSCorrelationID());
         } catch (JMSException ex) {
             Logger.getLogger(AsynchronousRequestor.class.getName()).log(Level.SEVERE, null, ex);

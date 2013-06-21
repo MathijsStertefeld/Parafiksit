@@ -10,6 +10,7 @@ import javax.jms.Destination;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageProducer;
+import javax.jms.Queue;
 import javax.jms.TextMessage;
 import javax.naming.NamingException;
 
@@ -24,7 +25,8 @@ private MessageProducer producer;
     public Sender(String connectionName, String destinationName) throws NamingException, JMSException
     {
         super(connectionName, destinationName);  
-        producer = session.createProducer(destination);
+        //producer = session.createProducer(destination);
+        producer = session.createProducer((Queue)jndiContext.lookup(destinationName));
     }
       
     public TextMessage createMessage(String body) throws JMSException {

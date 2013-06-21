@@ -14,6 +14,7 @@ public class ClientTest {
     private ComputerBrokerOrderGateway orderGateway;
     
     public ClientTest(String clientName, String factoryName, String requestQueue, String replyQueue){
+        this.clientName = clientName;
         orderGateway = new ComputerBrokerOrderGateway(factoryName, requestQueue, replyQueue) {
 
             @Override

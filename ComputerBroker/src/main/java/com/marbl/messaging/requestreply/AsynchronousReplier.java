@@ -89,7 +89,6 @@ public abstract class AsynchronousReplier<REQUEST, REPLY> {
      * @param message the incomming message containing the request
      */
     private synchronized void onRequest(TextMessage message) throws JMSException {
-        System.out.println("Request received in asyncreplier");
         REQUEST request = serializer.requestFromString(message.getText());
         activeRequests.put(request, message);
         requestListener.receivedRequest(request);

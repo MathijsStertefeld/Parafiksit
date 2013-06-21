@@ -91,7 +91,7 @@ abstract class OrderRequestProcess {
 
     private WarehouseRequest createWarehouseRequest(ClientOrderRequest cRequest, ParafiksitOrderReply pReply) {
         //Check welke parts ordered moeten worden!
-        return new WarehouseRequest(pReply + "C"); //geef parameters mee uit cRequest en pReply
+        return new WarehouseRequest(pReply.getString() + "C"); //geef parameters mee uit cRequest en pReply
     }
 
     private void onWarehouseReply(WarehouseReply whReply) {
@@ -115,7 +115,7 @@ abstract class OrderRequestProcess {
         //Hier parafiksit en warehouse (als niet null) replys gebruiken
         // om reply te maken
         
-        return new ClientOrderReply(whReply + "D");
+        return new ClientOrderReply(whReply.getString() + "D");
     }
     
     private ClientOrderReply createClientReply(ClientOrderRequest cRequest, ParafiksitOrderReply pReply) {

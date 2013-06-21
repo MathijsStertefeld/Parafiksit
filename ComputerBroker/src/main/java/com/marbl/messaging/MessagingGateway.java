@@ -24,16 +24,12 @@ public class MessagingGateway {
     
     private ISender sender;
     private IReceiver receiver;
-    private String senderName;
-    private String receiverName;
     
     public MessagingGateway(String factoryName, String senderName, String receiverName)
     {
         try {            
             receiver = new Receiver(factoryName, receiverName);
             sender = new Sender(factoryName, senderName);
-            this.senderName = senderName;
-            this.receiverName = receiverName;
         } catch (NamingException ex) {
             Logger.getLogger(MessagingGateway.class.getName()).log(Level.SEVERE, null, ex);
         } catch (JMSException ex) {
@@ -46,9 +42,6 @@ public class MessagingGateway {
         try {
             receiver = new Receiver(factoryName, receiverName);
             sender = new Sender(factoryName, null);
-            System.out.println("MessagingGateway constructer met 2 argumenten aangeroepen. Check of dit klopt!");
-            this.senderName = "geen zender!";
-            this.receiverName = receiverName;
         } catch (NamingException ex) {
             Logger.getLogger(MessagingGateway.class.getName()).log(Level.SEVERE, null, ex);
         } catch (JMSException ex) {
@@ -60,7 +53,6 @@ public class MessagingGateway {
     {
         try {
             sender.sendMessage(message);
-            System.out.println("      Sender + receiver: " + senderName + " - " + receiverName);
             return true;
         } catch (JMSException ex) {
             Logger.getLogger(MessagingGateway.class.getName()).log(Level.SEVERE, null, ex);
@@ -73,7 +65,6 @@ public class MessagingGateway {
     {
         try {
             sender.sendMessage(message, destination);
-             System.out.println("      (Destination)Sender + receiver: " + senderName + " - " + receiverName);
             return true;
         } catch (JMSException ex) {
             Logger.getLogger(MessagingGateway.class.getName()).log(Level.SEVERE, null, ex);
