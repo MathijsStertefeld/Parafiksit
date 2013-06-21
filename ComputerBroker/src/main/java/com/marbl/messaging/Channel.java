@@ -36,6 +36,7 @@ public class Channel implements IChannel {
         properties.setProperty("org.omg.CORBA.ORBInitialPort", "7676"); //3700
         
         jndiContext = new InitialContext(properties);
+        //jndiContext = new InitialContext();
 
         ConnectionFactory connectionFactory = (ConnectionFactory) jndiContext.lookup(connectionName);
         connection = connectionFactory.createConnection();

@@ -9,7 +9,8 @@ package com.marbl.client;
  * @author Bas
  */
 public class ClientOrderRequest {
-        private String string;
+    
+    private String string;
     
     public ClientOrderRequest(String s){
         string = s;
@@ -22,5 +23,9 @@ public class ClientOrderRequest {
     
     public void setString(String s){
         string = s;
+    }
+    
+    public Boolean containsParts(){
+        return true;//placeholder
     }
 }
