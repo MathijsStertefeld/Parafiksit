@@ -204,6 +204,7 @@
             this.btZoekenSnel = new System.Windows.Forms.Button();
             this.lbTicketnummerSnel = new System.Windows.Forms.Label();
             this.btUitloggen = new System.Windows.Forms.Button();
+            this.sendButton = new System.Windows.Forms.Button();
             this.gbLogIn.SuspendLayout();
             this.gbAlles.SuspendLayout();
             this.tbKlant.SuspendLayout();
@@ -2027,12 +2028,23 @@
             this.btUitloggen.UseVisualStyleBackColor = true;
             this.btUitloggen.Click += new System.EventHandler(this.btUitloggen_Click);
             // 
+            // sendButton
+            // 
+            this.sendButton.Location = new System.Drawing.Point(12, 12);
+            this.sendButton.Name = "sendButton";
+            this.sendButton.Size = new System.Drawing.Size(75, 23);
+            this.sendButton.TabIndex = 7;
+            this.sendButton.Text = "Send";
+            this.sendButton.UseVisualStyleBackColor = true;
+            this.sendButton.Click += new System.EventHandler(this.sendButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.ClientSize = new System.Drawing.Size(1008, 732);
+            this.Controls.Add(this.sendButton);
             this.Controls.Add(this.btUitloggen);
             this.Controls.Add(this.lbTicketnummerSnel);
             this.Controls.Add(this.btZoekenSnel);
@@ -2263,6 +2275,7 @@
         private System.Windows.Forms.ListBox lbFacturen;
         private System.Windows.Forms.GroupBox gbMedLijst;
         private System.Windows.Forms.ListBox lbMedewerkers;
+        private System.Windows.Forms.Button sendButton;
 
     }
 }

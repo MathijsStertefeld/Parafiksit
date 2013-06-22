@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Net.Mail;
 using ReparatieSysteem.Mail;
+using ReparatieSysteem.Messaging;
 
 namespace ReparatieSysteem
 {
@@ -11,12 +12,15 @@ namespace ReparatieSysteem
     {
         private IDatabase database;
         private IMailServer mailServer;
+        private JMSHandler jmsHandler;
 
         //constructor
         public ReparatieSysteem()
         {
             database = new OracleDatabase();
             mailServer = new GMailServer();
+            jmsHandler = new JMSHandler();
+
         }
 
         //returnt false als de gebruikersnaam en/of pw niet kloppen
@@ -213,6 +217,11 @@ namespace ReparatieSysteem
         public List<Medewerker> GetMedewerkers()
         {
             return database.GetMedewerkers();
+        }
+
+        public void sendMessage(string message)
+        {
+            jmsHandler.Send(message);
         }
     }
 }

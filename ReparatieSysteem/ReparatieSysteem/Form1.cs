@@ -1364,7 +1364,12 @@ namespace ReparatieSysteem
             tbAfdelingMedewerkerAdmin.Text = m.Filiaal;
             tbPaswoordAdmin.Text = m.Password;
             tbTelefoonnummerAdmin.Text = m.Telefoon;
-        }            
+        }
+
+        private void sendButton_Click(object sender, EventArgs e)
+        {
+            reparatieSysteem.sendMessage("Test123");
+        }    
                
     }
 }
