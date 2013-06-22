@@ -1,6 +1,8 @@
 package com.marbl.warehouse.gui;
 
 import com.marbl.messaging.JMSSettings;
+import com.marbl.warehouse.WarehouseReply;
+import com.marbl.warehouse.WarehouseTest;
 import java.sql.SQLException;
 import org.jdesktop.application.Application;
 import org.jdesktop.application.SingleFrameApplication;
@@ -18,15 +20,18 @@ public class MagazijnApplicatieApp extends SingleFrameApplication {
             JMSSettings queueNames = new JMSSettings("src/main/resources/MESSAGING_CHANNELS.ini");
             final String factoryName = queueNames.get(JMSSettings.CONNECTION);
             //CLIENTS & BROKER
-            final String clientRequestQueue = queueNames.get(JMSSettings.CLIENT_REQUEST);
-            final String clientReplyQueue = queueNames.get(JMSSettings.CLIENT_REPLY);
-            final String client2ReplyQueue = queueNames.get(JMSSettings.CLIENT_REPLY_2);
-            //PARAFIKSIT & BROKER
-            final String parafiksitRequestQueue = queueNames.get(JMSSettings.PARAFIKSIT_REQUEST);
-            final String parafiksitReplyQueue = queueNames.get(JMSSettings.PARAFIKSIT_REPLY);
+//            final String clientRequestQueue = queueNames.get(JMSSettings.CLIENT_REQUEST);
+//            final String clientReplyQueue = queueNames.get(JMSSettings.CLIENT_REPLY);
+//            final String client2ReplyQueue = queueNames.get(JMSSettings.CLIENT_REPLY_2);
+//            //PARAFIKSIT & BROKER
+//            final String parafiksitRequestQueue = queueNames.get(JMSSettings.PARAFIKSIT_REQUEST);
+//            final String parafiksitReplyQueue = queueNames.get(JMSSettings.PARAFIKSIT_REPLY);
             //WAREHOUSE & BROKER
             final String warehouseRequestQueue = queueNames.get(JMSSettings.WAREHOUSE_REQUEST);
             final String warehouseReplyQueue = queueNames.get(JMSSettings.WAREHOUSE_REPLY);
+            
+            WarehouseTest warehouse = new WarehouseTest(factoryName, warehouseRequestQueue, warehouseReplyQueue);
+            warehouse.start();
         } catch (SQLException ex) {
             System.err.println(ex);
             exit();

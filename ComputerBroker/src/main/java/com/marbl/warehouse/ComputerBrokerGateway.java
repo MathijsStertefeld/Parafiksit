@@ -25,7 +25,7 @@ abstract class ComputerBrokerGateway {
             gateway = new AsynchronousReplier<WarehouseRequest, WarehouseReply>(factoryName, warehouseRequestQueue, serializer) {
                 @Override
                 public void beforeSendReply(Message request, Message reply) {
-                    //niks doen
+                    //???????
                 }
             };
         } catch (Exception ex) {
@@ -35,7 +35,6 @@ abstract class ComputerBrokerGateway {
         gateway.setRequestListener(new IRequestListener<WarehouseRequest>() {
 
             public void receivedRequest(WarehouseRequest request) {
-                System.out.println("warehouse received request");
                 receivedWarehouseRequest(request);
             }
         });
@@ -50,7 +49,6 @@ abstract class ComputerBrokerGateway {
     
     void sendReply(WarehouseRequest request, WarehouseReply reply)
     {
-        System.out.println("Warehouse sending reply");
         gateway.sendReply(request, reply);
     }
     

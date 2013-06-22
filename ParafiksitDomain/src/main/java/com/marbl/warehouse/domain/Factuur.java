@@ -77,4 +77,11 @@ public class Factuur implements Serializable {
     public ArrayList<FactuurRegel> getRegels() {
         return regels;
     }
+
+    public void setRegels(ArrayList<FactuurRegel> regels)
+    {
+        this.regels = regels;
+    }
+    
+    
 }

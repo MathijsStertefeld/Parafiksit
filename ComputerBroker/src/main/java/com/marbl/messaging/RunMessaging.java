@@ -2,7 +2,6 @@ package com.marbl.messaging;
 
 import com.marbl.computerbroker.ComputerBroker;
 import com.marbl.parafiksit.ParafiksitTest;
-import com.marbl.warehouse.WarehouseTest;
 
 /**
  * This application tests the LoanBroker system.
@@ -44,12 +43,12 @@ public class RunMessaging
 
             ParafiksitTest para = new ParafiksitTest(factoryName, parafiksitOrderRequestQueue, parafiksitOrderReplyQueue);
 
-            WarehouseTest warehouse = new WarehouseTest(factoryName, warehouseOrderRequestQueue, warehouseOrderReplyQueue);
+            //WarehouseTest warehouse = new WarehouseTest(factoryName, warehouseOrderRequestQueue, warehouseOrderReplyQueue);
 
             broker.start();
             //client.start();
             para.start();
-            warehouse.start();
+            //warehouse.start();
 
             //client.sendOrderRequest(new ClientOrderRequest("Vanaf=" + client.getClientName()));
 

@@ -11,6 +11,7 @@ import com.marbl.parafiksit.ParafiksitOrderReply;
 import com.marbl.parafiksit.ParafiksitOrderRequest;
 import com.marbl.warehouse.WarehouseReply;
 import com.marbl.warehouse.WarehouseRequest;
+import java.util.ArrayList;
 
 /**
  *
@@ -77,7 +78,7 @@ abstract class OrderRequestProcess {
     
     private WarehouseRequest createWarehouseRequest(ClientOrderRequest cRequest) {
         //Check welke parts ordered moeten worden!
-        return new WarehouseRequest(cRequest.getString()); //geef parameters mee uit cRequest (onderdelen)
+        return new WarehouseRequest(cRequest.getContact(),cRequest.getShippingAddress(),(ArrayList)cRequest.getParts()); //geef parameters mee uit cRequest (onderdelen)
     }
     
     private void onWarehouseReply(WarehouseReply whReply) {
