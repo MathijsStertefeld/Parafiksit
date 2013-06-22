@@ -28,15 +28,15 @@ public class Channel implements IChannel {
     
     public Channel(String connectionName, String destinationName) throws NamingException, JMSException {
         
-        Properties properties = new Properties();
+        //Properties properties = new Properties();
         //properties.setProperty("java.naming.factory.initial", "com.sun.enterprise.naming.SerialInitContextFactory");
         //properties.setProperty("java.naming.factory.url.pkgs", "com.sun.enterprise.naming");
         //properties.setProperty("java.naming.factory.state", "com.sun.corba.ee.impl.presentation.rmi.JNDIStateFactoryImpl");
-        properties.setProperty("org.omg.CORBA.ORBInitialHost", "145.93.48.80");
-        properties.setProperty("org.omg.CORBA.ORBInitialPort", "7676"); //3700
+        //properties.setProperty("org.omg.CORBA.ORBInitialHost", "145.93.48.239");
+        //properties.setProperty("org.omg.CORBA.ORBInitialPort", "7676"); //3700
         
-        jndiContext = new InitialContext(properties);
-        //jndiContext = new InitialContext();
+        //jndiContext = new InitialContext(properties);
+        jndiContext = new InitialContext();
 
         ConnectionFactory connectionFactory = (ConnectionFactory) jndiContext.lookup(connectionName);
         connection = connectionFactory.createConnection();

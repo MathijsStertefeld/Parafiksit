@@ -23,8 +23,8 @@ public class Receiver extends Channel implements IReceiver{
     public Receiver(String connectionName, String destinationName) throws NamingException, JMSException
     {        
         super(connectionName, destinationName); 
-        //consumer = session.createConsumer(destination);        
-        consumer = session.createConsumer((Queue)jndiContext.lookup(destinationName));
+        consumer = session.createConsumer(destination);        
+        //consumer = session.createConsumer((Queue)jndiContext.lookup(destinationName));
     }    
 
     public void setMessageListener(MessageListener listener) {
