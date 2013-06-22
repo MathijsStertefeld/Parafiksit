@@ -1,15 +1,15 @@
 package com.marbl.warehouse.domain;
 
-import com.marbl.warehouse.domain.IFactuurRegel;
+import java.io.Serializable;
 
-public class FactuurRegel implements IFactuurRegel {
+public class FactuurRegel implements Serializable {
 
     /**
-     * Het ID van de factuur.
+     * De code van de factuur.
      */
-    private int factuurId;
+    private int factuurCode;
     /**
-     * Het ID van het onderdeel.
+     * De code van het onderdeel.
      */
     private int onderdeelCode;
     /**
@@ -20,32 +20,32 @@ public class FactuurRegel implements IFactuurRegel {
     /**
      * Een nieuw FactuurRegel object met ingevoerde waardes.
      *
-     * @param factuurId
+     * @param factuurCode
      * @param onderdeelCode
      * @param aantal
      */
-    public FactuurRegel(int factuurId, int onderdeelCode, int aantal) {
-        this.factuurId = factuurId;
+    public FactuurRegel(int factuurCode, int onderdeelCode, int aantal) {
+        this.factuurCode = factuurCode;
         this.onderdeelCode = onderdeelCode;
         this.aantal = aantal;
     }
 
     /**
-     * Geeft het ID van de factuur.
+     * Geeft de code van de factuur.
      *
-     * @return Het ID van de factuur.
+     * @return De code van de factuur.
      */
-    public int getFactuurId() {
-        return this.factuurId;
+    public int getFactuurCode() {
+        return factuurCode;
     }
 
     /**
-     * Geeft het ID van het onderdeel.
+     * Geeft de code van het onderdeel.
      *
-     * @return Het ID van het onderdeel.
+     * @return De code van het onderdeel.
      */
     public int getOnderdeelCode() {
-        return this.onderdeelCode;
+        return onderdeelCode;
     }
 
     /**
@@ -54,6 +54,6 @@ public class FactuurRegel implements IFactuurRegel {
      * @return Het aantal van het onderdeel.
      */
     public int getAantal() {
-        return this.aantal;
+        return aantal;
     }
 }

@@ -1,11 +1,11 @@
 package com.marbl.warehouse.domain;
 
-import com.marbl.warehouse.domain.IOnderdeel;
+import java.io.Serializable;
 
-public class Onderdeel implements IOnderdeel {
+public class Onderdeel implements Serializable {
 
     /**
-     * De code(ID) van het onderdeel.
+     * De code van het onderdeel.
      */
     private int code;
     /**
@@ -37,9 +37,9 @@ public class Onderdeel implements IOnderdeel {
     }
 
     /**
-     * Geeft de code(ID) van het desbetreffende Onderdeel-object.
+     * Geeft de code van het desbetreffende Onderdeel-object.
      *
-     * @return De code(ID) van het desbetreffende Onderdeel-object.
+     * @return De code van het desbetreffende Onderdeel-object.
      */
     public int getCode() {
         return this.code;

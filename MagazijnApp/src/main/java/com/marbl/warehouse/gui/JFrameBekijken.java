@@ -1,11 +1,9 @@
 package com.marbl.warehouse.gui;
 
-import com.marbl.warehouse.domain.IFactuur;
-import com.marbl.warehouse.domain.IFactuurRegel;
-import com.marbl.warehouse.domain.IKlant;
-import com.marbl.warehouse.domain.IOnderdeel;
-import com.marbl.warehouse.gui.Magazijn;
-import com.marbl.warehouse.gui.Magazijn;
+import com.marbl.warehouse.domain.Factuur;
+import com.marbl.warehouse.domain.FactuurRegel;
+import com.marbl.warehouse.domain.Klant;
+import com.marbl.warehouse.domain.Onderdeel;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -21,9 +19,9 @@ public class JFrameBekijken extends javax.swing.JFrame implements ActionListener
 
     JComboBox jCbSelect;
     ArrayList<Component> componenten;
-    ArrayList<IKlant> klanten;
-    ArrayList<IOnderdeel> onderdelen;
-    ArrayList<IFactuur> facturen;
+    ArrayList<Klant> klanten;
+    ArrayList<Onderdeel> onderdelen;
+    ArrayList<Factuur> facturen;
     String soort;
     JOptionPane op;
     Magazijn main;
@@ -44,7 +42,7 @@ public class JFrameBekijken extends javax.swing.JFrame implements ActionListener
      * @param main Het hoofdmenu, zodat de setVisible methode weer veranderd kan
      * worden.
      */
-    public JFrameBekijken(String soort, ArrayList<IOnderdeel> onderdelen, ArrayList<IKlant> klanten, ArrayList<IFactuur> facturen, Magazijn main) {
+    public JFrameBekijken(String soort, ArrayList<Onderdeel> onderdelen, ArrayList<Klant> klanten, ArrayList<Factuur> facturen, Magazijn main) {
         initComponents();
         op = new JOptionPane();
         this.main = main;
@@ -52,31 +50,35 @@ public class JFrameBekijken extends javax.swing.JFrame implements ActionListener
         this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         this.setTitle("Onderdeel:");
         jBtClose.setText("Sluit Venster");
-        componenten = new ArrayList<Component>();
+        componenten = new ArrayList<>();
         jCbSelect = new JComboBox();
         jCbSelect.setBounds(20, 20, 200, 20);
         add(jCbSelect);
         jCbSelect.addActionListener(this);
-        try {
-            this.soort = soort;
-            this.onderdelen = onderdelen;
-            this.klanten = klanten;
-            this.facturen = facturen;
-            if (soort.equals("Klant")) {
-                for (IKlant kl : klanten) {
-                    jCbSelect.addItem(Integer.toString(kl.getId()) + ":   " + kl.getNaam());
+        
+        this.soort = soort;
+        this.onderdelen = onderdelen;
+        this.klanten = klanten;
+        this.facturen = facturen;
+        switch (soort) {
+            case "Klant": {
+                for (Klant kl : klanten) {
+                    jCbSelect.addItem(Integer.toString(kl.getCode()) + ":   " + kl.getNaam());
                 }
-            } else if (soort.equals("Onderdeel")) {
-                for (IOnderdeel ond : onderdelen) {
+                break;
+            }
+            case "Onderdeel": {
+                for (Onderdeel ond : onderdelen) {
                     jCbSelect.addItem(Integer.toString(ond.getCode()) + ":   " + ond.getOmschrijving());
                 }
-            } else if (soort.equals("Factuur")) {
-                for (IFactuur fact : facturen) {
-                    jCbSelect.addItem(Integer.toString(fact.getFactuurId()) + ":   " + fact.getDatum());
-                }
+                break;
             }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+            case "Factuur": {
+                for (Factuur fact : facturen) {
+                    jCbSelect.addItem(Integer.toString(fact.getCode()) + ":   " + fact.getDatum());
+                }
+                break;
+            }
         }
     }
 
@@ -142,96 +144,90 @@ public class JFrameBekijken extends javax.swing.JFrame implements ActionListener
      *
      * @param e Het event
      */
+    @Override
     public void actionPerformed(ActionEvent e) {
         Font font = new Font("Times New Roman", 1, 12);
         for (Component com : componenten) {
             this.remove(com);
         }
         componenten.clear();
-
-        if (soort.equals("Onderdeel")) {
-            JLabel lblID = new JLabel("ID:   " + onderdelen.get(jCbSelect.getSelectedIndex()).getCode());
-            lblID.setBounds(70, 60, 150, 30);
-            lblID.setFont(font);
-            componenten.add(lblID);
-            add(lblID);
-
-            JLabel lblOmschr = new JLabel("Omschrijving:   " + onderdelen.get(jCbSelect.getSelectedIndex()).getOmschrijving());
-            lblOmschr.setBounds(40, 90, 200, 30);
-            lblOmschr.setFont(font);
-            componenten.add(lblOmschr);
-            add(lblOmschr);
-
-            double pRijs = onderdelen.get(jCbSelect.getSelectedIndex()).getPrijs() / 100.00;
-            String prijs = String.format("%.2f", pRijs);
-            JLabel lbPrijs = new JLabel("Prijs:   €" + prijs);
-            lbPrijs.setBounds(80, 150, 150, 30);
-            lbPrijs.setFont(font);
-            componenten.add(lbPrijs);
-            add(lbPrijs);
-
-            JLabel lblAantal = new JLabel("Aantal:   " + onderdelen.get(jCbSelect.getSelectedIndex()).getAantal());
-            lblAantal.setBounds(80, 120, 150, 30);
-            lblAantal.setFont(font);
-            componenten.add(lblAantal);
-            add(lblAantal);
-
-            this.setTitle("Onderdeel: " + onderdelen.get(jCbSelect.getSelectedIndex()).getOmschrijving());
-        } else if (soort.equals("Klant")) {
-            JLabel lblID = new JLabel("ID:   " + klanten.get(jCbSelect.getSelectedIndex()).getId());
-            lblID.setBounds(70, 60, 150, 30);
-            lblID.setFont(font);
-            componenten.add(lblID);
-            add(lblID);
-
-            JLabel lbNaam = new JLabel("Naam:   " + klanten.get(jCbSelect.getSelectedIndex()).getNaam());
-            lbNaam.setBounds(60, 90, 200, 30);
-            lbNaam.setFont(font);
-            componenten.add(lbNaam);
-            add(lbNaam);
-
-            JLabel lbAdres = new JLabel("Adres:   " + klanten.get(jCbSelect.getSelectedIndex()).getAdres());
-            lbAdres.setBounds(60, 120, 150, 30);
-            lbAdres.setFont(font);
-            componenten.add(lbAdres);
-            add(lbAdres);
-
-            this.setTitle("Klant: " + klanten.get(jCbSelect.getSelectedIndex()).getNaam());
-        } else if (soort.equals("Factuur")) {
-            JLabel lbID = new JLabel("FactuurID:   " + facturen.get(jCbSelect.getSelectedIndex()).getFactuurId());
-            lbID.setBounds(40, 40, 150, 30);
-            lbID.setFont(font);
-            componenten.add(lbID);
-            add(lbID);
-
-            JLabel lbKlID = new JLabel("KlantID:   " + facturen.get(jCbSelect.getSelectedIndex()).getKlantId());
-            lbKlID.setBounds(40, 60, 150, 30);
-            lbKlID.setFont(font);
-            componenten.add(lbKlID);
-            add(lbKlID);
-
-            JLabel lbDatum = new JLabel("Datum:  " + facturen.get(jCbSelect.getSelectedIndex()).getDatum());
-            lbDatum.setBounds(40, 80, 150, 30);
-            lbDatum.setFont(font);
-            componenten.add(lbDatum);
-            add(lbDatum);
-
-            JLabel lbInfo = new JLabel("Onderdelen:");
-            lbInfo.setBounds(20, 108, 150, 30);
-            lbInfo.setFont(font);
-            componenten.add(lbInfo);
-            add(lbInfo);
-
-            JList list = new JList();
-            list.setBounds(20, 130, 200, 70);
-            list.setFont(font);
-            for (IFactuurRegel rl : facturen.get(jCbSelect.getSelectedIndex()).getOnderdelen()) {
-                AddListItem(list, "ID: " + rl.getOnderdeelCode() + "  Aantal: " + rl.getAantal());
+        switch (soort) {
+            case "Onderdeel": {
+                JLabel lblID = new JLabel("ID:   " + onderdelen.get(jCbSelect.getSelectedIndex()).getCode());
+                lblID.setBounds(70, 60, 150, 30);
+                lblID.setFont(font);
+                componenten.add(lblID);
+                add(lblID);
+                JLabel lblOmschr = new JLabel("Omschrijving:   " + onderdelen.get(jCbSelect.getSelectedIndex()).getOmschrijving());
+                lblOmschr.setBounds(40, 90, 200, 30);
+                lblOmschr.setFont(font);
+                componenten.add(lblOmschr);
+                add(lblOmschr);
+                double pRijs = onderdelen.get(jCbSelect.getSelectedIndex()).getPrijs() / 100.00;
+                String prijs = String.format("%.2f", pRijs);
+                JLabel lbPrijs = new JLabel("Prijs:   €" + prijs);
+                lbPrijs.setBounds(80, 150, 150, 30);
+                lbPrijs.setFont(font);
+                componenten.add(lbPrijs);
+                add(lbPrijs);
+                JLabel lblAantal = new JLabel("Aantal:   " + onderdelen.get(jCbSelect.getSelectedIndex()).getAantal());
+                lblAantal.setBounds(80, 120, 150, 30);
+                lblAantal.setFont(font);
+                componenten.add(lblAantal);
+                add(lblAantal);
+                this.setTitle("Onderdeel: " + onderdelen.get(jCbSelect.getSelectedIndex()).getOmschrijving());
+                break;
             }
-            componenten.add(list);
-            add(list);
-
-            this.setTitle("Factuur");
+            case "Klant": {
+                JLabel lblID = new JLabel("ID:   " + klanten.get(jCbSelect.getSelectedIndex()).getCode());
+                lblID.setBounds(70, 60, 150, 30);
+                lblID.setFont(font);
+                componenten.add(lblID);
+                add(lblID);
+                JLabel lbNaam = new JLabel("Naam:   " + klanten.get(jCbSelect.getSelectedIndex()).getNaam());
+                lbNaam.setBounds(60, 90, 200, 30);
+                lbNaam.setFont(font);
+                componenten.add(lbNaam);
+                add(lbNaam);
+                JLabel lbAdres = new JLabel("Adres:   " + klanten.get(jCbSelect.getSelectedIndex()).getAdres());
+                lbAdres.setBounds(60, 120, 150, 30);
+                lbAdres.setFont(font);
+                componenten.add(lbAdres);
+                add(lbAdres);
+                this.setTitle("Klant: " + klanten.get(jCbSelect.getSelectedIndex()).getNaam());
+                break;
+            }
+            case "Factuur":
+                JLabel lbID = new JLabel("FactuurCode:   " + facturen.get(jCbSelect.getSelectedIndex()).getCode());
+                lbID.setBounds(40, 40, 150, 30);
+                lbID.setFont(font);
+                componenten.add(lbID);
+                add(lbID);
+                JLabel lbKlID = new JLabel("KlantID:   " + facturen.get(jCbSelect.getSelectedIndex()).getKlantCode());
+                lbKlID.setBounds(40, 60, 150, 30);
+                lbKlID.setFont(font);
+                componenten.add(lbKlID);
+                add(lbKlID);
+                JLabel lbDatum = new JLabel("Datum:  " + facturen.get(jCbSelect.getSelectedIndex()).getDatum());
+                lbDatum.setBounds(40, 80, 150, 30);
+                lbDatum.setFont(font);
+                componenten.add(lbDatum);
+                add(lbDatum);
+                JLabel lbInfo = new JLabel("Onderdelen:");
+                lbInfo.setBounds(20, 108, 150, 30);
+                lbInfo.setFont(font);
+                componenten.add(lbInfo);
+                add(lbInfo);
+                JList list = new JList();
+                list.setBounds(20, 130, 200, 70);
+                list.setFont(font);
+                for (FactuurRegel rl : facturen.get(jCbSelect.getSelectedIndex()).getRegels()) {
+                    AddListItem(list, "ID: " + rl.getOnderdeelCode() + "  Aantal: " + rl.getAantal());
+                }
+                componenten.add(list);
+                add(list);
+                this.setTitle("Factuur");
+                break;
         }
         this.repaint();
     }

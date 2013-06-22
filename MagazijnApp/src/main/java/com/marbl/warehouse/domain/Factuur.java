@@ -1,46 +1,63 @@
 package com.marbl.warehouse.domain;
 
-import com.marbl.warehouse.domain.IFactuur;
-import com.marbl.warehouse.domain.IFactuurRegel;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Factuur implements IFactuur {
+public class Factuur implements Serializable {
 
+    /**
+     * De code van de factuur.
+     */
+    private int code;
+    /**
+     * Het code van de klant.
+     */
+    private int klantCode;
     /**
      * De datum van het factuur.
      */
     private String datum;
     /**
-     * Het ID van de klant.
+     * De lijst met FactuurRegel-objecten (bevat Onderdeel + aantal).
      */
-    private int klantId;
-    /**
-     * Het ID van de factuur.
-     */
-    private int factuurId;
-    /**
-     * De lijst met IFactuurRegel-objecten (bevat Onderdeel + aantal).
-     */
-    private ArrayList<IFactuurRegel> onderdelen;
+    private ArrayList<FactuurRegel> regels;
 
     /**
      * Nieuw Factuur-object met ingevoerde waardes.
      *
+     * @param code De code van de factuur.
+     * @param klantCode De code van de klant.
      * @param datum De datum van de factuur.
-     * @param klantId Het ID van de klant.
-     * @param factuurId Het ID van de factuur.
-     * @param onderdelen Lijst met IFactuurRegel objecten die bij de factuur
+     * @param regels Lijst met FactuurRegel objecten die bij de factuur
      * horen.
      */
-    public Factuur(String datum, int klantId, int factuurId, ArrayList<IFactuurRegel> onderdelen) {
+    public Factuur(int code, int klantCode, String datum, ArrayList<FactuurRegel> regels) {
+        this.code = code;
+        this.klantCode = klantCode;
         this.datum = datum;
-        this.klantId = klantId;
-        this.factuurId = factuurId;
-        if (onderdelen != null) {
-            this.onderdelen = onderdelen;
+        if (regels != null) {
+            this.regels = regels;
         } else {
-            this.onderdelen = new ArrayList<IFactuurRegel>();
+            this.regels = new ArrayList<>();
         }
+    }
+
+    /**
+     * Geeft de code van de factuur.
+     *
+     * @return De code van de factuur.
+     */
+    public int getCode() {
+        return code;
+    }
+
+    /**
+     * Geeft de code van de klant.
+     *
+     * @return De code van de klant.
+     */
+    public int getKlantCode() {
+        return klantCode;
     }
 
     /**
@@ -49,33 +66,15 @@ public class Factuur implements IFactuur {
      * @return De datum van de factuur.
      */
     public String getDatum() {
-        return this.datum;
+        return datum;
     }
 
     /**
-     * Geeft de ID van de klant.
+     * Geeft een lijst met FactuurRegel-objecten.
      *
-     * @return De ID van de klant.
+     * @return Lijst met FactuurRegel-objecten.
      */
-    public int getKlantId() {
-        return this.klantId;
-    }
-
-    /**
-     * Geeft de ID van de factuur.
-     *
-     * @return De ID van de factuur.
-     */
-    public int getFactuurId() {
-        return this.factuurId;
-    }
-
-    /**
-     * Geeft een lijst met IFactuurRegel-objecten.
-     *
-     * @return Lijst met IFactuurRegel-objecten.
-     */
-    public ArrayList<IFactuurRegel> getOnderdelen() {
-        return this.onderdelen;
+    public ArrayList<FactuurRegel> getRegels() {
+        return regels;
     }
 }

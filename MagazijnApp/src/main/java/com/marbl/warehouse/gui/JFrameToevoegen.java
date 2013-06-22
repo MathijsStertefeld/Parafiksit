@@ -1,14 +1,14 @@
 package com.marbl.warehouse.gui;
 
-import com.marbl.warehouse.domain.IKlant;
-import com.marbl.warehouse.domain.IFactuurRegel;
-import com.marbl.warehouse.domain.IOnderdeel;
-import com.marbl.warehouse.domain.FactuurRegel;
+import com.marbl.warehouse.domain.*;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -21,10 +21,10 @@ public class JFrameToevoegen extends javax.swing.JFrame implements ActionListene
 
     private JComboBox jCbSelect;
     private JList list;
-    private Magazijn main;
+    private Magazijn magazijn;
     private String soort;
-    private ArrayList<IOnderdeel> onderdelen;
-    private ArrayList<IKlant> klanten;
+    private ArrayList<Onderdeel> onderdelen;
+    private ArrayList<Klant> klanten;
     private Font fontB, fontN;
     private ArrayList<Component> componenten;
 
@@ -36,28 +36,28 @@ public class JFrameToevoegen extends javax.swing.JFrame implements ActionListene
      *
      * @param soort Een string die gelijk moet zijn aan: "Factuur", deze string
      * wordt gebruikt om het object te indentificeren.
-     * @param main Het hoofdmenu, zodat de setVisible methode weer veranderd kan
+     * @param magazijn Het hoofdmenu, zodat de setVisible methode weer veranderd kan
      * worden.
      * @param klanten Een lijst met klanten uit de database, waaruit gekozen kan
      * worden voor het aanmaken van de nieuwe factuur.
      * @param onderdelen Een lijst met onderdelen uit de database, waaruit
      * gekozen kan worden voor het aanmaken van de nieuwe factuur.
      */
-    public JFrameToevoegen(String soort, Magazijn main, ArrayList<IKlant> klanten) {
+    public JFrameToevoegen(Magazijn magazijn, String soort, ArrayList<Klant> klanten) {
         initComponents();
-        componenten = new ArrayList<Component>();
+        componenten = new ArrayList<>();
         fontB = new Font("Times New Roman", 1, 12);
         fontN = new Font("Times New Roman", 0, 12);
-        this.main = main;
+        this.magazijn = magazijn;
         this.setLocation(400, 250);
         this.soort = soort;
-        onderdelen = new ArrayList<IOnderdeel>();
+        onderdelen = new ArrayList<>();
         this.klanten = klanten;
         jCbSelect = new JComboBox();
         jCbSelect.setBounds(20, 40, 190, 20);
         add(jCbSelect);
-        for (IKlant kl : klanten) {
-            jCbSelect.addItem(kl.getId() + ":  " + kl.getNaam());
+        for (Klant kl : klanten) {
+            jCbSelect.addItem(kl.getCode() + ":  " + kl.getNaam());
         }
         this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         this.setTitle("Toevoegen:");
@@ -72,23 +72,28 @@ public class JFrameToevoegen extends javax.swing.JFrame implements ActionListene
      *
      * @param soort Een string die gelijk moet zijn aan: "Onderdeel" of "Klant",
      * deze string wordt gebruikt om het object te identificeren.
-     * @param main Het hoofdmenu, zodat de setVisible methode weer veranderd kan
+     * @param magazijn Het hoofdmenu, zodat de setVisible methode weer veranderd kan
      * worden.
      */
-    public JFrameToevoegen(String soort, Magazijn main) {
-        componenten = new ArrayList<Component>();
+    public JFrameToevoegen(Magazijn magazijn, String soort) {
+        componenten = new ArrayList<>();
         initComponents();
         fontB = new Font("Times New Roman", 1, 12);
         fontN = new Font("Times New Roman", 0, 12);
-        this.main = main;
+        this.magazijn = magazijn;
         this.soort = soort;
         this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         this.setTitle("Toevoegen:");
-
-        if (soort.equals("Klant")) {
-            createKlantGUI();
-        } else if (soort.equals("Onderdeel")) {
-            createOnderdeelGUI();
+        
+        switch (soort) {
+            case "Klant": {
+                createKlantGUI();
+                break;
+            }
+            case "Onderdeel": {
+                createOnderdeelGUI();
+                break;
+            }
         }
     }
 
@@ -96,9 +101,9 @@ public class JFrameToevoegen extends javax.swing.JFrame implements ActionListene
      * Wordt gebruikt om een regel door te geven vanaf
      * JFrameFactuurRegelToevoegen voor Factuur.
      */
-    public void giveString(String msg, IOnderdeel ond) {
-        addListItem(list, msg);
-        onderdelen.add(ond);
+    public void giveString(String text, Onderdeel onderdeel) {
+        addListItem(list, text);
+        onderdelen.add(onderdeel);
     }
 
     /**
@@ -165,7 +170,7 @@ public class JFrameToevoegen extends javax.swing.JFrame implements ActionListene
      * @param evt Het event
      */
     private void jBtCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCloseActionPerformed
-        main.setVisible(true);
+        magazijn.setVisible(true);
         this.setVisible(false);
         this.dispose();
     }//GEN-LAST:event_jBtCloseActionPerformed
@@ -176,50 +181,73 @@ public class JFrameToevoegen extends javax.swing.JFrame implements ActionListene
      * @param evt Het event
      */
     private void jBtToevoegenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtToevoegenActionPerformed
-        if (soort.equals("Klant")) {
-            try {
-                JTextField field = (JTextField) componenten.get(1);
-                String naam = field.getText();
-                field = (JTextField) componenten.get(2);
-                String adres = field.getText();
-                int id = main.beheer.voegKlantToe(naam, adres);
-                JOptionPane.showMessageDialog(null, "De klant is correct toegevoegd aan de database. \r\n Het klantID is: " + id, "Gelukt", JOptionPane.OK_OPTION);
-                main.setVisible(true);
-                this.setVisible(false);
-                this.dispose();
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "De klant is niet correct toegevoegd aan de database. \n\r Controleer de invoerwaardes.", "Fout", JOptionPane.OK_OPTION);
-            }
-        } else if (soort.equals("Onderdeel")) {
-            try {
-                JTextField field = (JTextField) componenten.get(1);
-                String omschr = field.getText();
-                field = (JTextField) componenten.get(2);
-                int aantal = Integer.parseInt(field.getText());
-                field = (JTextField) componenten.get(3);
-                int prijs = Integer.parseInt(field.getText());
-                int id = main.beheer.voegOnderdeelToe(omschr, aantal, prijs);
-                JOptionPane.showMessageDialog(null, "Het onderdeel is correct toegevoegd aan de database. \r\n De onderdeelCode is: " + id, "Gelukt", JOptionPane.OK_OPTION);
-                main.setVisible(true);
-                this.setVisible(false);
-                this.dispose();
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Het onderdeel is niet correct toegevoegd aan de database. \n\r Controleer de invoerwaardes.", "Fout", JOptionPane.OK_OPTION);
-            }
-        } else if (soort.equals("Factuur")) {
-            try {
-                ArrayList<IFactuurRegel> ondrd = new ArrayList<IFactuurRegel>();
-                for (int i = 0; i < list.getModel().getSize(); i++) {
-                    ondrd.add(new FactuurRegel(-1, onderdelen.get(i).getCode(), onderdelen.get(i).getAantal()));
+        try {
+            switch (soort) {
+                case "Klant": {
+                    JTextField field = (JTextField) componenten.get(1);
+                    String naam = field.getText();
+                    field = (JTextField) componenten.get(2);
+                    String adres = field.getText();
+                    int klantID = 0;
+                    for (Klant klant : magazijn.getDatabase().selectKlanten()) {
+                        if (klantID <= klant.getCode()) {
+                            klantID = klant.getCode() + 1;
+                        }
+                    }
+                    magazijn.getDatabase().insert(new Klant(klantID, naam, adres));
+                    JOptionPane.showMessageDialog(this, "De klant is correct toegevoegd aan de database.", "Gelukt", JOptionPane.INFORMATION_MESSAGE);
+                    magazijn.setVisible(true);
+                    this.setVisible(false);
+                    this.dispose();
+                    break;
                 }
-                int id = main.beheer.voegFactuurToe(klanten.get(jCbSelect.getSelectedIndex()).getId(), ondrd);
-                JOptionPane.showMessageDialog(null, "Het onderdeel is correct toegevoegd aan de database. \r\n Het factuurID is: " + id, "Gelukt", JOptionPane.OK_OPTION);
-                main.setVisible(true);
-                this.setVisible(false);
-                this.dispose();
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "De factuur is niet correct toegevoegd aan de database. \n\r Controleer de invoerwaardes.", "Fout", JOptionPane.OK_OPTION);
+                case "Onderdeel": {
+                    JTextField field = (JTextField) componenten.get(1);
+                    String omschrijving = field.getText();
+                    field = (JTextField) componenten.get(2);
+                    int aantal = Integer.parseInt(field.getText());
+                    field = (JTextField) componenten.get(3);
+                    int prijs = Integer.parseInt(field.getText());
+                    int onderdeelCode = 0;
+                    for (Onderdeel onderdeel : magazijn.getDatabase().selectOnderdelen()) {
+                        if (onderdeelCode <= onderdeel.getCode()) {
+                            onderdeelCode = onderdeel.getCode() + 1;
+                        }
+                    }
+                    magazijn.getDatabase().insert(new Onderdeel(onderdeelCode, omschrijving, aantal, prijs));
+                    JOptionPane.showMessageDialog(this, "Het onderdeel is correct toegevoegd aan de database.", "Gelukt", JOptionPane.INFORMATION_MESSAGE);
+                    magazijn.setVisible(true);
+                    this.setVisible(false);
+                    this.dispose();
+                    break;
+                }
+                case "Factuur": {
+                    ArrayList<FactuurRegel> factuurRegels = new ArrayList<>();
+                    int factuurCode = 0;
+                    for (Factuur factuur : magazijn.getDatabase().selectFacturen()) {
+                        if (factuurCode <= factuur.getCode()) {
+                            factuurCode = factuur.getCode() + 1;
+                        }
+                    }
+                    for (int i = 0; i < list.getModel().getSize(); i++) {
+                        factuurRegels.add(new FactuurRegel(factuurCode, onderdelen.get(i).getCode(), onderdelen.get(i).getAantal()));
+                    }
+                    Calendar cal = new GregorianCalendar();
+                    int jaar = cal.get(Calendar.YEAR);
+                    int maand  = cal.get(Calendar.MONTH) +1;
+                    int dag = cal.get(Calendar.DAY_OF_MONTH);
+                    String datum = Integer.toString(dag) + "-" + Integer.toString(maand) + "-" + Integer.toString(jaar);
+                    int klantID = klanten.get(jCbSelect.getSelectedIndex()).getCode();
+                    magazijn.getDatabase().insert(new Factuur(factuurCode, klantID, datum, factuurRegels));
+                    JOptionPane.showMessageDialog(this, "De factuur is correct toegevoegd aan de database.", "Informatie", JOptionPane.INFORMATION_MESSAGE);
+                    magazijn.setVisible(true);
+                    this.setVisible(false);
+                    this.dispose();
+                    break;
+                }
             }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, ex, "Fout", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jBtToevoegenActionPerformed
 
@@ -354,13 +382,23 @@ public class JFrameToevoegen extends javax.swing.JFrame implements ActionListene
      *
      * @param e Het event
      */
+    @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getActionCommand().equals("RegelToevoegen")) {
-            JFrameFactuurRegelToevoegen frt = new JFrameFactuurRegelToevoegen(this, main.beheer.getOnderdelen());
-            frt.setVisible(true);
-            this.setVisible(false);
-        } else if (e.getActionCommand().equals("Reset")) {
-            clearList(list);
+        try {
+            switch (e.getActionCommand()) {
+                case "RegelToevoegen": {
+                    JFrameFactuurRegelToevoegen frt = new JFrameFactuurRegelToevoegen(this, magazijn.getDatabase().selectOnderdelen());
+                    frt.setVisible(true);
+                    this.setVisible(false);
+                    break;
+                }
+                case "Reset": {
+                    clearList(list);
+                    break;
+                }
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, ex, "Fout", JOptionPane.ERROR_MESSAGE);
         }
     }
 

@@ -1,11 +1,9 @@
 package com.marbl.warehouse.gui;
 
-import com.marbl.warehouse.gui.JFrameVerwijderen;
-import com.marbl.warehouse.gui.JFrameToevoegen;
-import com.marbl.warehouse.gui.JFrameAanpassen;
-import com.marbl.warehouse.domain.IMagazijn;
-import com.marbl.warehouse.domain.Beheer;
+import com.marbl.warehouse.domain.*;
 import java.awt.Font;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
@@ -14,31 +12,40 @@ public class Magazijn extends javax.swing.JFrame {
     /**
      * De klasse die wordt gebruikt voor de communicatie met de Database.
      */
-    IMagazijn beheer;
+    private Database database;
 
     /**
      * Creates new form Magazijn
      */
-    public Magazijn() {
-        initComponents();
-        this.setTitle("Magazijn Applicatie");
-        beheer = new Beheer();
-        JLabel lbl1 = new JLabel("Magazijn Applicatie");
-        lbl1.setBounds(50, 10, 200, 30);
-        lbl1.setFont(new Font("Times New Roman", 1, 18));
-        JLabel lbl2 = new JLabel("VSA door Rob Maas");
-        lbl2.setBounds(70, 30, 150, 30);
-        lbl2.setFont(new Font("Times New Roman", 1, 12));
-        JLabel lbl3 = new JLabel("Maak gebruik van bovenstaand menu:");
-        lbl3.setBounds(30, 60, 200, 30);
-        lbl3.setFont(new Font("Times New Roman", 0, 12));
-        JLabel lbl4 = new JLabel("om objecten te beheren.");
-        lbl4.setBounds(70, 75, 200, 30);
-        lbl4.setFont(new Font("Times New Roman", 0, 12));
-        jPnMain.add(lbl3);
-        jPnMain.add(lbl2);
-        jPnMain.add(lbl1);
-        jPnMain.add(lbl4);
+    public Magazijn() throws SQLException {
+        try {
+            database = new Database();
+            initComponents();
+            this.setTitle("Magazijn Applicatie");
+            JLabel lbl1 = new JLabel("Magazijn Applicatie");
+            lbl1.setBounds(50, 10, 200, 30);
+            lbl1.setFont(new Font("Times New Roman", 1, 18));
+            JLabel lbl2 = new JLabel("VSA door Rob Maas");
+            lbl2.setBounds(70, 30, 150, 30);
+            lbl2.setFont(new Font("Times New Roman", 1, 12));
+            JLabel lbl3 = new JLabel("Maak gebruik van bovenstaand menu:");
+            lbl3.setBounds(30, 60, 200, 30);
+            lbl3.setFont(new Font("Times New Roman", 0, 12));
+            JLabel lbl4 = new JLabel("om objecten te beheren.");
+            lbl4.setBounds(70, 75, 200, 30);
+            lbl4.setFont(new Font("Times New Roman", 0, 12));
+            jPnMain.add(lbl3);
+            jPnMain.add(lbl2);
+            jPnMain.add(lbl1);
+            jPnMain.add(lbl4);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, ex, "Fout", JOptionPane.ERROR_MESSAGE);
+            throw ex;
+        }
+    }
+
+    public Database getDatabase() {
+        return database;
     }
 
     /**
@@ -246,94 +253,107 @@ public class Magazijn extends javax.swing.JFrame {
 
     private void jMnOndKijkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMnOndKijkActionPerformed
         try {
-            JFrameBekijken bekijken = new JFrameBekijken("Onderdeel", beheer.getOnderdelen(), null, null, this);
+            JFrameBekijken bekijken = new JFrameBekijken("Onderdeel", database.selectOnderdelen(), null, null, this);
             bekijken.setVisible(true);
             this.setVisible(false);
-        } catch (Exception e) {
-            System.out.println("Er is iets fout gegaan bij het bekijken van de onderdelen." + e.getMessage());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, ex, "Fout", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jMnOndKijkActionPerformed
 
     private void jMnOndVoegActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMnOndVoegActionPerformed
-        JFrameToevoegen toevoeg = new JFrameToevoegen("Onderdeel", this);
+        JFrameToevoegen toevoeg = new JFrameToevoegen(this, "Onderdeel");
         toevoeg.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jMnOndVoegActionPerformed
 
     private void jMnOndAanpasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMnOndAanpasActionPerformed
-        JFrameAanpassen pas = new JFrameAanpassen("Onderdeel", this, null, beheer.getOnderdelen());
-        pas.setVisible(true);
-        this.setVisible(false);
+        try {
+            JFrameAanpassen pas = new JFrameAanpassen("Onderdeel", this, null, database.selectOnderdelen());
+            pas.setVisible(true);
+            this.setVisible(false);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, ex, "Fout", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jMnOndAanpasActionPerformed
 
     private void jMnOndVerwActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMnOndVerwActionPerformed
         try {
-            JFrameVerwijderen verwijder = new JFrameVerwijderen("Onderdeel", beheer.getOnderdelen(), null, this);
+            JFrameVerwijderen verwijder = new JFrameVerwijderen("Onderdeel", database.selectOnderdelen(), null, this);
             verwijder.setVisible(true);
             this.setVisible(false);
-        } catch (Exception e) {
-            System.out.println("Er is iets fout gegaan bij het verwijderen van het onderdeel." + e.getMessage());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, ex, "Fout", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jMnOndVerwActionPerformed
 
     private void jMnKlantKijkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMnKlantKijkActionPerformed
         try {
-            JFrameBekijken bekijken = new JFrameBekijken("Klant", null, beheer.getKlanten(), null, this);
+            JFrameBekijken bekijken = new JFrameBekijken("Klant", null, database.selectKlanten(), null, this);
             bekijken.setVisible(true);
             this.setVisible(false);
-        } catch (Exception e) {
-            System.out.println("Er is iets fout gegaan bij het bekijken van de klanten." + e.getMessage());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, ex, "Fout", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jMnKlantKijkActionPerformed
 
     private void jMnKlantVoegActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMnKlantVoegActionPerformed
-        JFrameToevoegen toevoeg = new JFrameToevoegen("Klant", this);
+        JFrameToevoegen toevoeg = new JFrameToevoegen(this, "Klant");
         toevoeg.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jMnKlantVoegActionPerformed
 
     private void jMnKlantAanpasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMnKlantAanpasActionPerformed
-        JFrameAanpassen pas = new JFrameAanpassen("Klant", this, beheer.getKlanten(), null);
-        pas.setVisible(true);
-        this.setVisible(false);
+        try {
+            JFrameAanpassen pas = new JFrameAanpassen("Klant", this, database.selectKlanten(), null);
+            pas.setVisible(true);
+            this.setVisible(false);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, ex, "Fout", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jMnKlantAanpasActionPerformed
 
     private void jMnKlantVerwActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMnKlantVerwActionPerformed
         try {
-            JFrameVerwijderen verwijder = new JFrameVerwijderen("Klant", null, beheer.getKlanten(), this);
+            JFrameVerwijderen verwijder = new JFrameVerwijderen("Klant", null, database.selectKlanten(), this);
             verwijder.setVisible(true);
             this.setVisible(false);
-        } catch (Exception e) {
-            System.out.println("Er is iets fout gegaan bij het bekijken van de klanten." + e.getMessage());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, ex, "Fout", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jMnKlantVerwActionPerformed
 
     private void jMnFacKijkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMnFacKijkActionPerformed
         try {
-            JFrameBekijken bekijken = new JFrameBekijken("Factuur", null, null, beheer.getFacturen(), this);
+            JFrameBekijken bekijken = new JFrameBekijken("Factuur", null, null, database.selectFacturen(), this);
             bekijken.setVisible(true);
             this.setVisible(false);
-        } catch (Exception e) {
-            System.out.println("Er is iets fout gegaan bij het bekijken van de onderdelen." + e.getMessage());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, ex, "Fout", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jMnFacKijkActionPerformed
 
     private void jMnFacVoegActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMnFacVoegActionPerformed
-        JFrameToevoegen toevoeg = new JFrameToevoegen("Factuur", this, beheer.getKlanten());
-        toevoeg.setVisible(true);
-        this.setVisible(false);
+        try {
+            ArrayList<Klant> klanten = database.selectKlanten();
+            JFrameToevoegen toevoeg = new JFrameToevoegen(this, "Factuur", klanten);
+            toevoeg.setVisible(true);
+            this.setVisible(false);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, ex, "Fout", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jMnFacVoegActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Magazijn().setVisible(true);
-            }
-        });
-    }
+//    /**
+//     * @param args the command line arguments
+//     */
+//    public static void main(String args[]) {
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            @Override
+//            public void run() {
+//                new Magazijn().setVisible(true);
+//            }
+//        });
+//    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;

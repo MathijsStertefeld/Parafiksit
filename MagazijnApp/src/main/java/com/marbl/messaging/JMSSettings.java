@@ -28,11 +28,9 @@ public class JMSSettings {
 
     public JMSSettings(String fileName) {
         File file = new File(fileName);
-        map = new HashMap<String, String>();
-        Scanner scanner = null;
-        try {
-
-            scanner = new Scanner(file);
+        map = new HashMap<>();
+        
+        try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine().replaceAll(" ", "");
                 StringTokenizer tk = new StringTokenizer(line, "=");
@@ -41,13 +39,8 @@ public class JMSSettings {
                 System.out.println(key + "=" + value);
                 map.put(key, value);
             }
-
-
-            scanner.close();
         } catch (FileNotFoundException ex) {
             Logger.getLogger(JMSSettings.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            scanner.close();
         }
     }
 
