@@ -1,8 +1,7 @@
 package com.marbl.warehouse.gui;
 
-import com.marbl.warehouse.gui.Magazijn;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import com.marbl.messaging.JMSSettings;
+import java.sql.SQLException;
 import org.jdesktop.application.Application;
 import org.jdesktop.application.SingleFrameApplication;
 
@@ -15,8 +14,22 @@ public class MagazijnApplicatieApp extends SingleFrameApplication {
     protected void startup() {
         try {
             show(new Magazijn());
-        } catch (Exception ex) {
-            Logger.getLogger(MagazijnApplicatieApp.class.getName()).log(Level.SEVERE, null, ex);
+            // read the queue names from file "MESSAGING.ini"  
+            JMSSettings queueNames = new JMSSettings("src/main/resources/MESSAGING_CHANNELS.ini");
+            final String factoryName = queueNames.get(JMSSettings.CONNECTION);
+            //CLIENTS & BROKER
+            final String clientRequestQueue = queueNames.get(JMSSettings.CLIENT_REQUEST);
+            final String clientReplyQueue = queueNames.get(JMSSettings.CLIENT_REPLY);
+            final String client2ReplyQueue = queueNames.get(JMSSettings.CLIENT_REPLY_2);
+            //PARAFIKSIT & BROKER
+            final String parafiksitRequestQueue = queueNames.get(JMSSettings.PARAFIKSIT_REQUEST);
+            final String parafiksitReplyQueue = queueNames.get(JMSSettings.PARAFIKSIT_REPLY);
+            //WAREHOUSE & BROKER
+            final String warehouseRequestQueue = queueNames.get(JMSSettings.WAREHOUSE_REQUEST);
+            final String warehouseReplyQueue = queueNames.get(JMSSettings.WAREHOUSE_REPLY);
+        } catch (SQLException ex) {
+            System.err.println(ex);
+            exit();
         }
     }
 

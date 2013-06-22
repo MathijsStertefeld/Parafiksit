@@ -1,8 +1,6 @@
 package com.marbl.warehouse.gui;
 
-import com.marbl.warehouse.domain.IOnderdeel;
-import com.marbl.warehouse.gui.JFrameToevoegen;
-import com.marbl.warehouse.gui.JFrameToevoegen;
+import com.marbl.warehouse.domain.Onderdeel;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,13 +16,13 @@ public class JFrameFactuurRegelToevoegen extends javax.swing.JFrame implements A
 
     private JFrameToevoegen main;
     private JComboBox list;
-    private ArrayList<IOnderdeel> onderdelen;
+    private ArrayList<Onderdeel> onderdelen;
     private JTextField tf;
 
     /**
      * Creates new form JFrameFactuurRegelToevoegen
      */
-    public JFrameFactuurRegelToevoegen(JFrameToevoegen main, ArrayList<IOnderdeel> onderdelen) {
+    public JFrameFactuurRegelToevoegen(JFrameToevoegen main, ArrayList<Onderdeel> onderdelen) {
         initComponents();
         this.setLocation(400, 250);
         this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -35,7 +33,7 @@ public class JFrameFactuurRegelToevoegen extends javax.swing.JFrame implements A
         list = new JComboBox();
         list.setBounds(20, 20, 190, 20);
         add(list);
-        for (IOnderdeel ond : onderdelen) {
+        for (Onderdeel ond : onderdelen) {
             list.addItem(ond.getCode() + ":  " + ond.getOmschrijving());
 
         }
@@ -93,27 +91,32 @@ public class JFrameFactuurRegelToevoegen extends javax.swing.JFrame implements A
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
-
+    @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getActionCommand().equals("Cancel")) {
-            this.setVisible(false);
-            main.setVisible(true);
-            this.dispose();
-        } else if (e.getActionCommand().equals("Voeg Toe")) {
-            int aantal = Integer.parseInt(tf.getText());
-            if (aantal > 0) {
-                if (aantal <= onderdelen.get(list.getSelectedIndex()).getAantal()) {
-                    String temp = Integer.toString(aantal) + "x: " + onderdelen.get(list.getSelectedIndex()).getOmschrijving() + "(" + Integer.toString(onderdelen.get(list.getSelectedIndex()).getCode()) + ")";
-                    onderdelen.get(list.getSelectedIndex()).setAantal(aantal);
-                    main.giveString(temp, onderdelen.get(list.getSelectedIndex()));
-                    this.setVisible(false);
-                    main.setVisible(true);
-                    this.dispose();
+        switch (e.getActionCommand()) {
+            case "Cancel": {
+                this.setVisible(false);
+                main.setVisible(true);
+                this.dispose();
+                break;
+            }
+            case "Voeg Toe": {
+                int aantal = Integer.parseInt(tf.getText());
+                if (aantal > 0) {
+                    if (aantal <= onderdelen.get(list.getSelectedIndex()).getAantal()) {
+                        String temp = Integer.toString(aantal) + "x: " + onderdelen.get(list.getSelectedIndex()).getOmschrijving() + "(" + Integer.toString(onderdelen.get(list.getSelectedIndex()).getCode()) + ")";
+                        onderdelen.get(list.getSelectedIndex()).setAantal(aantal);
+                        main.giveString(temp, onderdelen.get(list.getSelectedIndex()));
+                        this.setVisible(false);
+                        main.setVisible(true);
+                        this.dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Het gewenste aantal moet lager dan het aanwezige aantal zijn.", "Waarschuwing", JOptionPane.WARNING_MESSAGE);
+                    }
                 } else {
-                    JOptionPane.showMessageDialog(null, "Het gewenste aantal is hoger dan het aanwezige aantal!", "Fout!", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Het gewenste aantal moet hoger dan nul zijn.", "Waarschuwing", JOptionPane.WARNING_MESSAGE);
                 }
-            } else {
-                JOptionPane.showMessageDialog(null, "Het getal moet hoger dan nul zijn!", "Fout", JOptionPane.ERROR_MESSAGE);
+                break;
             }
         }
     }

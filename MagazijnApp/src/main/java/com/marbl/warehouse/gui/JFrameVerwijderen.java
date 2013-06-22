@@ -1,10 +1,11 @@
 package com.marbl.warehouse.gui;
 
-import com.marbl.warehouse.domain.IKlant;
-import com.marbl.warehouse.domain.IOnderdeel;
+import com.marbl.warehouse.domain.Klant;
+import com.marbl.warehouse.domain.Onderdeel;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -15,15 +16,15 @@ public class JFrameVerwijderen extends javax.swing.JFrame implements ActionListe
 
     JComboBox jCbSelect;
     ArrayList<Component> componenten;
-    ArrayList<IKlant> klanten;
-    ArrayList<IOnderdeel> onderdelen;
+    ArrayList<Klant> klanten;
+    ArrayList<Onderdeel> onderdelen;
     String soort;
     Magazijn main;
 
     /**
      * Creates new form JFrameVerwijderen met ingevoerde waardes.
      */
-    public JFrameVerwijderen(String soort, ArrayList<IOnderdeel> onderdelen, ArrayList<IKlant> klanten, Magazijn main) {
+    public JFrameVerwijderen(String soort, ArrayList<Onderdeel> onderdelen, ArrayList<Klant> klanten, Magazijn main) {
         initComponents();
 
         this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -31,7 +32,7 @@ public class JFrameVerwijderen extends javax.swing.JFrame implements ActionListe
         this.main = main;
         this.setLocation(400, 250);
         jBtClose.setText("Sluit Venster");
-        componenten = new ArrayList<Component>();
+        componenten = new ArrayList<>();
         jCbSelect = new JComboBox();
         jCbSelect.setBounds(20, 20, 200, 20);
 
@@ -45,13 +46,18 @@ public class JFrameVerwijderen extends javax.swing.JFrame implements ActionListe
         this.soort = soort;
         this.onderdelen = onderdelen;
         this.klanten = klanten;
-        if (soort.equals("Klant")) {
-            for (IKlant kl : klanten) {
-                jCbSelect.addItem(Integer.toString(kl.getId()) + ":   " + kl.getNaam());
+        switch (soort) {
+            case "Klant": {
+                for (Klant kl : klanten) {
+                    jCbSelect.addItem(Integer.toString(kl.getCode()) + ":   " + kl.getNaam());
+                }
+                break;
             }
-        } else if (soort.equals("Onderdeel")) {
-            for (IOnderdeel ond : onderdelen) {
-                jCbSelect.addItem(Integer.toString(ond.getCode()) + ":   " + ond.getOmschrijving());
+            case "Onderdeel": {
+                for (Onderdeel ond : onderdelen) {
+                    jCbSelect.addItem(Integer.toString(ond.getCode()) + ":   " + ond.getOmschrijving());
+                }
+                break;
             }
         }
     }
@@ -117,21 +123,31 @@ public class JFrameVerwijderen extends javax.swing.JFrame implements ActionListe
      *
      * @param e Het even
      */
+    @Override
     public void actionPerformed(ActionEvent e) {
-        if (soort.equals("Onderdeel")) {
-            int index = jCbSelect.getSelectedIndex();
-            main.beheer.verwijderOnderdeel(onderdelen.get(index).getCode());
-            JOptionPane.showMessageDialog(null, "Het Onderdeel is correct verwijderd.", "Gelukt!", JOptionPane.OK_OPTION);
-            this.setVisible(false);
-            this.dispose();
-            main.setVisible(true);
-        } else if (soort.equals("Klant")) {
-            int index = jCbSelect.getSelectedIndex();
-            main.beheer.verwijderKlant(klanten.get(index).getId());
-            JOptionPane.showMessageDialog(null, "De klant is correct verwijderd.", "Gelukt!", JOptionPane.OK_OPTION);
-            this.setVisible(false);
-            this.dispose();
-            main.setVisible(true);
+        try {
+            switch (soort) {
+                case "Onderdeel": {
+                    int index = jCbSelect.getSelectedIndex();
+                    main.getDatabase().deleteOnderdeel(onderdelen.get(index).getCode());
+                    JOptionPane.showMessageDialog(this, "Het Onderdeel is correct verwijderd.", "Gelukt!", JOptionPane.INFORMATION_MESSAGE);
+                    this.setVisible(false);
+                    this.dispose();
+                    main.setVisible(true);
+                    break;
+                }
+                case "Klant": {
+                    int index = jCbSelect.getSelectedIndex();
+                    main.getDatabase().deleteKlant(klanten.get(index).getCode());
+                    JOptionPane.showMessageDialog(this, "De klant is correct verwijderd.", "Gelukt!", JOptionPane.INFORMATION_MESSAGE);
+                    this.setVisible(false);
+                    this.dispose();
+                    main.setVisible(true);
+                    break;
+                }
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, ex, "Fout", JOptionPane.ERROR_MESSAGE);
         }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables

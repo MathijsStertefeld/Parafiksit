@@ -1,23 +1,23 @@
 package com.marbl.client;
 
-import com.marbl.messaging.requestreply.IRequestReplySerializer;
 import com.thoughtworks.xstream.XStream;
+import com.marbl.messaging.requestreply.IRequestReplySerializer;
 
 /**
  * This class serializes ClientOrderReply and ClientOrderRequest to and from XML.
  */
-public class ClientOrderSerializer implements IRequestReplySerializer<ClientOrderRequest, ClientOrderReply> {
+public class ClientStatusSerializer implements IRequestReplySerializer<ClientStatusRequest, ClientStatusReply> {
 
-    private static final String ALIAS_REQUEST = "ClientOrderRequest"; // the tag name for ClientOrderRequest
-    private static final String ALIAS_REPLY = "ClientOrderReply"; // the tag name for ClientOrderReply
+    private static final String ALIAS_REQUEST = "ClientStatusRequest"; // the tag name for ClientOrderRequest
+    private static final String ALIAS_REPLY = "ClientStatusReply"; // the tag name for ClientOrderReply
     private XStream xstream; // for easy XML serialization
 
-    public ClientOrderSerializer() {
+    public ClientStatusSerializer() {
         super();
         xstream = new XStream();
          // register aliases (tag names)
-        xstream.alias(ALIAS_REQUEST, ClientOrderRequest.class);
-        xstream.alias(ALIAS_REPLY, ClientOrderReply.class);
+        xstream.alias(ALIAS_REQUEST, ClientStatusRequest.class);
+        xstream.alias(ALIAS_REPLY, ClientStatusReply.class);
     }
     
     /**
@@ -25,8 +25,8 @@ public class ClientOrderSerializer implements IRequestReplySerializer<ClientOrde
      * @param str is the string containing the XML
      * @return the ClientOrderRequest containng the same information like the given XML (str)
      */
-    public ClientOrderRequest requestFromString(String str) {
-        return (ClientOrderRequest) xstream.fromXML(str);
+    public ClientStatusRequest requestFromString(String str) {
+        return (ClientStatusRequest) xstream.fromXML(str);
     }
 
     /**
@@ -34,8 +34,8 @@ public class ClientOrderSerializer implements IRequestReplySerializer<ClientOrde
      * @param str is the string containing the XML
      * @return the ClientOrderReply containng the same information like the given XML (str)
      */
-    public ClientOrderReply replyFromString(String str) {
-        return (ClientOrderReply) xstream.fromXML(str);
+    public ClientStatusReply replyFromString(String str) {
+        return (ClientStatusReply) xstream.fromXML(str);
     }
 
     /**
@@ -43,7 +43,7 @@ public class ClientOrderSerializer implements IRequestReplySerializer<ClientOrde
      * @param request is the ClientOrderRequest to be serialized into XML
      * @return the string containing XML with information about the request
      */
-    public String requestToString(ClientOrderRequest request) {
+    public String requestToString(ClientStatusRequest request) {
         return xstream.toXML(request);
     }
     
@@ -52,7 +52,7 @@ public class ClientOrderSerializer implements IRequestReplySerializer<ClientOrde
      * @param reply is the ClientOrderReply to be serialized into XML
      * @return the string containing XML with information about the rereply
      */
-    public String replyToString(ClientOrderReply reply) {
+    public String replyToString(ClientStatusReply reply) {
         return xstream.toXML(reply);
     }
 }

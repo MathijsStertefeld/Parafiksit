@@ -1,13 +1,13 @@
 package com.marbl.warehouse.domain;
 
-import com.marbl.warehouse.domain.IKlant;
+import java.io.Serializable;
 
-public class Klant implements IKlant {
+public class Klant implements Serializable {
 
     /**
-     * Het ID van de klant.
+     * De code van de klant.
      */
-    private int id;
+    private int code;
     /**
      * De naam van de klant.
      */
@@ -20,14 +20,23 @@ public class Klant implements IKlant {
     /**
      * Er wordt een nieuw Klant-object aangemaakt met ingevoerde waardes.
      *
-     * @param id Het ID van de klant.
+     * @param code De code van de klant.
      * @param naam De naam van de klant.
      * @param adres Het adres van de klant.
      */
-    public Klant(int id, String naam, String adres) {
-        this.id = id;
+    public Klant(int code, String naam, String adres) {
+        this.code = code;
         this.naam = naam;
         this.adres = adres;
+    }
+
+    /**
+     * Geeft de code van de klant.
+     *
+     * @return De code van de klant.
+     */
+    public int getCode() {
+        return code;
     }
 
     /**
@@ -36,16 +45,7 @@ public class Klant implements IKlant {
      * @return De naam van de klant.
      */
     public String getNaam() {
-        return this.naam;
-    }
-
-    /**
-     * Geeft het ID van de klant.
-     *
-     * @return Het ID van de klant.
-     */
-    public int getId() {
-        return this.id;
+        return naam;
     }
 
     /**
@@ -54,6 +54,6 @@ public class Klant implements IKlant {
      * @return Het adres van de klant.
      */
     public String getAdres() {
-        return this.adres;
+        return adres;
     }
 }
