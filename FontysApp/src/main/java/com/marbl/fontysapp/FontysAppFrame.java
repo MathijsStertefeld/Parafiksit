@@ -6,8 +6,8 @@ package com.marbl.fontysapp;
 
 import com.marbl.client.ClientOrderRequest;
 import com.marbl.client.ClientTest;
-import com.marbl.fontysapp.domain.PartInfo;
-import com.marbl.fontysapp.domain.WorkPerformedInfo;
+import com.marbl.domain.PartInfo;
+import com.marbl.domain.WorkPerformedInfo;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -355,51 +355,51 @@ public class FontysAppFrame extends javax.swing.JFrame
     {//GEN-HEADEREND:event_btRemovePartActionPerformed
         cbParts.removeItem(cbParts.getSelectedItem());
     }//GEN-LAST:event_btRemovePartActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[])
-    {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try
-        {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
-            {
-                if ("Nimbus".equals(info.getName()))
-                {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex)
-        {
-            java.util.logging.Logger.getLogger(FontysAppFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex)
-        {
-            java.util.logging.Logger.getLogger(FontysAppFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex)
-        {
-            java.util.logging.Logger.getLogger(FontysAppFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex)
-        {
-            java.util.logging.Logger.getLogger(FontysAppFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable()
-        {
-            public void run()
-            {
-                //new FontysAppFrame().setVisible(true);
-            }
-        });
-    }
+//
+//    /**
+//     * @param args the command line arguments
+//     */
+//    public static void main(String args[])
+//    {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try
+//        {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
+//            {
+//                if ("Nimbus".equals(info.getName()))
+//                {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex)
+//        {
+//            java.util.logging.Logger.getLogger(FontysAppFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex)
+//        {
+//            java.util.logging.Logger.getLogger(FontysAppFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex)
+//        {
+//            java.util.logging.Logger.getLogger(FontysAppFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex)
+//        {
+//            java.util.logging.Logger.getLogger(FontysAppFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable()
+//        {
+//            public void run()
+//            {
+//                //new FontysAppFrame().setVisible(true);
+//            }
+//        });
+//    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAddOperation;
     private javax.swing.JButton btAddPart;

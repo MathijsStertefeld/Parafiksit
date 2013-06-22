@@ -4,11 +4,12 @@
  */
 package com.marbl.client;
 
-import com.marbl.fontysapp.domain.Contact;
-import com.marbl.fontysapp.domain.PartInfo;
-import com.marbl.fontysapp.domain.ShippingAddress;
-import com.marbl.fontysapp.domain.WorkPerformedInfo;
+import com.marbl.domain.Contact;
+import com.marbl.domain.PartInfo;
+import com.marbl.domain.ShippingAddress;
+import com.marbl.domain.WorkPerformedInfo;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -16,13 +17,12 @@ import java.util.ArrayList;
  */
 public class ClientOrderRequest
 {
-
     private String clientName;
     private Contact contact;
     private ShippingAddress shippingAddress;
     private String comments;
-    private ArrayList<WorkPerformedInfo> operations;
-    private ArrayList<PartInfo> parts;
+    private List<WorkPerformedInfo> operations;
+    private List<PartInfo> parts;
 
     public ClientOrderRequest(String clientName, String contactName, String contactPhone, String shippingStreet, String shippingNumber, String shippingPlace, String shippingPostalCode, ArrayList<WorkPerformedInfo> operations, ArrayList<PartInfo> parts)
     {
@@ -83,12 +83,12 @@ public class ClientOrderRequest
         return shippingAddress;
     }
 
-    public ArrayList<PartInfo> getParts()
+    public List<PartInfo> getParts()
     {
         return parts;
     }
 
-    public ArrayList<WorkPerformedInfo> getOperations()
+    public List<WorkPerformedInfo> getOperations()
     {
         return operations;
     }
@@ -109,5 +109,4 @@ public class ClientOrderRequest
             return false;
         }
     }
-
 }

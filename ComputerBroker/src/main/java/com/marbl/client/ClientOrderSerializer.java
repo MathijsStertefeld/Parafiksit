@@ -1,7 +1,7 @@
 package com.marbl.client;
 
-import com.thoughtworks.xstream.XStream;
 import com.marbl.messaging.requestreply.IRequestReplySerializer;
+import com.thoughtworks.xstream.XStream;
 
 /**
  * This class serializes ClientOrderReply and ClientOrderRequest to and from XML.

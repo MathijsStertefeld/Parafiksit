@@ -43,7 +43,6 @@ public class JMSSettings {
                 StringTokenizer tk = new StringTokenizer(line, "=");
                 String key = tk.nextToken();
                 String value = tk.nextToken();
-                System.out.println(key + "=" + value);
                 map.put(key, value);
             }
 

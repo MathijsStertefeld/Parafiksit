@@ -1,7 +1,5 @@
 package com.marbl.messaging;
 
-import com.marbl.client.ClientOrderRequest;
-import com.marbl.client.ClientTest;
 import com.marbl.computerbroker.ComputerBroker;
 import com.marbl.parafiksit.ParafiksitTest;
 import com.marbl.warehouse.WarehouseTest;

@@ -8,16 +8,18 @@ import com.marbl.fontysapp.FontysAppFrame;
  * This application tests the LoanBroker system.
  *
  */
-public class RunMessaging
+public class RunFontysApp
 {
 
     public static void main(String[] args)
     {
         try
         {
+            System.out.println("Reading queue names...");
             // read the queue names from file "MESSAGING.ini"  
             JMSSettings queueNames = new JMSSettings("src/main/resources/MESSAGING_CHANNELS.ini");
             final String factoryName = queueNames.get(JMSSettings.CONNECTION);
+            System.out.println("Done.");
             //CLIENTS & BROKER
             final String clientOrderRequestQueue = queueNames.get(JMSSettings.CLIENT_ORDER_REQUEST);
             final String clientOrderReplyQueue = queueNames.get(JMSSettings.CLIENT_ORDER_REPLY);
@@ -36,22 +38,13 @@ public class RunMessaging
 //            final String parafiksitStatusRequestQueue = queueNames.get(JMSSettings.PARAFIKSIT_STATUS_REQUEST);
 //            final String parafiksitStatusReplyQueue = queueNames.get(JMSSettings.PARAFIKSIT_STATUS_REPLY);
 
+            System.out.println("Creating FontysApp GUI...");
             FontysAppFrame frame = new FontysAppFrame(factoryName, clientOrderRequestQueue, clientOrderReplyQueue);
             frame.setVisible(true);
-           
-            //ClientTest client = new ClientTest("basClient", factoryName, clientOrderRequestQueue, clientOrderReplyQueue);
-            //client.start();
-
-
-
-
+            System.out.println("Done.");
         } catch (Exception ex)
         {
             ex.printStackTrace();
         }
-    }
-
-    public static void sendRequest()
-    {
     }
 }

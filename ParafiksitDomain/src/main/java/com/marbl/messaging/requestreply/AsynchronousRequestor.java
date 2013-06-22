@@ -7,8 +7,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.jms.JMSException;
 import javax.jms.MessageListener;
-import com.marbl.messaging.IReceiver;
-import com.marbl.messaging.ISender;
 import com.marbl.messaging.MessagingGateway;
 
 /**
