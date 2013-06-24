@@ -5,6 +5,7 @@ import com.marbl.messaging.JMSSettings;
 import com.marbl.parafiksitwebi.messaging.ClientTest;
 import javax.annotation.PostConstruct;
 import javax.ejb.Startup;
+import javax.enterprise.context.RequestScoped;
 
 /*
  * To change this template, choose Tools | Templates
@@ -13,7 +14,7 @@ import javax.ejb.Startup;
 /**
  * @author Leslie Aerts
  */
-@Startup
+@RequestScoped
 public class OrderBean
 {
 
