@@ -47,6 +47,12 @@
             <id>eclipselink</id>
             <url>http://download.eclipse.org/rt/eclipselink/maven.repo/</url>
         </repository>
+       
+        <repository>
+            <id>codelds</id>
+            <url>https://code.lds.org/nexus/content/groups/main-repo</url>
+        </repository>
+  
     </repositories>
 
     <properties>
@@ -79,7 +85,7 @@
             <artifactId>jms</artifactId>
             <version>1.1</version>
         </dependency>
-                    <dependency> 
+        <dependency> 
             <groupId>com.oracle</groupId> 
             <artifactId>ojdbc6</artifactId> 
             <version>11.2.0.3</version> 

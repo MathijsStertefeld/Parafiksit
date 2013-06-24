@@ -1,5 +1,6 @@
 package com.marbl.parafiksit;
 
+import com.marbl.client.domain.WorkPerformedInfo;
 import com.thoughtworks.xstream.XStream;
 import com.marbl.messaging.requestreply.IRequestReplySerializer;
 
@@ -11,6 +12,7 @@ public class ParafiksitOrderSerializer implements IRequestReplySerializer<Parafi
 
     private static final String ALIAS_REQUEST = "ParafiksitOrderRequest"; // tag name for BankRequest
     private static final String ALIAS_REPLY = "ParafiksitOrderReply"; // tag name for BankReply
+     private static final String ALIAS_WORKPERFORMED = "WorkPerformedInfo"; // tag name for BankReply
     private XStream xstream; // class for serialization
 
     public ParafiksitOrderSerializer() {
@@ -19,6 +21,7 @@ public class ParafiksitOrderSerializer implements IRequestReplySerializer<Parafi
          // register aliases (i.e., tag names)
         xstream.alias(ALIAS_REQUEST, ParafiksitOrderRequest.class);
         xstream.alias(ALIAS_REPLY, ParafiksitOrderReply.class);
+        xstream.alias(ALIAS_WORKPERFORMED, WorkPerformedInfo.class);
     }
 
     /**
