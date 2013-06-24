@@ -1,9 +1,7 @@
 package com.marbl.warehouse.domain;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Collection;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.*;
@@ -40,7 +38,6 @@ public class DatabaseTest {
         try {
             database.deleteKlant(-1);
         } catch (SQLException ex) {
-            Logger.getLogger(DatabaseTest.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -83,7 +80,7 @@ public class DatabaseTest {
         // Add onderdeel to database.
         database.insert(klant);
         // Check to see if onderdeel has been added:
-        ArrayList<Klant> klanten = database.selectKlanten();
+        Collection<Klant> klanten = database.selectKlanten();
         Klant klantReturned = null;
         for (Klant k : klanten) {
             if (k.getCode() == -1) {
