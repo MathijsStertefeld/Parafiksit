@@ -19,24 +19,11 @@ public class ParafiksitOrderRequest
     private Contact contact;
     private List<WorkPerformedInfo> workPerformed;
 
-    public ParafiksitOrderRequest(ArrayList<WorkPerformedInfo> work)
+    public ParafiksitOrderRequest(ArrayList<WorkPerformedInfo> work, Contact contact, ShippingAddress shipping)
     {
         this.workPerformed = work;
-    }
-
-    public List<WorkPerformedInfo> getWork()
-    {
-        return workPerformed;
-    }
-
-    public void setWork(List<WorkPerformedInfo> work)
-    {
-        this.workPerformed = work;
-    }
-
-    public ShippingAddress getShippingAddress()
-    {
-        return shippingAddress;
+        this.contact = contact;
+        this.shippingAddress = shipping;
     }
 
     public Contact getContact()
@@ -44,10 +31,17 @@ public class ParafiksitOrderRequest
         return contact;
     }
 
+    public ShippingAddress getShippingAddress()
+    {
+        return shippingAddress;
+    }
+
     public List<WorkPerformedInfo> getWorkPerformed()
     {
         return workPerformed;
     }
+    
+    
     
     
     
