@@ -1,8 +1,8 @@
 package com.marbl.warehouse.gui;
 
 import com.marbl.messaging.JMSSettings;
-import com.marbl.warehouse.WarehouseReply;
-import com.marbl.warehouse.WarehouseTest;
+import com.marbl.warehouse.WarehouseOrderReply;
+import com.marbl.warehouse.WarehouseMessaging;
 import java.sql.SQLException;
 import org.jdesktop.application.Application;
 import org.jdesktop.application.SingleFrameApplication;
@@ -30,7 +30,7 @@ public class MagazijnApplicatieApp extends SingleFrameApplication {
             final String warehouseRequestQueue = queueNames.get(JMSSettings.WAREHOUSE_REQUEST);
             final String warehouseReplyQueue = queueNames.get(JMSSettings.WAREHOUSE_REPLY);
             
-            WarehouseTest warehouse = new WarehouseTest(factoryName, warehouseRequestQueue, warehouseReplyQueue);
+            WarehouseMessaging warehouse = new WarehouseMessaging(factoryName, warehouseRequestQueue, warehouseReplyQueue);
             warehouse.start();
         } catch (SQLException ex) {
             System.err.println(ex);

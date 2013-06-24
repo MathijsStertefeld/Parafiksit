@@ -17,7 +17,9 @@ public class ParafiksitTest {
 
             @Override
             void receivedParafiksitRequest(ParafiksitOrderRequest request) {
-                orderGateway.sendReply(request, new ParafiksitOrderReply(request.getString()));
+                
+                //DO STUFF HERE
+                orderGateway.sendReply(request, new ParafiksitOrderReply(null));
             }
         };
     }

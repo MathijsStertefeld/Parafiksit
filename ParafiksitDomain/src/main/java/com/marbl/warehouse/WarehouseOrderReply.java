@@ -10,11 +10,11 @@ import com.marbl.warehouse.domain.Factuur;
  *
  * @author Bas
  */
-public class WarehouseReply
+public class WarehouseOrderReply
 {
     private Factuur factuur;
 
-    public WarehouseReply(Factuur factuur)
+    public WarehouseOrderReply(Factuur factuur)
     {
         this.factuur = factuur;
     }

@@ -8,7 +8,8 @@ import com.marbl.client.ClientOrderRequest;
 import com.marbl.client.ClientStatusRequest;
 import com.marbl.parafiksit.ParafiksitOrderReply;
 import com.marbl.parafiksit.ParafiksitStatusReply;
-import com.marbl.warehouse.WarehouseReply;
+import com.marbl.warehouse.WarehouseOrderReply;
+import com.marbl.warehouse.WarehouseStatusReply;
 import java.util.ArrayList;
 
 /**
@@ -65,7 +66,7 @@ public class ComputerBroker {
             }
             
             @Override
-            void notifyReceivedWarehouseReply(ClientOrderRequest clientRequest, WarehouseReply reply){
+            void notifyReceivedWarehouseReply(ClientOrderRequest clientRequest, WarehouseOrderReply reply){
                 //?
             }
 
@@ -88,6 +89,12 @@ public class ComputerBroker {
             @Override
             void notifySentClientReply(StatusRequestProcess process) {
                 activeClientStatusProcesses.remove(process);
+            }
+
+            @Override
+            void notifyReceivedWarehouseReply(ClientStatusRequest clientRequest, WarehouseStatusReply reply)
+            {
+             //
             }
         };
         activeClientStatusProcesses.add(p);

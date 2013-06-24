@@ -4,10 +4,10 @@
  */
 package com.marbl.client;
 
-import com.marbl.domain.Contact;
-import com.marbl.domain.PartInfo;
-import com.marbl.domain.ShippingAddress;
-import com.marbl.domain.WorkPerformedInfo;
+import com.marbl.client.domain.Contact;
+import com.marbl.client.domain.PartInfo;
+import com.marbl.client.domain.ShippingAddress;
+import com.marbl.client.domain.WorkPerformedInfo;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +27,8 @@ public class ClientOrderRequest
     public ClientOrderRequest(String clientName, String contactName, String contactPhone, String shippingStreet, String shippingNumber, String shippingPlace, String shippingPostalCode, ArrayList<WorkPerformedInfo> operations, ArrayList<PartInfo> parts)
     {
         this.clientName = clientName;
-        this.contact = new Contact(contactName, contactPhone);
+        String[] strings =  contactName.split(" ");
+        this.contact = new Contact(strings[0],strings[1], contactPhone);
         this.shippingAddress = new ShippingAddress(shippingStreet, shippingNumber, shippingPostalCode, shippingPlace);
         this.operations = operations;
         this.parts = parts;

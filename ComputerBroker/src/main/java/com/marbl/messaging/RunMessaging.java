@@ -28,6 +28,9 @@ public class RunMessaging
             final String warehouseOrderRequestQueue = queueNames.get(JMSSettings.WAREHOUSE_REQUEST);
             final String warehouseOrderReplyQueue = queueNames.get(JMSSettings.WAREHOUSE_REPLY);
 
+            final String warehouseStatusRequestQueue = queueNames.get(JMSSettings.WAREHOUSE_STATUS_REQUEST);
+            final String warehouseStatusReplyQueue = queueNames.get(JMSSettings.WAREHOUSE_STATUS_REPLY);
+
             final String clientStatusRequestQueue = queueNames.get(JMSSettings.CLIENT_STATUS_REQUEST);
             final String clientStatusReplyQueue = queueNames.get(JMSSettings.CLIENT_STATUS_REPLY);
             final String clientStatus2ReplyQueue = queueNames.get(JMSSettings.CLIENT_STATUS_REPLY_2);

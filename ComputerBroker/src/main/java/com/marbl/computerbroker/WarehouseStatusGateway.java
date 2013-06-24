@@ -10,25 +10,27 @@ import com.marbl.messaging.requestreply.IReplyListener;
 import com.marbl.parafiksit.ParafiksitStatusReply;
 import com.marbl.parafiksit.ParafiksitStatusRequest;
 import com.marbl.parafiksit.ParafiksitStatusSerializer;
+import com.marbl.warehouse.WarehouseSerializer;
+import com.marbl.warehouse.WarehouseStatusReply;
+import com.marbl.warehouse.WarehouseStatusRequest;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
  *
- * @author Bas
+ * @author Leslie Aerts
  */
-abstract class ParafiksitStatusGateway
+class WarehouseStatusGateway
 {
+    private WarehouseStatusSerializer serializer;
+    private AsynchronousRequestor<WarehouseStatusRequest, WarehouseStatusReply> gateway;
 
-    private ParafiksitStatusSerializer serializer;
-    private AMQAsynchronousRequestor<ParafiksitStatusRequest, ParafiksitStatusReply> gateway;
-
-    public ParafiksitStatusGateway(String factoryName, String parafiksitRequestQueue, String parafiksitReplyQueue)
+    public WarehouseStatusGateway(String factoryName, String warehouseStatusRequestQueue, String warehouseStatusReplyQueue)
     {
-        serializer = new ParafiksitStatusSerializer();
+        serializer = new WarehouseStatusSerializer();
         try
         {
-            gateway = new AMQAsynchronousRequestor<ParafiksitStatusRequest, ParafiksitStatusReply>(factoryName, parafiksitRequestQueue, parafiksitReplyQueue, serializer);
+            gateway = new AsynchronousRequestor<WarehouseStatusRequest, WarehouseStatusReply>(factoryName, warehouseStatusRequestQueue, warehouseStatusReplyQueue, serializer);
         } catch (Exception ex)
         {
             Logger.getLogger(ParafiksitStatusGateway.class.getName()).log(Level.SEVERE, null, ex);
@@ -40,7 +42,7 @@ abstract class ParafiksitStatusGateway
         gateway.start();
     }
 
-    public void getStatus(ParafiksitStatusRequest request, IReplyListener<ParafiksitStatusRequest, ParafiksitStatusReply> listener)
+    public void getStatus(WarehouseStatusRequest request, IReplyListener<WarehouseStatusRequest, WarehouseStatusReply> listener)
     {
         gateway.sendRequest(request, listener);
     }

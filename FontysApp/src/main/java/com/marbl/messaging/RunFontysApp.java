@@ -1,7 +1,7 @@
 package com.marbl.messaging;
 
 import com.marbl.client.ClientOrderRequest;
-import com.marbl.client.ClientTest;
+import com.marbl.client.ClientMessaging;
 import com.marbl.fontysapp.FontysAppFrame;
 
 /**
@@ -18,9 +18,10 @@ public class RunFontysApp
             System.out.println("Reading queue names...");
             // read the queue names from file "MESSAGING.ini"  
             JMSSettings queueNames = new JMSSettings("src/main/resources/MESSAGING_CHANNELS.ini");
-            final String factoryName = queueNames.get(JMSSettings.CONNECTION);
+            
             System.out.println("Done.");
             //CLIENTS & BROKER
+            final String factoryName = queueNames.get(JMSSettings.CONNECTION);
             final String clientOrderRequestQueue = queueNames.get(JMSSettings.CLIENT_ORDER_REQUEST);
             final String clientOrderReplyQueue = queueNames.get(JMSSettings.CLIENT_ORDER_REPLY);
             final String clientOrder2ReplyQueue = queueNames.get(JMSSettings.CLIENT_ORDER_REPLY_2);

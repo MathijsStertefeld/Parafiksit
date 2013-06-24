@@ -4,12 +4,11 @@
  */
 package com.marbl.warehouse;
 
-import com.marbl.domain.PartInfo;
+import com.marbl.client.domain.PartInfo;
 import com.marbl.warehouse.domain.Database;
 import com.marbl.warehouse.domain.Factuur;
 import com.marbl.warehouse.domain.FactuurRegel;
 import com.marbl.warehouse.domain.Klant;
-import com.sun.jna.Native;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,19 +19,19 @@ import java.util.logging.Logger;
  *
  * @author Bas
  */
-public class WarehouseTest
+public class WarehouseMessaging
 {
 
     private ComputerBrokerGateway gateway;
     private Database db;
 
-    public WarehouseTest(String factoryName, String requestQueue, String replyQueue)
+    public WarehouseMessaging(String factoryName, String requestQueue, String replyQueue)
     {
        
         gateway = new ComputerBrokerGateway(factoryName, requestQueue, replyQueue)
         {
             @Override
-            void receivedWarehouseRequest(WarehouseRequest request)
+            void receivedWarehouseRequest(WarehouseOrderRequest request)
             {
                 try
                 {
@@ -60,12 +59,12 @@ public class WarehouseTest
                     f.setRegels(regels);
                     //db.insert(klant);
                     //db.insert(f);
-                    gateway.sendReply(request, new WarehouseReply(f));
+                    gateway.sendReply(request, new WarehouseOrderReply(f));
                     
                     System.out.println("I sent away a reply from the warehouse. I needed " +  request.getParts().get(0));
                 } catch (SQLException ex)
                 {
-                    Logger.getLogger(WarehouseTest.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(WarehouseMessaging.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         };
