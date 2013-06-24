@@ -116,7 +116,7 @@ abstract class OrderRequestProcess
 
         ParafiksitOrderRequest paraRequest;
 
-        paraRequest = new ParafiksitOrderRequest((ArrayList) cRequest.getOperations());
+        paraRequest = new ParafiksitOrderRequest((ArrayList) cRequest.getOperations(),cRequest.getContact(),cRequest.getShippingAddress());
 
 
         return paraRequest;

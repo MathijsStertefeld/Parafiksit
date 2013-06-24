@@ -3,6 +3,8 @@ package com.marbl.parafiksitwebi.beans;
 import com.marbl.client.ClientOrderRequest;
 import com.marbl.messaging.JMSSettings;
 import com.marbl.parafiksitwebi.messaging.ClientTest;
+import javax.annotation.PostConstruct;
+import javax.ejb.Startup;
 
 /*
  * To change this template, choose Tools | Templates
@@ -11,13 +13,14 @@ import com.marbl.parafiksitwebi.messaging.ClientTest;
 /**
  * @author Leslie Aerts
  */
-
+@Startup
 public class OrderBean
 {
 
     private ClientOrderRequest request;
     private ClientTest cTest;
     
+    @PostConstruct
     public void OrderBean()
     {
         JMSSettings queueNames = new JMSSettings("src/main/resources/MESSAGING_CHANNELS.ini");
