@@ -24,11 +24,10 @@ public class ClientOrderRequest
     private List<WorkPerformedInfo> operations;
     private List<PartInfo> parts;
 
-    public ClientOrderRequest(String clientName, String contactName, String contactPhone, String shippingStreet, String shippingNumber, String shippingPlace, String shippingPostalCode, ArrayList<WorkPerformedInfo> operations, ArrayList<PartInfo> parts)
+    public ClientOrderRequest(String clientName, String firstName, String lastName, String contactPhone, String shippingStreet, String shippingNumber, String shippingPlace, String shippingPostalCode, ArrayList<WorkPerformedInfo> operations, ArrayList<PartInfo> parts)
     {
         this.clientName = clientName;
-        String[] strings =  contactName.split(" ");
-        this.contact = new Contact(strings[0],strings[1], contactPhone);
+        this.contact = new Contact(firstName,lastName,contactPhone);
         this.shippingAddress = new ShippingAddress(shippingStreet, shippingNumber, shippingPostalCode, shippingPlace);
         this.operations = operations;
         this.parts = parts;

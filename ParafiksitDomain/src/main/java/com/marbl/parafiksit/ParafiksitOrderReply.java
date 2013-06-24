@@ -4,23 +4,53 @@
  */
 package com.marbl.parafiksit;
 
+import com.marbl.client.domain.ShippingAddress;
+import com.marbl.client.domain.WorkPerformedInfo;
+import java.util.List;
+
 /**
  *
  * @author Bas
  */
 public class ParafiksitOrderReply {
-        private String string;
-    
-    public ParafiksitOrderReply(String s){
-        string = s;
-    }
-    
-    public String getString()
+        private String nameClient;
+        private ShippingAddress shipping;
+        private List<WorkPerformedInfo> workPerformed;
+        private int TotalPriceForWorkPerformed;
+        private String bankAccount;
+
+    public ParafiksitOrderReply(String nameClient, ShippingAddress shipping, List<WorkPerformedInfo> workPerformed, int TotalPriceForWorkPerformed, String bankAccount)
     {
-        return string;
+        this.nameClient = nameClient;
+        this.shipping = shipping;
+        this.workPerformed = workPerformed;
+        this.TotalPriceForWorkPerformed = TotalPriceForWorkPerformed;
+        this.bankAccount = bankAccount;
     }
-    
-    public void setString(String s){
-        string = s;
+
+    public String getBankAccount()
+    {
+        return bankAccount;
     }
+
+    public String getNameClient()
+    {
+        return nameClient;
+    }
+
+    public ShippingAddress getShipping()
+    {
+        return shipping;
+    }
+
+    public int getTotalPriceForWorkPerformed()
+    {
+        return TotalPriceForWorkPerformed;
+    }
+
+    public List<WorkPerformedInfo> getWorkPerformed()
+    {
+        return workPerformed;
+    }
+ 
 }

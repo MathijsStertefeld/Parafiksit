@@ -19,7 +19,7 @@ public class ParafiksitTest {
             void receivedParafiksitRequest(ParafiksitOrderRequest request) {
                 
                 //DO STUFF HERE
-                orderGateway.sendReply(request, new ParafiksitOrderReply(null));
+              //  orderGateway.sendReply(request, new ParafiksitOrderReply(null));
             }
         };
     }

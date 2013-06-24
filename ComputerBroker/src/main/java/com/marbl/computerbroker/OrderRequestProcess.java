@@ -11,6 +11,7 @@ import com.marbl.parafiksit.ParafiksitOrderReply;
 import com.marbl.parafiksit.ParafiksitOrderRequest;
 import com.marbl.warehouse.WarehouseOrderReply;
 import com.marbl.warehouse.WarehouseOrderRequest;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 /**
@@ -146,7 +147,8 @@ abstract class OrderRequestProcess
     private ClientOrderReply createClientReply(ClientOrderRequest cRequest, ParafiksitOrderReply pReply)
     {
             //FACTUUR MAKEN HIER!!!
-        return new ClientOrderReply(pReply.getString());
+        //ClientOrderReply finalReply = new ClientOrderReply(cRequest.getClientName(), cRequest.getShippingAddress(), cRequest.getComments(), cRequest.getOperations(), new BigDecimal(pReply.getTotalPriceForWorkPerformed()), c, BigDecimal.ZERO, BigDecimal.ZERO, null);
+        return finalReply;
     }
 
     abstract void notifySentClientReply(OrderRequestProcess process);
