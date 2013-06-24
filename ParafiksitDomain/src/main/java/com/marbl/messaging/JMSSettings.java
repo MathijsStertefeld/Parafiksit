@@ -8,12 +8,7 @@ import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-public class JMSSettings
-{
+public class JMSSettings {
 
     public static final String CONNECTION = "CONNECTION";
     public static final String CLIENT_ORDER_REQUEST = "CLIENT_ORDER_REQUEST";
@@ -30,20 +25,14 @@ public class JMSSettings
     public static final String PARAFIKSIT_STATUS_REPLY = "PARAFIKSIT_STATUS_REPLY";
     public static final String WAREHOUSE_STATUS_REQUEST = "WAREHOUSE_STATUS_REQUEST";
     public static final String WAREHOUSE_STATUS_REPLY = "WAREHOUSE_STATUS_REPLY";
-    
     private HashMap<String, String> map;
 
-    public JMSSettings(String fileName)
-    {
+    public JMSSettings(String fileName) {
         File file = new File(fileName);
-        map = new HashMap<String, String>();
-        Scanner scanner = null;
-        try
-        {
-
-            scanner = new Scanner(file);
-            while (scanner.hasNextLine())
-            {
+        map = new HashMap<>();
+        
+        try (Scanner scanner = new Scanner(file)) {
+            while (scanner.hasNextLine()) {
                 String line = scanner.nextLine().replaceAll(" ", "");
                 StringTokenizer tk = new StringTokenizer(line, "=");
                 String key = tk.nextToken();
@@ -51,20 +40,12 @@ public class JMSSettings
                 System.out.println(key + "=" + value);
                 map.put(key, value);
             }
-
-
-            scanner.close();
-        } catch (FileNotFoundException ex)
-        {
+        } catch (FileNotFoundException ex) {
             Logger.getLogger(JMSSettings.class.getName()).log(Level.SEVERE, null, ex);
-        } finally
-        {
-            scanner.close();
         }
     }
 
-    public String get(String queue)
-    {
+    public String get(String queue) {
         return map.get(queue);
     }
 }

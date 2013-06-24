@@ -1,40 +1,50 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this template, choose Tools | Templates
-and open the template in the editor.
--->
-<!DOCTYPE html>
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html">
-    <head>
+    <h:head>
         <title>Parafiksit Web Interface</title>
         <link rel="stylesheet" type="text/css" href="index.css" />
-    </head>
-    <body>
+    </h:head>
+    <h:body>
         <div id="main_form">
             <h:form>
-                <table>
-                    <tr>
-
-                        NameClient: <input type="text" name="" value="" /><br/><br/>
-                        <b>Contactpersoon</b><br/>
-                        Naam: <input type="text" name="" value="" /><br/>
-                        AchterNaam: <input type="text" name="" value="" /><br/>
-                        Telefoon: <input type="text" name="" value="" /><br/><br/>
-                        <b>Shipping</b><br/>
-                        Street: <input type="text" name="" value="" /><br/>
-                        Number: <input type="text" name="" value="" /><br/>
-                        Place: <input type="text" name="" value="" /><br/>
-                        ReparationDescription: <input type="text" name="" value="" /><br/>
-                        WorkPerformed:<br/>
-                        PartNo1:<br/>
-                        PartNo2:<br/>
-                        ...
-                    </tr>
-                </table>
-                <input type="submit" value="Order verzenden" />
+                <!--table>
+                <tr-->
+                <h:outputLabel for="clientName" value="Client name: " />
+                <h:outputText id="clientName" value="#{orderBean.request.clientName}" />
+                <br /><br />
+                <b>Contactpersoon</b><br />
+                <h:outputLabel for="firstName" value="First name: " />
+                <h:outputText id="firstName" value="#{orderBean.request.contact.firstName}" />
+                <br />
+                <h:outputLabel for="lastName" value="Last name: " />
+                <h:outputText id="lastName" value="#{orderBean.request.contact.lastName}" />
+                <br />
+                <h:outputLabel for="contactPhone" value="Contact phone: " />
+                <h:outputText id="contactPhone" value="#{orderBean.request.contact.contactPhone}" />
+                <br /><br />
+                <b>Shipping</b><br />
+                <h:outputLabel for="street" value="Street: " />
+                <h:outputText id="street" value="#{orderBean.request.shippingAddress.street}" />
+                <br />
+                <h:outputLabel for="number" value="Contact phone: " />
+                <h:outputText id="number" value="#{orderBean.request.shippingAddress.number}" />
+                <br />
+                <h:outputLabel for="place" value="Place: " />
+                <h:outputText id="place" value="#{orderBean.request.shippingAddress.place}" />
+                <br />
+                <h:outputLabel for="comments" value="Comments: " />
+                <h:outputText id="comments" value="#{orderBean.request.comments}" />
+                <br />
+                WorkPerformed:<br />
+                PartNo1:<br />
+                PartNo2:<br />
+                ...
+                <!--/tr>
+                </table-->
+                <input type="submit" value="Order verzenden" onclick="#{orderBean.order()}" />
             </h:form>
-
         </div>
-    </body>
+    </h:body>
 </html>
