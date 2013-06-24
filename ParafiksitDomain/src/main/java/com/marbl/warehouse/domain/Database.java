@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -48,8 +49,8 @@ public class Database {
      * @return Een lijst met Onderdeel-objecten, als het fout gaat of de tabel
      * leeg is wordt een lege lijst gereturneerd.
      */
-    public ArrayList<Onderdeel> selectOnderdelen() throws SQLException {
-        ArrayList<Onderdeel> onderdelen = new ArrayList<Onderdeel>();
+    public Collection<Onderdeel> selectOnderdelen() throws SQLException {
+        Collection<Onderdeel> onderdelen = new ArrayList<Onderdeel>();
         String sql = "SELECT * FROM ONDERDEEL";
 
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -73,8 +74,8 @@ public class Database {
      * @return Een lijst met FactuurRegel-objecten, als het fout gaat of de
      * tabel leeg is wordt een lege lijst gereturneerd.
      */
-    public ArrayList<FactuurRegel> selectFactuurRegels() throws SQLException {
-        ArrayList<FactuurRegel> factuurRegels = new ArrayList<FactuurRegel>();
+    public Collection<FactuurRegel> selectFactuurRegels() throws SQLException {
+        Collection<FactuurRegel> factuurRegels = new ArrayList<FactuurRegel>();
         String sql = "SELECT * FROM FACTUURREGEL";
 
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -97,9 +98,9 @@ public class Database {
      * @return Een lijst met Factuur-objecten, als het fout gaat of de tabel
      * leeg is wordt een lege lijst gereturneerd.
      */
-    public ArrayList<Factuur> selectFacturen() throws SQLException {
-        ArrayList<Factuur> facturen = new ArrayList<Factuur>();
-        ArrayList<FactuurRegel> factuurRegels = selectFactuurRegels();
+    public Collection<Factuur> selectFacturen() throws SQLException {
+        Collection<Factuur> facturen = new ArrayList<Factuur>();
+        Collection<FactuurRegel> factuurRegels = selectFactuurRegels();
         String sql = "SELECT * FROM FACTUUR";
 
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -133,8 +134,8 @@ public class Database {
      * @return Ee lijst met Klant-objecten, als het fout gaat of de tabel leeg
      * is wordt een lege lijst gereturneerd.
      */
-    public ArrayList<Klant> selectKlanten() throws SQLException {
-        ArrayList<Klant> klanten = new ArrayList<Klant>();
+    public Collection<Klant> selectKlanten() throws SQLException {
+        Collection<Klant> klanten = new ArrayList<Klant>();
         String sql = "SELECT * FROM KLANT";
 
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -196,7 +197,7 @@ public class Database {
             ps.setString(2, onderdeel.getOmschrijving());
             ps.setInt(3, onderdeel.getAantal());
             ps.setInt(4, onderdeel.getPrijs());
-            ps.executeUpdate();
+            ps.execute();
         }
     }
 
@@ -212,7 +213,7 @@ public class Database {
             ps.setInt(1, klant.getCode());
             ps.setString(2, klant.getNaam());
             ps.setString(3, klant.getAdres());
-            ps.executeUpdate();
+            ps.execute();
         }
     }
 
@@ -230,7 +231,7 @@ public class Database {
             ps.setInt(1, factuurRegel.getFactuurCode());
             ps.setInt(2, factuurRegel.getOnderdeelCode());
             ps.setInt(3, factuurRegel.getAantal());
-            ps.executeUpdate();
+            ps.execute();
         }
     }
 
@@ -249,7 +250,7 @@ public class Database {
             ps.setInt(1, factuur.getCode());
             ps.setInt(2, factuur.getKlantCode());
             ps.setString(3, factuur.getDatum());
-            ps.executeUpdate();
+            ps.execute();
 
             for (FactuurRegel factuurRegel : factuur.getRegels()) {
                 insert(factuurRegel);
@@ -270,7 +271,7 @@ public class Database {
         
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setInt(1, code);
-            ps.executeUpdate();
+            ps.execute();
         }
     }
 
@@ -283,7 +284,7 @@ public class Database {
     public void deleteKlant(int code) throws SQLException {
         try (PreparedStatement ps = connection.prepareStatement("DELETE FROM KLANT WHERE CODE = ?")) {
             ps.setInt(1, code);
-            ps.executeUpdate();
+            ps.execute();
         }
     }
 //</editor-fold>
@@ -305,7 +306,7 @@ public class Database {
             ps.setInt(2, onderdeel.getAantal());
             ps.setInt(3, onderdeel.getPrijs());
             ps.setInt(4, onderdeel.getCode());
-            ps.executeUpdate();
+            ps.execute();
         }
     }
 
@@ -322,7 +323,7 @@ public class Database {
             ps.setString(1, klant.getNaam());
             ps.setString(2, klant.getAdres());
             ps.setInt(3, klant.getCode());
-            ps.executeUpdate();
+            ps.execute();
         }
     }
     //</editor-fold>

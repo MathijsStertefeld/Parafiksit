@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collection;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
@@ -24,7 +25,7 @@ public class JFrameVerwijderen extends javax.swing.JFrame implements ActionListe
     /**
      * Creates new form JFrameVerwijderen met ingevoerde waardes.
      */
-    public JFrameVerwijderen(String soort, ArrayList<Onderdeel> onderdelen, ArrayList<Klant> klanten, Magazijn main) {
+    public JFrameVerwijderen(String soort, Collection<Onderdeel> onderdelen, Collection<Klant> klanten, Magazijn main) {
         initComponents();
 
         this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -44,8 +45,8 @@ public class JFrameVerwijderen extends javax.swing.JFrame implements ActionListe
         add(button);
 
         this.soort = soort;
-        this.onderdelen = onderdelen;
-        this.klanten = klanten;
+        this.onderdelen = new ArrayList<Onderdeel>(onderdelen);
+        this.klanten = new ArrayList<Klant>(klanten);
         switch (soort) {
             case "Klant": {
                 for (Klant kl : klanten) {

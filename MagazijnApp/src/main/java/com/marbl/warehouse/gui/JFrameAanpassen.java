@@ -5,6 +5,7 @@ import com.marbl.warehouse.domain.Onderdeel;
 import java.awt.Font;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collection;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -20,19 +21,19 @@ public class JFrameAanpassen extends javax.swing.JFrame {
     /**
      * Creates new form JFrameAanpassen
      */
-    public JFrameAanpassen(String soort, Magazijn main, ArrayList<Klant> klanten, ArrayList<Onderdeel> onderdelen) {
+    public JFrameAanpassen(String soort, Magazijn main, Collection<Klant> klanten, Collection<Onderdeel> onderdelen) {
         initComponents();
         this.setLocation(400, 250);
         this.main = main;
         this.soort = soort;
         switch (soort) {
             case "Klant": {
-                this.klanten = klanten;
+                this.klanten = new ArrayList<Klant>(klanten);
                 CreateKlantGUI();
                 break;
             }
             case "Onderdeel": {
-                this.onderdelen = onderdelen;
+                this.onderdelen = new ArrayList<Onderdeel>(onderdelen);
                 CreateOnderdeelGUI();
                 break;
             }

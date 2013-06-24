@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Collection;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -22,19 +23,19 @@ public class JFrameFactuurRegelToevoegen extends javax.swing.JFrame implements A
     /**
      * Creates new form JFrameFactuurRegelToevoegen
      */
-    public JFrameFactuurRegelToevoegen(JFrameToevoegen main, ArrayList<Onderdeel> onderdelen) {
+    public JFrameFactuurRegelToevoegen(JFrameToevoegen main, Collection<Onderdeel> onderdelen) {
         initComponents();
         this.setLocation(400, 250);
         this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         this.setTitle("Regel Toevoegen");
         this.main = main;
-        this.onderdelen = onderdelen;
+        this.onderdelen = new ArrayList(onderdelen);
 
         list = new JComboBox();
         list.setBounds(20, 20, 190, 20);
         add(list);
-        for (Onderdeel ond : onderdelen) {
-            list.addItem(ond.getCode() + ":  " + ond.getOmschrijving());
+        for (Onderdeel onderdeel : onderdelen) {
+            list.addItem(onderdeel.getCode() + ":  " + onderdeel.getOmschrijving());
 
         }
 

@@ -9,6 +9,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Collection;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -42,7 +43,7 @@ public class JFrameBekijken extends javax.swing.JFrame implements ActionListener
      * @param main Het hoofdmenu, zodat de setVisible methode weer veranderd kan
      * worden.
      */
-    public JFrameBekijken(String soort, ArrayList<Onderdeel> onderdelen, ArrayList<Klant> klanten, ArrayList<Factuur> facturen, Magazijn main) {
+    public JFrameBekijken(String soort, Collection<Onderdeel> onderdelen, Collection<Klant> klanten, Collection<Factuur> facturen, Magazijn main) {
         initComponents();
         op = new JOptionPane();
         this.main = main;
@@ -57,9 +58,9 @@ public class JFrameBekijken extends javax.swing.JFrame implements ActionListener
         jCbSelect.addActionListener(this);
         
         this.soort = soort;
-        this.onderdelen = onderdelen;
-        this.klanten = klanten;
-        this.facturen = facturen;
+        this.onderdelen = new ArrayList<Onderdeel>(onderdelen);
+        this.klanten = new ArrayList<Klant>(klanten);
+        this.facturen = new ArrayList<Factuur>(facturen);
         switch (soort) {
             case "Klant": {
                 for (Klant kl : klanten) {

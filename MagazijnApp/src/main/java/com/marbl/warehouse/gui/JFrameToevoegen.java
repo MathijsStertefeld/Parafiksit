@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import javax.swing.JButton;
@@ -43,7 +44,7 @@ public class JFrameToevoegen extends javax.swing.JFrame implements ActionListene
      * @param onderdelen Een lijst met onderdelen uit de database, waaruit
      * gekozen kan worden voor het aanmaken van de nieuwe factuur.
      */
-    public JFrameToevoegen(Magazijn magazijn, String soort, ArrayList<Klant> klanten) {
+    public JFrameToevoegen(Magazijn magazijn, String soort, Collection<Klant> klanten) {
         initComponents();
         componenten = new ArrayList<>();
         fontB = new Font("Times New Roman", 1, 12);
@@ -52,7 +53,7 @@ public class JFrameToevoegen extends javax.swing.JFrame implements ActionListene
         this.setLocation(400, 250);
         this.soort = soort;
         onderdelen = new ArrayList<>();
-        this.klanten = klanten;
+        this.klanten = new ArrayList<Klant>(klanten);
         jCbSelect = new JComboBox();
         jCbSelect.setBounds(20, 40, 190, 20);
         add(jCbSelect);

@@ -3,7 +3,7 @@ package com.marbl.warehouse.gui;
 import com.marbl.warehouse.domain.*;
 import java.awt.Font;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.Collection;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
@@ -335,7 +335,7 @@ public class Magazijn extends javax.swing.JFrame {
 
     private void jMnFacVoegActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMnFacVoegActionPerformed
         try {
-            ArrayList<Klant> klanten = database.selectKlanten();
+            Collection<Klant> klanten = database.selectKlanten();
             JFrameToevoegen toevoeg = new JFrameToevoegen(this, "Factuur", klanten);
             toevoeg.setVisible(true);
             this.setVisible(false);
