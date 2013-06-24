@@ -43,9 +43,9 @@ public class ParafiksitOrderReply {
         return shipping;
     }
 
-    public int getTotalPriceForWorkPerformed()
+    public Integer getTotalPriceForWorkPerformed()
     {
-        return TotalPriceForWorkPerformed;
+        return totalPriceForWorkPerformed;
     }
 
     public List<WorkPerformedInfo> getWorkPerformed()
