@@ -78,13 +78,17 @@ namespace ReparatieSysteem.Messaging
             {
                 ITextMessage textMessage = message as ITextMessage;
 
+                Console.WriteLine("Received: " + textMessage.Text);
+
                 XmlSerializer serializer = new XmlSerializer(typeof(ParafiksitOrderRequest));
 
                 ParafiksitOrderRequest request = (ParafiksitOrderRequest)serializer.Deserialize(new System.Xml.XmlTextReader(new System.IO.StringReader(textMessage.Text)));
 
                 Console.WriteLine(request);
 
-                Console.WriteLine("Received: " + textMessage.Text);
+                createReply(request);
+
+                
             }
             catch (Exception e)
             {

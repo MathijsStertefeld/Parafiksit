@@ -11,9 +11,11 @@ namespace ReparatieSysteem.Messaging
         public Contact contact;
         public ShippingAddress shippingAddress;
 
-        public ParafiksitOrderRequest(List<WorkPerformedInfo> work)
+        public ParafiksitOrderRequest(List<WorkPerformedInfo> work, Contact contact, ShippingAddress shipping)
         {
             this.workPerformed = work;
+            this.contact = contact;
+            this.shippingAddress = shipping;
         }
 
         public List<WorkPerformedInfo> getWork()
@@ -24,6 +26,26 @@ namespace ReparatieSysteem.Messaging
         public void setWork(List<WorkPerformedInfo> work)
         {
             this.workPerformed = work;
+        }
+
+        public ShippingAddress getShippingAddress()
+        {
+            return shippingAddress;
+        }
+
+        public void setShippingAddress(ShippingAddress shippingAddress)
+        {
+            this.shippingAddress = shippingAddress;
+        }
+
+        public Contact getContact()
+        {
+            return contact;
+        }
+
+        public void setContact(Contact contact)
+        {
+            this.contact = contact;
         }
     }
 }
