@@ -2,9 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.marbl.client;
+package com.marbl.parafiksitwebi.messaging;
 
-import com.marbl.fontysapp.FontysAppFrame;
+import com.marbl.client.ClientOrderReply;
+import com.marbl.client.ClientOrderRequest;
 
 /**
  *

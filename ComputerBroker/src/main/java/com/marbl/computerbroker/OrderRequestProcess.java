@@ -9,43 +9,49 @@ import com.marbl.client.ClientOrderRequest;
 import com.marbl.messaging.requestreply.IReplyListener;
 import com.marbl.parafiksit.ParafiksitOrderReply;
 import com.marbl.parafiksit.ParafiksitOrderRequest;
-import com.marbl.warehouse.WarehouseReply;
-import com.marbl.warehouse.WarehouseRequest;
+import com.marbl.warehouse.WarehouseOrderReply;
+import com.marbl.warehouse.WarehouseOrderRequest;
 import java.util.ArrayList;
 
 /**
  *
  * @author Bas
  */
-abstract class OrderRequestProcess {
+abstract class OrderRequestProcess
+{
 
     private ClientOrderRequest clientRequest = null;
-    private WarehouseRequest warehouseRequest = null;
-    private WarehouseReply warehouseReply = null;
+    private WarehouseOrderRequest warehouseRequest = null;
+    private WarehouseOrderReply warehouseReply = null;
     private ParafiksitOrderRequest parafiksitRequest = null;
     private ParafiksitOrderReply parafiksitReply = null;
     private ClientOrderReply clientReply = null;
     private ClientOrderGateway clientGateway;
     private WarehouseOrderGateway warehouseGateway;
     private ParafiksitOrderGateway parafiksitGateway;
-    private IReplyListener<WarehouseRequest, WarehouseReply> warehouseReplyListener;
+    private IReplyListener<WarehouseOrderRequest, WarehouseOrderReply> warehouseReplyListener;
     private IReplyListener<ParafiksitOrderRequest, ParafiksitOrderReply> parafiksitReplyListener;
 
-    public OrderRequestProcess(ClientOrderRequest clientRequest, ClientOrderGateway clientGateway, WarehouseOrderGateway warehouseGateway, ParafiksitOrderGateway parafiksitGateway) {
+    public OrderRequestProcess(ClientOrderRequest clientRequest, ClientOrderGateway clientGateway, WarehouseOrderGateway warehouseGateway, ParafiksitOrderGateway parafiksitGateway)
+    {
         this.clientRequest = clientRequest;
         this.clientGateway = clientGateway;
         this.warehouseGateway = warehouseGateway;
         this.parafiksitGateway = parafiksitGateway;
 
-        this.warehouseReplyListener = new IReplyListener<WarehouseRequest, WarehouseReply>() {
-            public void onReply(WarehouseRequest request, WarehouseReply reply) {
+        this.warehouseReplyListener = new IReplyListener<WarehouseOrderRequest, WarehouseOrderReply>()
+        {
+            public void onReply(WarehouseOrderRequest request, WarehouseOrderReply reply)
+            {
                 System.out.println("OrderRequestProcess got reply from warehouse");
                 onWarehouseReply(reply);
             }
         };
 
-        this.parafiksitReplyListener = new IReplyListener<ParafiksitOrderRequest, ParafiksitOrderReply>() {
-            public void onReply(ParafiksitOrderRequest request, ParafiksitOrderReply reply) {
+        this.parafiksitReplyListener = new IReplyListener<ParafiksitOrderRequest, ParafiksitOrderReply>()
+        {
+            public void onReply(ParafiksitOrderRequest request, ParafiksitOrderReply reply)
+            {
                 System.out.println("OrderRequestProcess got reply from parafiksit");
                 onParafiksitReply(reply);
             }
@@ -55,86 +61,93 @@ abstract class OrderRequestProcess {
         //sendOrderToParafiksit();
         CheckIfOrderNeedsParts(clientRequest);
     }
-    
-    private void CheckIfOrderNeedsParts(ClientOrderRequest cRequest){
+
+    private void CheckIfOrderNeedsParts(ClientOrderRequest cRequest)
+    {
         //zoja: stuur naar warehouse (-> parafiksit -> client)
         //zonee: stuur naar parafiksit (-> client)
-        
-        if(cRequest.containsParts()){
+
+        if (cRequest.containsParts())
+        {
             orderPartsAtWarehouse(cRequest);
-        }
-        else{
-            sendOrderToParafiksit(cRequest, null);
+        } else
+        {
+            sendOrderToParafiksit(cRequest);
         }
     }
-    
+
     /*
      * Warehouse methods
      */
-    private void orderPartsAtWarehouse(ClientOrderRequest cRequest) {
-        WarehouseRequest whRequest = createWarehouseRequest(cRequest);
+    private void orderPartsAtWarehouse(ClientOrderRequest cRequest)
+    {
+        WarehouseOrderRequest whRequest = createWarehouseRequest(cRequest);
         warehouseGateway.orderParts(whRequest, warehouseReplyListener);
     }
-    
-    private WarehouseRequest createWarehouseRequest(ClientOrderRequest cRequest) {
+
+    private WarehouseOrderRequest createWarehouseRequest(ClientOrderRequest cRequest)
+    {
         //Check welke parts ordered moeten worden!
-        return new WarehouseRequest(cRequest.getContact(),cRequest.getShippingAddress(),(ArrayList)cRequest.getParts()); //geef parameters mee uit cRequest (onderdelen)
-    }
-    
-    private void onWarehouseReply(WarehouseReply whReply) {
-        warehouseReply = whReply;
-        notifyReceivedWarehouseReply(clientRequest, whReply);
-        
-        sendOrderToParafiksit(clientRequest, whReply);
+        return new WarehouseOrderRequest(cRequest.getContact(), cRequest.getShippingAddress(), (ArrayList) cRequest.getParts()); //geef parameters mee uit cRequest (onderdelen)
     }
 
-    abstract void notifyReceivedWarehouseReply(ClientOrderRequest clientRequest, WarehouseReply warehouseReply);
-       
+    private void onWarehouseReply(WarehouseOrderReply whReply)
+    {
+        warehouseReply = whReply;
+        notifyReceivedWarehouseReply(clientRequest, whReply);
+
+        sendOrderToParafiksit(clientRequest);
+    }
+
+    abstract void notifyReceivedWarehouseReply(ClientOrderRequest clientRequest, WarehouseOrderReply warehouseReply);
+
     /*
      * Parafiksit
      */
-    private void sendOrderToParafiksit(ClientOrderRequest cRequest, WarehouseReply whReply){
-        ParafiksitOrderRequest req = createParafiksitRequest(cRequest, whReply);
+    private void sendOrderToParafiksit(ClientOrderRequest cRequest)
+    {
+        ParafiksitOrderRequest req = createParafiksitRequest(cRequest);
         parafiksitGateway.registerOrder(req, parafiksitReplyListener);
     }
 
-    private ParafiksitOrderRequest createParafiksitRequest(ClientOrderRequest cRequest, WarehouseReply whReply){
+    private ParafiksitOrderRequest createParafiksitRequest(ClientOrderRequest cRequest)
+    {
         System.out.println("cRequest.getstring: " + cRequest.getString());
-        
+
         ParafiksitOrderRequest paraRequest;
-        if(whReply != null){
-            paraRequest = new ParafiksitOrderRequest(cRequest.getString());
-        }
-        else{
-            paraRequest = new ParafiksitOrderRequest(cRequest.getString());
-        }
-        
+
+        paraRequest = new ParafiksitOrderRequest((ArrayList) cRequest.getOperations());
+
+
         return paraRequest;
     }
 
-    private void onParafiksitReply(ParafiksitOrderReply pReply) {
+    private void onParafiksitReply(ParafiksitOrderReply pReply)
+    {
         parafiksitReply = pReply;
         notifyReceivedParafiksitReply(clientRequest, pReply);
-        
+
 
         ClientOrderReply cReply = createClientReply(clientRequest, parafiksitReply);
         sendClientReply(cReply);
     }
 
     abstract void notifyReceivedParafiksitReply(ClientOrderRequest clientRequest, ParafiksitOrderReply reply);
-    
+
     /*
      * ClientReply
-     */   
-    private void sendClientReply(ClientOrderReply cReply){
+     */
+    private void sendClientReply(ClientOrderReply cReply)
+    {
         clientGateway.sendInvoice(clientRequest, cReply);
         notifySentClientReply(this);
     }
-    
-    private ClientOrderReply createClientReply(ClientOrderRequest cRequest, ParafiksitOrderReply pReply) {
-        
+
+    private ClientOrderReply createClientReply(ClientOrderRequest cRequest, ParafiksitOrderReply pReply)
+    {
+            //FACTUUR MAKEN HIER!!!
         return new ClientOrderReply(pReply.getString());
     }
 
-    abstract void notifySentClientReply(OrderRequestProcess process); 
+    abstract void notifySentClientReply(OrderRequestProcess process);
 }

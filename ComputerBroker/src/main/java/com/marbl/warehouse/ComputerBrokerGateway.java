@@ -16,13 +16,13 @@ import javax.jms.Message;
 abstract class ComputerBrokerGateway {
 
     private WarehouseSerializer serializer;
-    private AsynchronousReplier<WarehouseRequest, WarehouseReply> gateway;
+    private AsynchronousReplier<WarehouseOrderRequest, WarehouseOrderReply> gateway;
 
     public ComputerBrokerGateway(String factoryName, String warehouseRequestQueue, String warehouseReplyQueue) {
         serializer = new WarehouseSerializer();
 
         try {
-            gateway = new AsynchronousReplier<WarehouseRequest, WarehouseReply>(factoryName, warehouseRequestQueue, serializer) {
+            gateway = new AsynchronousReplier<WarehouseOrderRequest, WarehouseOrderReply>(factoryName, warehouseRequestQueue, serializer) {
                 @Override
                 public void beforeSendReply(Message request, Message reply) {
                     //???????
@@ -32,22 +32,22 @@ abstract class ComputerBrokerGateway {
             java.util.logging.Logger.getLogger(ComputerBrokerGateway.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        gateway.setRequestListener(new IRequestListener<WarehouseRequest>() {
+        gateway.setRequestListener(new IRequestListener<WarehouseOrderRequest>() {
 
-            public void receivedRequest(WarehouseRequest request) {
+            public void receivedRequest(WarehouseOrderRequest request) {
                 receivedWarehouseRequest(request);
             }
         });
     }
     
-    abstract void receivedWarehouseRequest(WarehouseRequest request);
+    abstract void receivedWarehouseRequest(WarehouseOrderRequest request);
     
     public void start()
     {
         gateway.start();
     }
     
-    void sendReply(WarehouseRequest request, WarehouseReply reply)
+    void sendReply(WarehouseOrderRequest request, WarehouseOrderReply reply)
     {
         gateway.sendReply(request, reply);
     }

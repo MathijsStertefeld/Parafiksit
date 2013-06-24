@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.marbl.domain;
+package com.marbl.client.domain;
 
 import java.math.BigDecimal;
 

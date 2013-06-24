@@ -5,9 +5,9 @@
 package com.marbl.fontysapp;
 
 import com.marbl.client.ClientOrderRequest;
-import com.marbl.client.ClientTest;
-import com.marbl.domain.PartInfo;
-import com.marbl.domain.WorkPerformedInfo;
+import com.marbl.client.ClientMessaging;
+import com.marbl.client.domain.PartInfo;
+import com.marbl.client.domain.WorkPerformedInfo;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
 public class FontysAppFrame extends javax.swing.JFrame
 {
 
-    ClientTest cTest;
+    ClientMessaging cTest;
 
     /**
      * Creates new form FontysAppFrame
@@ -27,7 +27,7 @@ public class FontysAppFrame extends javax.swing.JFrame
         initComponents();
         this.setTitle("FontysApp - A Parafiksit Software Client");
 
-        cTest = new ClientTest("FontysApp", factoryName, requestQueue, replyQueue);
+        cTest = new ClientMessaging("FontysApp", factoryName, requestQueue, replyQueue);
         cTest.start();
     }
 

@@ -4,9 +4,9 @@
  */
 package com.marbl.client;
 
-import com.marbl.domain.PartInfo;
-import com.marbl.domain.ShippingAddress;
-import com.marbl.domain.WorkPerformedInfo;
+import com.marbl.client.domain.PartInfo;
+import com.marbl.client.domain.ShippingAddress;
+import com.marbl.client.domain.WorkPerformedInfo;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
@@ -45,6 +45,53 @@ public class ClientOrderReply {
         this.total = total;
         this.BankAccount = BankAccount;
     }
+
+    public String getNameClient()
+    {
+        return nameClient;
+    }
+
+    public String getBankAccount()
+    {
+        return BankAccount;
+    }
+
+    public ArrayList<PartInfo> getPartInfo()
+    {
+        return partInfo;
+    }
+
+    public String getReparationDescription()
+    {
+        return reparationDescription;
+    }
+
+    public ShippingAddress getShippingAddress()
+    {
+        return shippingAddress;
+    }
+
+    public BigDecimal getTotal()
+    {
+        return total;
+    }
+
+    public BigDecimal getTotalForParts()
+    {
+        return totalForParts;
+    }
+
+    public BigDecimal getTotalForWorkPerformed()
+    {
+        return totalForWorkPerformed;
+    }
+
+    public ArrayList<WorkPerformedInfo> getWorkPerformedInfo()
+    {
+        return workPerformedInfo;
+    }
+    
+
     
     
     public String getString()

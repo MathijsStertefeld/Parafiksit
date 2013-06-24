@@ -4,9 +4,9 @@
  */
 package com.marbl.warehouse;
 
-import com.marbl.domain.Contact;
-import com.marbl.domain.PartInfo;
-import com.marbl.domain.ShippingAddress;
+import com.marbl.client.domain.Contact;
+import com.marbl.client.domain.PartInfo;
+import com.marbl.client.domain.ShippingAddress;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,13 +14,13 @@ import java.util.List;
  *
  * @author Bas
  */
-public class WarehouseRequest {
+public class WarehouseOrderRequest {
     
     private Contact contact;
     private ShippingAddress shipping;
     private List<PartInfo> parts;
 
-    public WarehouseRequest(Contact contact, ShippingAddress shipping, ArrayList<PartInfo> parts)
+    public WarehouseOrderRequest(Contact contact, ShippingAddress shipping, ArrayList<PartInfo> parts)
     {
         this.contact = contact;
         this.parts = parts;
@@ -55,9 +55,6 @@ public class WarehouseRequest {
     public ShippingAddress getShipping()
     {
         return shipping;
-    }
-    
-    
-    
+    }    
     
 }
