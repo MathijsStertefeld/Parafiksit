@@ -165,7 +165,7 @@ public class Database {
         String sql = "SELECT * FROM ONDERDEEL WHERE CODE = ?";
 
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
-            ps.setInt(0, onderdeelCode);
+            ps.setInt(1, onderdeelCode);
             
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
