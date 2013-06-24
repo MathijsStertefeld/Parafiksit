@@ -16,15 +16,15 @@ public class ParafiksitOrderReply {
         private String nameClient;
         private ShippingAddress shipping;
         private List<WorkPerformedInfo> workPerformed;
-        private int TotalPriceForWorkPerformed;
+        private Integer totalPriceForWorkPerformed;
         private String bankAccount;
 
-    public ParafiksitOrderReply(String nameClient, ShippingAddress shipping, List<WorkPerformedInfo> workPerformed, int TotalPriceForWorkPerformed, String bankAccount)
+    public ParafiksitOrderReply(String nameClient, ShippingAddress shipping, List<WorkPerformedInfo> workPerformed, Integer TotalPriceForWorkPerformed, String bankAccount)
     {
         this.nameClient = nameClient;
         this.shipping = shipping;
         this.workPerformed = workPerformed;
-        this.TotalPriceForWorkPerformed = TotalPriceForWorkPerformed;
+        this.totalPriceForWorkPerformed = TotalPriceForWorkPerformed;
         this.bankAccount = bankAccount;
     }
 

@@ -147,6 +147,8 @@ abstract class OrderRequestProcess
     private ClientOrderReply createClientReply(ClientOrderRequest cRequest, ParafiksitOrderReply pReply)
     {
             //FACTUUR MAKEN HIER!!!
+        
+        //Prijs moet nog goed, is hardcoded!
         ClientOrderReply finalReply = new ClientOrderReply(cRequest.getClientName(), cRequest.getShippingAddress(), cRequest.getComments(), (ArrayList)cRequest.getOperations(), new BigDecimal(pReply.getTotalPriceForWorkPerformed()), (ArrayList)cRequest.getParts(), new BigDecimal(10), new BigDecimal(20), pReply.getBankAccount());
         return finalReply;
     }
