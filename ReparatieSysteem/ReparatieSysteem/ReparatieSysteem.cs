@@ -19,7 +19,7 @@ namespace ReparatieSysteem
         {
             database = new OracleDatabase();
             mailServer = new GMailServer();
-            jmsHandler = new JMSHandler();
+            jmsHandler = new JMSHandler(this);
 
         }
 
@@ -219,9 +219,9 @@ namespace ReparatieSysteem
             return database.GetMedewerkers();
         }
 
-        public void sendMessage(string message)
-        {
-            jmsHandler.Send(message);
-        }
+        //public void sendMessage(string message)
+        //{
+        //    jmsHandler.Send(message);
+        //}
     }
 }

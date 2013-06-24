@@ -104,8 +104,11 @@
     <Compile Include="Mail\IMailServer.cs" />
     <Compile Include="Medewerker.cs" />
     <Compile Include="MedewerkerFunctie.cs" />
+    <Compile Include="Messaging\Contact.cs" />
+    <Compile Include="Messaging\ShippingAddress.cs" />
+    <Compile Include="Messaging\WorkPerformedInfo.cs" />
     <Compile Include="Messaging\JMSHandler.cs" />
-    <Compile Include="Messaging\Listener.cs" />
+    <Compile Include="Messaging\ParafiksitOrderReply.cs" />
     <Compile Include="Messaging\ParafiksitOrderRequest.cs" />
     <Compile Include="Operator.cs" />
     <Compile Include="Database\OracleDatabase.cs" />

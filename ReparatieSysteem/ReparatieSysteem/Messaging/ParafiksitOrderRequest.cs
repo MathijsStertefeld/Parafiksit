@@ -7,11 +7,23 @@ namespace ReparatieSysteem.Messaging
 {
     class ParafiksitOrderRequest
     {
-        public string teststring;
+        public List<WorkPerformedInfo> workPerformed;
+        public Contact contact;
+        public ShippingAddress shippingAddress;
 
-        public ParafiksitOrderRequest(string s)
+        public ParafiksitOrderRequest(List<WorkPerformedInfo> work)
         {
-            teststring = s;
+            this.workPerformed = work;
+        }
+
+        public List<WorkPerformedInfo> getWork()
+        {
+            return workPerformed;
+        }
+
+        public void setWork(List<WorkPerformedInfo> work)
+        {
+            this.workPerformed = work;
         }
     }
 }

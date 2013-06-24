@@ -1368,7 +1368,7 @@ namespace ReparatieSysteem
 
         private void sendButton_Click(object sender, EventArgs e)
         {
-            reparatieSysteem.sendMessage("Test123");
+            //reparatieSysteem.sendMessage("Test123");
         }    
                
     }
