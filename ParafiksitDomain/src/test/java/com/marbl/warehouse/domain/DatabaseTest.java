@@ -21,6 +21,7 @@ public class DatabaseTest {
         try {
             database = new Database();
         } catch (SQLException ex) {
+            System.out.println(ex.toString());
             fail("Database connection failed.");
         }
     }

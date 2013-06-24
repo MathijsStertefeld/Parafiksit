@@ -1,8 +1,7 @@
-package com.marbl.warehouse.gui;
+package com.marbl.warehouse;
 
 import com.marbl.messaging.JMSSettings;
-import com.marbl.warehouse.WarehouseOrderReply;
-import com.marbl.warehouse.WarehouseMessaging;
+import com.marbl.warehouse.gui.Magazijn;
 import java.sql.SQLException;
 import org.jdesktop.application.Application;
 import org.jdesktop.application.SingleFrameApplication;

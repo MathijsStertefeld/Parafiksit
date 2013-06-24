@@ -29,6 +29,7 @@ public class JMSSettings {
 
     public JMSSettings(String fileName) {
         File file = new File(fileName);
+        System.out.println("Absolute Path: " + file.getAbsolutePath());
         map = new HashMap<>();
         
         try (Scanner scanner = new Scanner(file)) {

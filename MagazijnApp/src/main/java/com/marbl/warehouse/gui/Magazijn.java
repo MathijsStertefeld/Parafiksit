@@ -77,7 +77,7 @@ public class Magazijn extends javax.swing.JFrame {
         jMnStop = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(com.marbl.warehouse.gui.MagazijnApplicatieApp.class).getContext().getResourceMap(Magazijn.class);
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(com.marbl.warehouse.MagazijnApplicatieApp.class).getContext().getResourceMap(Magazijn.class);
         setTitle(resourceMap.getString("Form.title")); // NOI18N
         setName("Form"); // NOI18N
         setResizable(false);
