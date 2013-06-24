@@ -7,7 +7,6 @@ using Spring.Messaging.Nms;
 using Apache.NMS;
 using Spring.Messaging.Nms.Core;
 //using System.Xml.Serialization;
-//using ReparatieSysteem.Messaging;
 
 namespace ReparatieSysteem.Messaging
 {
