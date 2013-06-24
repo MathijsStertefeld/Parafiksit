@@ -49,7 +49,7 @@ public class Database {
      * leeg is wordt een lege lijst gereturneerd.
      */
     public ArrayList<Onderdeel> selectOnderdelen() throws SQLException {
-        ArrayList<Onderdeel> onderdelen = new ArrayList<>();
+        ArrayList<Onderdeel> onderdelen = new ArrayList<Onderdeel>();
         String sql = "SELECT * FROM ONDERDEEL";
 
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -74,7 +74,7 @@ public class Database {
      * tabel leeg is wordt een lege lijst gereturneerd.
      */
     public ArrayList<FactuurRegel> selectFactuurRegels() throws SQLException {
-        ArrayList<FactuurRegel> factuurRegels = new ArrayList<>();
+        ArrayList<FactuurRegel> factuurRegels = new ArrayList<FactuurRegel>();
         String sql = "SELECT * FROM FACTUURREGEL";
 
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -98,7 +98,7 @@ public class Database {
      * leeg is wordt een lege lijst gereturneerd.
      */
     public ArrayList<Factuur> selectFacturen() throws SQLException {
-        ArrayList<Factuur> facturen = new ArrayList<>();
+        ArrayList<Factuur> facturen = new ArrayList<Factuur>();
         ArrayList<FactuurRegel> factuurRegels = selectFactuurRegels();
         String sql = "SELECT * FROM FACTUUR";
 
@@ -110,7 +110,7 @@ public class Database {
                     int code = rs.getInt("CODE");
                     int klantID = rs.getInt("KLANTCODE");
                     String datum = rs.getString("DATUM");
-                    ArrayList<FactuurRegel> regels = new ArrayList<>();
+                    ArrayList<FactuurRegel> regels = new ArrayList<FactuurRegel>();
                     
                     for (FactuurRegel factuurRegel : factuurRegels) {
                         if (factuurRegel.getFactuurCode() == code) {
@@ -134,7 +134,7 @@ public class Database {
      * is wordt een lege lijst gereturneerd.
      */
     public ArrayList<Klant> selectKlanten() throws SQLException {
-        ArrayList<Klant> klanten = new ArrayList<>();
+        ArrayList<Klant> klanten = new ArrayList<Klant>();
         String sql = "SELECT * FROM KLANT";
 
         try (PreparedStatement ps = connection.prepareStatement(sql)) {

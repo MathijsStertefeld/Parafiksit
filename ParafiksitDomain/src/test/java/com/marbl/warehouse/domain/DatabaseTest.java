@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.marbl.warehouse.domain;
 
 import java.sql.SQLException;
@@ -10,75 +6,53 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.junit.After;
 import org.junit.AfterClass;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
-/**
- *
- * @author Eagle
- */
-public class DatabaseTest
-{
+public class DatabaseTest {
 
     static Database database;
 
-    public DatabaseTest()
-    {
+    public DatabaseTest() {
     }
 
     @BeforeClass
-    public static void setUpClass()
-    {
-        try
-        {
+    public static void setUpClass() {
+        try {
             database = new Database();
-        }
-        catch (SQLException ex)
-        {
+        } catch (SQLException ex) {
             fail("Database connection failed.");
-            //Logger.getLogger(DatabaseTest.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     @AfterClass
-    public static void tearDownClass()
-    {
+    public static void tearDownClass() {
     }
 
     @Before
-    public void setUp()
-    {
-        try
-        {
-            database.deleteOnderdeel(-1);            
+    public void setUp() {
+        try {
+            database.deleteOnderdeel(-1);
+        } catch (SQLException ex) {
         }
-        catch (SQLException ex)
-        {
-
-        }
-        try
-        {
+        try {
             database.deleteKlant(-1);
-        }
-        catch (SQLException ex)
-        {
+        } catch (SQLException ex) {
             Logger.getLogger(DatabaseTest.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     @After
-    public void tearDown()
-    {
+    public void tearDown() {
     }
 
     /**
      * Test of insert method, of class Database.
      */
     @Test
-    public void testInsert_Onderdeel() throws Exception
-    {
+    public void testInsert_Onderdeel() throws Exception {
         System.out.println("Testing insert Onderdeel");
         Onderdeel onderdeel = new Onderdeel(-1, "Test onderdeel", 1, 10);
 
@@ -102,8 +76,7 @@ public class DatabaseTest
      * Test of insert method, of class Database.
      */
     @Test
-    public void testInsert_Klant() throws Exception
-    {
+    public void testInsert_Klant() throws Exception {
         System.out.println("Testing insert Onderdeel");
         Klant klant = new Klant(-1, "Test klant", "Test adres");
 
@@ -112,10 +85,8 @@ public class DatabaseTest
         // Check to see if onderdeel has been added:
         ArrayList<Klant> klanten = database.selectKlanten();
         Klant klantReturned = null;
-        for (Klant k : klanten)
-        {
-            if (k.getCode() == -1)
-            {
+        for (Klant k : klanten) {
+            if (k.getCode() == -1) {
                 klantReturned = k;
                 break;
             }
@@ -131,10 +102,8 @@ public class DatabaseTest
 
         klanten = database.selectKlanten();
         Klant klantRemoved = null;
-        for (Klant k : klanten)
-        {
-            if (k.getCode() == -1)
-            {
+        for (Klant k : klanten) {
+            if (k.getCode() == -1) {
                 klantRemoved = k;
                 break;
             }
