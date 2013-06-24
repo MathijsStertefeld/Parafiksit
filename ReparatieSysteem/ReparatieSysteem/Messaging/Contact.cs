@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ReparatieSysteem.Messaging
 {
-    class Contact
+    public class Contact
     {
         private String firstName;
         private String lastName;

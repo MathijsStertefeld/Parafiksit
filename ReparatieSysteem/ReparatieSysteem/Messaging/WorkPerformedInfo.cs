@@ -5,13 +5,13 @@ using System.Text;
 
 namespace ReparatieSysteem.Messaging
 {
-    class WorkPerformedInfo
+    public class WorkPerformedInfo
     {
-        private string description;
+        private String description;
 
-        private int price;
+        private Int32 price;
 
-        public int Price
+        public Int32 Price
         {
             get { return price; }
             set { price = value; }
@@ -22,7 +22,7 @@ namespace ReparatieSysteem.Messaging
             get { return description; }
         }
 
-        public WorkPerformedInfo(string description)
+        public WorkPerformedInfo(String description)
         {
             this.description = description;
         }

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ReparatieSysteem.Messaging
 {
-    class ShippingAddress
+    public class ShippingAddress
     {
         private String street;
         private String number;

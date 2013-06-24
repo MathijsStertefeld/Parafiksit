@@ -38,6 +38,9 @@ namespace ReparatieSysteem.Messaging
             listenerContainer.DestinationName = DESTINATION_REQUEST;
             listenerContainer.MessageListener = this;
             listenerContainer.AfterPropertiesSet();
+
+            XmlSerializer serializer = new XmlSerializer(typeof(ParafiksitOrderRequest));
+            Console.WriteLine(serializer);
         }
 
         public void Send(ParafiksitOrderReply message)
@@ -80,13 +83,15 @@ namespace ReparatieSysteem.Messaging
 
                 Console.WriteLine("Received: " + textMessage.Text);
 
-                XmlSerializer serializer = new XmlSerializer(typeof(ParafiksitOrderRequest));
+                //var knownTypes = new Type[] { typeof(Contact), typeof(ShippingAddress), typeof(WorkPerformedInfo)};
+
+                XmlSerializer serializer = new XmlSerializer(typeof(ParafiksitOrderRequest));//, knownTypes);
 
                 ParafiksitOrderRequest request = (ParafiksitOrderRequest)serializer.Deserialize(new System.Xml.XmlTextReader(new System.IO.StringReader(textMessage.Text)));
 
                 Console.WriteLine(request);
 
-                createReply(request);
+                //createReply(request);
 
                 
             }
@@ -98,8 +103,8 @@ namespace ReparatieSysteem.Messaging
 
         public void createReply(ParafiksitOrderRequest request)
         {
-            Contact contact = request.contact;
-            ShippingAddress address = request.shippingAddress;
+            Contact contact = request.getContact();
+            ShippingAddress address = request.getShippingAddress();
             int number = 0;
             Int32.TryParse(address.getNumber(), out number);
 
@@ -118,7 +123,7 @@ namespace ReparatieSysteem.Messaging
             Random random = new Random();
             List<Ticket> tickets = new List<Ticket>();
 
-            foreach (WorkPerformedInfo w in request.workPerformed)
+            foreach (WorkPerformedInfo w in request.getWorkPerformed())
             {
                 Ticket t = reparatieSysteem.VoegTicketToe(klantNummer, (random.NextDouble() * (100.0 - 0.0) + 0.0), random.Next(0,100), "Repa", w.getDescription, "repa");
                 tickets.Add(t);
