@@ -5,6 +5,7 @@
 package com.marbl.warehouse;
 
 import com.marbl.warehouse.domain.Factuur;
+import java.math.BigDecimal;
 
 /**
  *
@@ -13,10 +14,12 @@ import com.marbl.warehouse.domain.Factuur;
 public class WarehouseOrderReply
 {
     private Factuur factuur;
+    private BigDecimal totalPriceForParts;
 
     public WarehouseOrderReply(Factuur factuur)
     {
         this.factuur = factuur;
+        totalPriceForParts = new BigDecimal(0);
     }
 
     public Factuur getFactuur()

@@ -9,6 +9,7 @@ import com.marbl.warehouse.domain.Database;
 import com.marbl.warehouse.domain.Factuur;
 import com.marbl.warehouse.domain.FactuurRegel;
 import com.marbl.warehouse.domain.Klant;
+import com.marbl.warehouse.domain.Onderdeel;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -27,7 +28,6 @@ public class WarehouseMessaging
 
     public WarehouseMessaging(String factoryName, String requestQueue, String replyQueue)
     {
-       
         gateway = new ComputerBrokerGateway(factoryName, requestQueue, replyQueue)
         {
             @Override
@@ -35,33 +35,61 @@ public class WarehouseMessaging
             {
                 try
                 {
-                     db = new Database();
-                    //Klant en factuur hier maken
-                    String address = request.getShipping().getStreet() + " " + request.getShipping().getNumber() + ", " + request.getShipping().getPlace();
-                    Klant klant = new Klant(-1, request.getContact().getContactName(), address);
+                    db = new Database();
 
-                    int nextId = 0;
-
-                    for (Factuur f : db.selectFacturen())
+                    //First, create a new Klant object...
+                    int klantID = 0;
+                    for (Klant k : db.selectKlanten())
                     {
-                        if (f.getCode() > nextId)
+                        if (klantID <= k.getCode())
                         {
-                            nextId = f.getCode();
+                            klantID = k.getCode() + 1;
                         }
                     }
-                    ArrayList<FactuurRegel> regels = new ArrayList<FactuurRegel>();
+                    String address = request.getShipping().getStreet() + " " + request.getShipping().getNumber() + ", " + request.getShipping().getPlace();
+                    Klant klant = new Klant(klantID, request.getContact().getContactName(), address);
+                    
+                    
+                    //Next, make the factuur object
+                    int factuurId = 0;
+                    for (Factuur f : db.selectFacturen())
+                    {
+                        if (f.getCode() > factuurId)
+                        {
+                            factuurId = f.getCode();
+                        }
+                    }
+                    //And for each part you need, make a new Factuurregel
+                    ArrayList<FactuurRegel> regels = new ArrayList<FactuurRegel>();                 
+                    
+                    //Check what id is the next Id, the total price and
+                    int onderdeelId = 0;
+                    int totalPrice = 0;
+                    
+                    ArrayList<Onderdeel> onderdelen = (ArrayList<Onderdeel>) db.selectOnderdelen();
+                    
+                    //Check for each part in your request...
                     for (PartInfo i : request.getParts())
                     {
-                        //TODO EDIT THIS
-                        regels.add(new FactuurRegel(nextId, 1, 1));
+                        //against all the parts in database
+                        for(Onderdeel o : onderdelen)
+                        {
+                            //If the name 
+                            if(i.getName().equals(o.getOmschrijving()))
+                            {
+                                onderdeelId = o.getCode();
+                                totalPrice += o.getPrijs();
+                            }
+                        }
+                        regels.add(new FactuurRegel(factuurId, onderdeelId, 1));
                     }
-                    Factuur f = new Factuur(nextId, klant.getCode(), new Date().toString(), regels);
-                    f.setRegels(regels);
-                    //db.insert(klant);
-                    //db.insert(f);
-                    gateway.sendReply(request, new WarehouseOrderReply(f));
                     
-                    System.out.println("I sent away a reply from the warehouse. I needed " +  request.getParts().get(0));
+                    Factuur f = new Factuur(factuurId, klant.getCode(), new Date().toString(), regels);
+                    f.setRegels(regels);
+                    
+                    gateway.sendReply(request, new WarehouseOrderReply(f));
+
+                    System.out.println("I sent away a reply from the warehouse. I needed " + request.getParts().get(0));
                 } catch (SQLException ex)
                 {
                     Logger.getLogger(WarehouseMessaging.class.getName()).log(Level.SEVERE, null, ex);

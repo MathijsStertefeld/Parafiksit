@@ -24,7 +24,7 @@ public class RunFontysApp
             final String factoryName = queueNames.get(JMSSettings.CONNECTION);
             final String clientOrderRequestQueue = queueNames.get(JMSSettings.CLIENT_ORDER_REQUEST);
             final String clientOrderReplyQueue = queueNames.get(JMSSettings.CLIENT_ORDER_REPLY);
-            final String clientOrder2ReplyQueue = queueNames.get(JMSSettings.CLIENT_ORDER_REPLY_2);
+            //final String clientOrder2ReplyQueue = queueNames.get(JMSSettings.CLIENT_ORDER_REPLY_2);
 //            //PARAFIKSIT & BROKER
 //            final String parafiksitOrderRequestQueue = queueNames.get(JMSSettings.PARAFIKSIT_ORDER_REQUEST); ///was credit
 //            final String parafiksitOrderReplyQueue = queueNames.get(JMSSettings.PARAFIKSIT_ORDER_REPLY); //was credit

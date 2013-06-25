@@ -6,8 +6,10 @@ package com.marbl.fontysapp;
 
 import com.marbl.client.ClientOrderRequest;
 import com.marbl.client.ClientMessaging;
+import com.marbl.client.Parts;
 import com.marbl.client.domain.PartInfo;
 import com.marbl.client.domain.WorkPerformedInfo;
+import com.sun.org.apache.bcel.internal.generic.Select;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -26,9 +28,10 @@ public class FontysAppFrame extends javax.swing.JFrame
     {
         initComponents();
         this.setTitle("FontysApp - A Parafiksit Software Client");
-
+        System.out.println("Creating client...");
         cTest = new ClientMessaging("FontysApp", factoryName, requestQueue, replyQueue);
         cTest.start();
+        System.out.println("Done");
     }
 
     /**
@@ -301,7 +304,7 @@ public class FontysAppFrame extends javax.swing.JFrame
 
     private void btAddOperationActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btAddOperationActionPerformed
     {//GEN-HEADEREND:event_btAddOperationActionPerformed
-        String newOperationString = JOptionPane.showInputDialog(null, "Geef een nieuwe verrichting op (Computer schoonmaken/Harde schijf vervangen/etc):");
+        String newOperationString = JOptionPane.showInputDialog(null, "Geef een nieuwe werkverrichting op:");
 
         if (newOperationString.length() != 0 && newOperationString != null)
         {
@@ -311,8 +314,11 @@ public class FontysAppFrame extends javax.swing.JFrame
 
     private void btAddPartActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btAddPartActionPerformed
     {//GEN-HEADEREND:event_btAddPartActionPerformed
-        String newPartString = JOptionPane.showInputDialog(null, "Voeg een onderdeel toe nodig voor deze reparatie:");
-
+        String[] parts = new String[]
+        {
+            Parts.HARD_DISK, Parts.MONITOR, Parts.NETWORK_CABLE, Parts.RAM
+        };
+        String newPartString = (String) JOptionPane.showInputDialog(null, "Voeg een onderdeel toe nodig voor deze reparatie:", null, JOptionPane.QUESTION_MESSAGE, null, parts, Parts.HARD_DISK);
         if (newPartString.length() != 0 && newPartString != null)
         {
             cbParts.addItem(newPartString);
@@ -336,7 +342,10 @@ public class FontysAppFrame extends javax.swing.JFrame
         }
         String contactName = tfContactName.getText();
         //String[] names = contactName.split(" ", 1);
-        String[] names = new String[] {"Jan", "Piet"};
+        String[] names = new String[]
+        {
+            "Jan", "Piet"
+        };
         ClientOrderRequest clientOrderRequest = new ClientOrderRequest(tfClient.getText(), names[0], names[1], tfContactPhone.getText(), tfShippingStreet.getText(), tfShippingNumber.getText(), tfShippingPlace.getText(), tfShippingPlace.getText(), workPerformed, parts);
         System.out.println("Request created..." + clientOrderRequest.getClientName());
         String comments = tfComments.getText();
