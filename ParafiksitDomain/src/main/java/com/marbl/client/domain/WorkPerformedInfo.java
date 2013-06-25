@@ -3,9 +3,11 @@ package com.marbl.client.domain;
 public class WorkPerformedInfo {
 
     private String description;
-
+    private Integer price;
+    
     public WorkPerformedInfo(String description) {
         this.description = description;
+        price = 0;
     }
 
     public String getDescription() {
