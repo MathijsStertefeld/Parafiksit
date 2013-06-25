@@ -1,21 +1,26 @@
 package com.marbl.parafiksitwebi.beans;
 
 import com.marbl.client.ClientOrderRequest;
+import com.marbl.client.domain.PartInfo;
+import com.marbl.client.domain.WorkPerformedInfo;
 import com.marbl.messaging.JMSSettings;
 import com.marbl.parafiksitwebi.messaging.ClientTest;
+import java.io.Serializable;
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 @Named
-@RequestScoped
-public class OrderBean {
+@SessionScoped
+public class OrderBean implements Serializable {
 
     private ClientOrderRequest request;
     private ClientTest client;
-
+    private String operationDescriptions;
+    private String partNames;
+    
     @PostConstruct
     public void postConstruct() {
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
@@ -38,7 +43,34 @@ public class OrderBean {
         this.request = request;
     }
 
-    public void order() {
+    public String getOperationDescriptions() {
+        return operationDescriptions;
+    }
+
+    public void setOperationDescriptions(String operationDescriptions) {
+        this.operationDescriptions = operationDescriptions;
+    }
+
+    public String getPartNames() {
+        return partNames;
+    }
+
+    public void setPartNames(String partNames) {
+        this.partNames = partNames;
+    }
+
+    public String order() {
+        for (String operationDescription : operationDescriptions.split(",")) {
+            request.getOperations().add(new WorkPerformedInfo(operationDescription));
+        }
+        
+        for (String partName : partNames.split(",")) {
+            request.getParts().add(new PartInfo(partName));
+        }
+        
+        System.out.println("Sending request.");
         client.sendOrderRequest(request);
+        
+        return "";
     }
 }
