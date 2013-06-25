@@ -122,7 +122,7 @@ public class JFrameToevoegen extends javax.swing.JFrame implements ActionListene
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setName("Form"); // NOI18N
 
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(com.marbl.warehouse.gui.MagazijnApplicatieApp.class).getContext().getResourceMap(JFrameToevoegen.class);
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(com.marbl.warehouse.MagazijnApplicatieApp.class).getContext().getResourceMap(JFrameToevoegen.class);
         jBtClose.setText(resourceMap.getString("jBtClose.text")); // NOI18N
         jBtClose.setName("jBtClose"); // NOI18N
         jBtClose.addActionListener(new java.awt.event.ActionListener() {

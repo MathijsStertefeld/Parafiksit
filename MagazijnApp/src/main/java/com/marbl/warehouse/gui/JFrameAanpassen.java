@@ -58,7 +58,7 @@ public class JFrameAanpassen extends javax.swing.JFrame {
 
         jCbSelect.setName("jCbSelect"); // NOI18N
 
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(com.marbl.warehouse.gui.MagazijnApplicatieApp.class).getContext().getResourceMap(JFrameAanpassen.class);
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(com.marbl.warehouse.MagazijnApplicatieApp.class).getContext().getResourceMap(JFrameAanpassen.class);
         jBtSluiten.setText(resourceMap.getString("jBtSluiten.text")); // NOI18N
         jBtSluiten.setName("jBtSluiten"); // NOI18N
         jBtSluiten.addActionListener(new java.awt.event.ActionListener() {
