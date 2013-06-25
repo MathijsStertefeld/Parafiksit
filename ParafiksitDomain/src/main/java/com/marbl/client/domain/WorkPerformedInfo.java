@@ -17,4 +17,16 @@ public class WorkPerformedInfo {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public Integer getPrice()
+    {
+        return price;
+    }
+
+    public void setPrice(Integer price)
+    {
+        this.price = price;
+    }
+    
+    
 }
