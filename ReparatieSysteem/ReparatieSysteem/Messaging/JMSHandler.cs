@@ -89,7 +89,7 @@ namespace ReparatieSysteem.Messaging
 
                 ParafiksitOrderRequest request = (ParafiksitOrderRequest)serializer.Deserialize(new System.Xml.XmlTextReader(new System.IO.StringReader(textMessage.Text)));
 
-                Console.WriteLine(request);
+                Console.WriteLine("Name: " + request.getContact().getFirstName());
 
                 //createReply(request);
 
@@ -106,7 +106,7 @@ namespace ReparatieSysteem.Messaging
             Contact contact = request.getContact();
             ShippingAddress address = request.getShippingAddress();
             int number = 0;
-            Int32.TryParse(address.getNumber(), out number);
+            //Int32.TryParse(address.getNumber(), out number);
 
             Klant klant = reparatieSysteem.VoegKlantToe(contact.getFirstName(), "", contact.getLastName(), address.getPlace(), address.getPostalCode(), address.getStreet(), number, "", "0", "Nederland");
             int klantNummer = 0;

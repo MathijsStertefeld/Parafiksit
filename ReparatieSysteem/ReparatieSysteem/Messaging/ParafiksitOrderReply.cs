@@ -55,7 +55,7 @@ namespace ReparatieSysteem.Messaging
             return workPerformed;
         }
 
-        public void setWorkPerformed(List<WorkPerformedInfo>)
+        public void setWorkPerformed(List<WorkPerformedInfo> workPerformed)
         {
             this.workPerformed = workPerformed;
         }

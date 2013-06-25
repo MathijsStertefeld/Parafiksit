@@ -8,7 +8,7 @@ namespace ReparatieSysteem.Messaging
     public class ShippingAddress
     {
         private String street;
-        private String number;
+        private Int32 number;
         private String postalCode;
         private String place;
 
@@ -17,7 +17,7 @@ namespace ReparatieSysteem.Messaging
             return street;
         }
 
-        public String getNumber()
+        public Int32 getNumber()
         {
             return number;
         }
@@ -32,7 +32,7 @@ namespace ReparatieSysteem.Messaging
             return place;
         }
 
-        public ShippingAddress(String street, String number, String postalCode, String place)
+        public ShippingAddress(String street, Int32 number, String postalCode, String place)
         {
             this.street = street;
             this.number = number;

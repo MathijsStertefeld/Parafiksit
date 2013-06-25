@@ -335,7 +335,8 @@ public class FontysAppFrame extends javax.swing.JFrame
             parts.add(new PartInfo((String) cbParts.getItemAt(i)));
         }
         String contactName = tfContactName.getText();
-        String[] names = contactName.split(" ", 1);
+        //String[] names = contactName.split(" ", 1);
+        String[] names = new String[] {"Jan", "Piet"};
         ClientOrderRequest clientOrderRequest = new ClientOrderRequest(tfClient.getText(), names[0], names[1], tfContactPhone.getText(), tfShippingStreet.getText(), tfShippingNumber.getText(), tfShippingPlace.getText(), tfShippingPlace.getText(), workPerformed, parts);
         System.out.println("Request created..." + clientOrderRequest.getClientName());
         String comments = tfComments.getText();
